@@ -3,7 +3,12 @@
     <string name="titulo">Jogo de Memória</string>
     <string name="solitario">Solitário</string>
     <string name="_2_jogadores">2 Jogadores</string>
-    <string name="rede">Rede</string>
+    <string name="rede">Em Rede</string>
     <string name="ops">Opções</string>
     <string name="sobre">Sobre</string>
+    <string name="sobretv">Sobre:</string>
+    <string name="isec">Instituto Superior de Engenharia de Coimbra</string>
+    <string name="uc">Aplicações Móveis</string>
+    <string name="aluno1">David Julião, 21230100</string>
+    <string name="aluno2">Luís Antunes, 21230122</string>
 </resources>
