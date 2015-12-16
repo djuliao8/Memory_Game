@@ -7,10 +7,56 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="isec.memorygame.MainActivity">
+    tools:context="isec.memorygame.MainActivity"
+    android:background="#a1b9a3">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="@string/titulo"
+        android:textSize="35dp"
+        android:textAlignment="center"
+        android:id="@+id/textView"
+        android:paddingTop="20dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textView"
+        android:gravity="center_vertical"
+        android:layout_centerInParent="true"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/solitario"
+            android:id="@+id/button" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/_2_jogadores"
+            android:id="@+id/button2" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/rede"
+            android:id="@+id/button3" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ops"
+            android:id="@+id/button4" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sobre"
+            android:id="@+id/button5" />
+    </LinearLayout>
 </RelativeLayout>

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Memory Game</string>
+    <string name="titulo">Jogo de Memória</string>
+    <string name="solitario">Solitário</string>
+    <string name="_2_jogadores">2 Jogadores</string>
+    <string name="rede">Rede</string>
+    <string name="ops">Opções</string>
+    <string name="sobre">Sobre</string>
 </resources>
