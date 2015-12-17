@@ -14,16 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/titulo"
-        android:textSize="35dp"
+        android:textSize="35sp"
         android:textAlignment="center"
-        android:id="@+id/textView"
+        android:id="@+id/tituloapp"
         android:paddingTop="20dp" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/tituloapp"
         android:gravity="center_vertical"
         android:layout_centerInParent="true"
         android:paddingLeft="50dp"
@@ -33,37 +33,38 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/solitario"
-            android:id="@+id/button" />
+            android:id="@+id/umjog" />
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/_2_jogadores"
-            android:id="@+id/button2" />
+            android:id="@+id/doisjog" />
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/rede"
-            android:id="@+id/button3" />
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ops"
-            android:id="@+id/button4" />
+            android:id="@+id/rede" />
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/historico"
-            android:id="@+id/button6" />
+            android:id="@+id/historico" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ops"
+            android:id="@+id/ops"
+            android:onClick="onBotaoOps" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sobre"
-            android:id="@+id/button5"
+            android:id="@+id/sobre"
             android:onClick="onBotaoSobre" />
     </LinearLayout>
 </RelativeLayout>

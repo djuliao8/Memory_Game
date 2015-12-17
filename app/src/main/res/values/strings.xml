@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Memory Game</string>
     <string name="titulo">Jogo de Memória</string>
-    <string name="solitario">Solitário</string>
+    <string name="solitario">1 Jogador</string>
     <string name="_2_jogadores">2 Jogadores</string>
     <string name="rede">Em Rede</string>
     <string name="ops">Opções</string>
@@ -12,4 +12,20 @@
     <string name="aluno1">David Julião, 21230100</string>
     <string name="aluno2">Luís Antunes, 21230122</string>
     <string name="historico">Histórico</string>
+    <string name="opslabel">Opções:</string>
+    <string name="nivel">Nível:</string>
+    <string name="clique">Clique:</string>
+    <string name="tempo">Tempo:</string>
+    <string-array name="dropNivel">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string-array name="dropClick">
+        <item>Simples</item>
+        <item>Longo</item>
+        <item>Duplo</item>
+    </string-array>
 </resources>

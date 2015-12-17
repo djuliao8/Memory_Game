@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sobretv"
-        android:id="@+id/textView2"
+        android:id="@+id/labelsobre"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="20dp"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/labelsobre"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="#ffffff">
@@ -32,39 +32,39 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView" />
+            android:id="@+id/isecimg" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/uc"
-            android:id="@+id/textView4"
+            android:id="@+id/uclabel"
             android:textSize="25sp"
-            android:layout_below="@+id/imageView"
-            android:layout_alignRight="@+id/textView5"
-            android:layout_alignEnd="@+id/textView5"
+            android:layout_below="@+id/isecimg"
+            android:layout_alignRight="@+id/aluno1"
+            android:layout_alignEnd="@+id/aluno1"
             android:layout_marginTop="40dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/aluno1"
-            android:id="@+id/textView5"
+            android:id="@+id/aluno1"
             android:textSize="20sp"
             android:layout_marginBottom="124dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignLeft="@+id/textView6"
-            android:layout_alignStart="@+id/textView6" />
+            android:layout_alignLeft="@+id/aluno2"
+            android:layout_alignStart="@+id/aluno2" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/aluno2"
-            android:id="@+id/textView6"
+            android:id="@+id/aluno2"
             android:textSize="20dp"
             android:textIsSelectable="false"
             android:layout_marginTop="40dp"
-            android:layout_alignTop="@+id/textView5"
+            android:layout_alignTop="@+id/aluno1"
             android:layout_centerHorizontal="true" />
 
     </RelativeLayout>

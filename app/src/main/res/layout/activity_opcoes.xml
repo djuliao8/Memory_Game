@@ -13,10 +13,80 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Opções:"
-        android:id="@+id/textView3"
+        android:text="@string/opslabel"
+        android:id="@+id/opslabel"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textSize="50sp" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_below="@+id/opslabel"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/editText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nivel"
+                android:id="@+id/nivellabel"
+                android:textSize="30sp"
+                android:layout_marginTop="10dp" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dropNivel"
+                android:spinnerMode="dropdown"
+                android:layout_alignTop="@+id/scrollView"
+                android:layout_toRightOf="@+id/opslabel"
+                android:layout_toEndOf="@+id/opslabel" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/clique"
+                android:id="@+id/cliquelabel"
+                android:textSize="30sp"
+                android:layout_marginTop="50dp" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dropClick"
+                android:spinnerMode="dropdown"
+                android:layout_below="@+id/dropNivel"
+                android:layout_alignLeft="@+id/dropNivel"
+                android:layout_alignStart="@+id/dropNivel" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tempo"
+                android:id="@+id/Tempolabel"
+                android:textSize="30sp"
+                android:layout_marginTop="75dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/editText"
+                android:layout_below="@+id/dropClick"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </LinearLayout>
+    </ScrollView>
+
 </RelativeLayout>
