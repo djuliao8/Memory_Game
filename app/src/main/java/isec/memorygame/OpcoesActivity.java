@@ -23,6 +23,7 @@ public class OpcoesActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.dropClick, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sClick.setAdapter(adapter1);
-
+        //TESTE TESTE TESTE
+        //TESTE TESTE TESTE
     }
 }
