@@ -16,6 +16,7 @@ public class OpcoesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opcoes);
+
         //Criar o Spinner para os Niveis
         final Spinner sNivel = (Spinner) findViewById(R.id.dropNivel);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dropNivel, android.R.layout.simple_spinner_item);
