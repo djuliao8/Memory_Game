@@ -23,4 +23,8 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, OpcoesActivity.class);
         startActivity(i);
     }
+    public void onBotao1jog(View v){
+        Intent i = new Intent(this,SinglePlayerActivity.class);
+        startActivity(i);
+    }
 }
