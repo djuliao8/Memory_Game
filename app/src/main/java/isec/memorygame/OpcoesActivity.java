@@ -17,7 +17,7 @@ public class OpcoesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opcoes);
         //Criar o Spinner para os Niveis
-        Spinner sNivel = (Spinner) findViewById(R.id.dropNivel);
+        final Spinner sNivel = (Spinner) findViewById(R.id.dropNivel);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dropNivel, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sNivel.setAdapter(adapter);
@@ -28,11 +28,13 @@ public class OpcoesActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sClick.setAdapter(adapter1);
 
+
         //Para tornar o tempo do duplo click visivel
         final TextView tv = (TextView) findViewById(R.id.Tempolabel);
         final EditText et = (EditText) findViewById(R.id.editText);
 
         sClick.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -43,6 +45,8 @@ public class OpcoesActivity extends AppCompatActivity {
                     tv.setVisibility(View.INVISIBLE);
                     et.setVisibility(View.INVISIBLE);
                 }
+
+
             }
 
             @Override
@@ -51,5 +55,6 @@ public class OpcoesActivity extends AppCompatActivity {
                 et.setVisibility(View.INVISIBLE);
             }
         });
+
     }
 }

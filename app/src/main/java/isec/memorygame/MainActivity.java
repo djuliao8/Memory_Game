@@ -22,5 +22,6 @@ public class MainActivity extends AppCompatActivity {
     public void onBotaoOps(View v) {
         Intent i = new Intent(this, OpcoesActivity.class);
         startActivity(i);
+
     }
 }
