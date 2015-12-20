@@ -21,6 +21,11 @@ public class GridJogoAdapter extends BaseAdapter{
         this.cartas = cartas;
     }
 
+    GridJogoAdapter(MultiPlayerActivity multi, ArrayList<Carta> cartas) {
+        context = multi;
+        this.cartas = cartas;
+    }
+
     @Override
     public int getCount() {
         return cartas.size();

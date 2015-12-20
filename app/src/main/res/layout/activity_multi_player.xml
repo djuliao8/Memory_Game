@@ -61,8 +61,8 @@
         android:paddingLeft="10dp"
         android:layout_below="@+id/tvjogadas"
         android:layout_toRightOf="@+id/nomejog1"
-        android:layout_alignRight="@+id/chronometer"
-        android:layout_alignEnd="@+id/chronometer" />
+        android:layout_alignRight="@+id/timermulti"
+        android:layout_alignEnd="@+id/timermulti" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -96,7 +96,7 @@
     <Chronometer
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/chronometer"
+        android:id="@+id/timermulti"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"

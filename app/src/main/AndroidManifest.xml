@@ -21,7 +21,8 @@
         <activity android:name=".FimJogoActivity" />
         <activity android:name=".IdentificaJogador" />
         <activity android:name=".IdentificaJogadores" />
-        <activity android:name=".MultiPlayerActivity"></activity>
+        <activity android:name=".MultiPlayerActivity" />
+        <activity android:name=".fimMultiActivity"></activity>
     </application>
 
 </manifest>

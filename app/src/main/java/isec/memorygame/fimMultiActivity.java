@@ -6,27 +6,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-public class FimJogoActivity extends AppCompatActivity {
+public class fimMultiActivity extends AppCompatActivity {
+    String vencedor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fim_jogo);
-        Jogo jogo = (Jogo)getIntent().getSerializableExtra("id");
+        setContentView(R.layout.activity_fim_multi);
+        Jogo jogo = (Jogo) getIntent().getSerializableExtra("id");
+
+        if (IdentificaJogadores.jog1.getPontos() > IdentificaJogadores.jog2.getPontos())
+            vencedor = IdentificaJogadores.jog1.getNome();
+        else
+            vencedor = IdentificaJogadores.jog2.getNome();
 
         TextView msg = (TextView) findViewById(R.id.textView);
-        msg.setText("Parabéns " + IdentificaJogador.jog.getNome());
+        msg.setText("Parabéns " + vencedor);
 
-        TextView tempo = (TextView)findViewById(R.id.tempolabel);
+        TextView tempo = (TextView) findViewById(R.id.tempolabel);
         tempo.setText(jogo.time + "");
 
-        TextView njogadas = (TextView)findViewById(R.id.numjogad);
+        TextView njogadas = (TextView) findViewById(R.id.numjogad);
         njogadas.setText(jogo.njogadas + "");
 
         TextView pontos = (TextView) findViewById(R.id.fimpontos);
         pontos.setText(jogo.pontuacao + "");
-
-
     }
 
     @Override
@@ -43,7 +47,7 @@ public class FimJogoActivity extends AppCompatActivity {
 
     public void onBotaoOutraVez(View v) {
 
-        Intent i = new Intent(this, SinglePlayerActivity.class);
+        Intent i = new Intent(this, MultiPlayerActivity.class);
         startActivity(i);
     }
 }
