@@ -13,12 +13,4 @@ public class Jogo implements Serializable {
         this.time = time;
         this.njogadas = njogadas;
     }
-
-    public String getTime() {
-        return time;
-    }
-
-    public int getNjogadas() {
-        return njogadas;
-    }
 }

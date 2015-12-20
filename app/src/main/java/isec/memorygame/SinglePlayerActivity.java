@@ -30,7 +30,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_single_player);
 
         GridView gJogo = (GridView)findViewById(R.id.gridViewJogo);
-        gJogo.setNumColumns(ut.numColLin);
+        gJogo.setNumColumns(ut.numCol);
         final GridJogoAdapter adapter = new GridJogoAdapter(this, cartas);
         gJogo.setAdapter(adapter);
 
@@ -40,22 +40,37 @@ public class SinglePlayerActivity extends AppCompatActivity {
         final Chronometer counter = (Chronometer)findViewById(R.id.timer);
         counter.start();
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean run = false;
+                while(run != true){
+                    run = jogoAcabou();
+                }
+                counter.stop();
+
+                Intent i = new Intent(SinglePlayerActivity.this,FimJogoActivity.class);
+                i.putExtra("id",new Jogo(counter.getText().toString(),num_jogadas));
+                startActivity(i);
+            }
+        }).start();
+
         gJogo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (!(cartas.get(position).isDescoberta()) && !(viradas.size() == 2)) {
-                    if(viradas.size() == 1){
-                        if(position == viradas.get(0))
+                if (!(cartas.get(position).descoberta) && !(viradas.size() == 2)) {
+                    if (viradas.size() == 1) {
+                        if (position == viradas.get(0))
                             return;
                     }
                     ImageView img = (ImageView) view;
-                    img.setImageResource(cartas.get(position).getCartaVirada());
+                    img.setImageResource(cartas.get(position).cartaVirada);
                     viradas.add(position);
 
                     if (viradas.size() == 2) {
                         Carta carta1 = cartas.get(viradas.get(0));
                         Carta carta2 = cartas.get(viradas.get(1));
-                        if (carta1.getId() == carta2.getId()) {
+                        if (carta1.id == carta2.id) {
                             carta1.setDescoberta(true);
                             carta2.setDescoberta(true);
                             viradas.clear();
@@ -75,20 +90,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
                 }
             }
         });
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                boolean run = false;
-                while(run != true){
-                    run = jogoAcabou();
-                }
-                counter.stop();
 
-                Intent i = new Intent(SinglePlayerActivity.this,FimJogoActivity.class);
-                i.putExtra("id",new Jogo(counter.getText().toString(),num_jogadas));
-                startActivity(i);
-            }
-        }).start();
 
 
 
