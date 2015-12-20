@@ -107,7 +107,8 @@
         android:horizontalSpacing="10dp"
         android:stretchMode="columnWidth"
         android:gravity="center"
-        android:layout_below="@+id/pontosSPlabel" />
+        android:layout_below="@+id/pontosSPlabel"
+        android:nestedScrollingEnabled="true" />
 
     <Chronometer
         android:layout_width="wrap_content"

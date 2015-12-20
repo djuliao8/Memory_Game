@@ -17,9 +17,11 @@
         </activity>
         <activity android:name=".SobreActivity" />
         <activity android:name=".OpcoesActivity" />
-        <activity android:name=".SinglePlayerActivity"></activity>
-        <activity android:name=".FimJogoActivity"></activity>
-        <activity android:name=".IdentificaJogador"></activity>
+        <activity android:name=".SinglePlayerActivity" />
+        <activity android:name=".FimJogoActivity" />
+        <activity android:name=".IdentificaJogador" />
+        <activity android:name=".IdentificaJogadores" />
+        <activity android:name=".MultiPlayerActivity"></activity>
     </application>
 
 </manifest>

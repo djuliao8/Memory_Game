@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="isec.memorygame.IdentificaJogadores"
+    android:background="#a1b9a3">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inserir Nomes:"
+        android:id="@+id/inserenomes"
+        android:textSize="40dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/inserenomes">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jogador 1:"
+            android:id="@+id/jog1"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:layout_marginTop="81dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/jog1Text"
+            android:layout_alignTop="@+id/jog1"
+            android:layout_toRightOf="@+id/jog1"
+            android:layout_toEndOf="@+id/jog1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jogador 2: "
+            android:id="@+id/jog2"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/jog2Text"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/jog1Text"
+            android:layout_alignStart="@+id/jog1Text" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jogar"
+            android:id="@+id/jogar2jog"
+            android:layout_below="@+id/jog2Text"
+            android:layout_toRightOf="@+id/jog2"
+            android:layout_marginTop="66dp"
+            android:onClick="onBotaoJogar2" />
+    </RelativeLayout>
+</RelativeLayout>
