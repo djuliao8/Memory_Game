@@ -46,13 +46,12 @@ public class GridJogoAdapter extends BaseAdapter{
         } else {
             imageView = (ImageView) convertView;
         }
-        imageView.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT,100));
-        imageView.setPadding(0,7,0,7);
+        imageView.setPadding(2, 3, 2, 3);
 
-        if(cartas.get(position).isDescoberta())
-            imageView.setImageResource(cartas.get(position).getCartaVirada());
+        if (cartas.get(position).descoberta)
+            imageView.setImageResource(cartas.get(position).cartaVirada);
         else
-            imageView.setImageResource(cartas.get(position).getCartaPorVirar());
+            imageView.setImageResource(cartas.get(position).cartaPorVirar);
         return imageView;
     }
 }

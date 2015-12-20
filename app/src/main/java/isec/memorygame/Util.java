@@ -4,8 +4,9 @@ package isec.memorygame;
  * Created by Luis on 17/12/2015.
  */
 public class Util {
-    public final int num_cartas = (numColLin * numColLin);
-    public static int numColLin = 2;
+    public final int num_cartas = (numCol * numLin);
+    public static int numCol = 2;
+    public static int numLin = 2;
     public static int Image = R.drawable.cartaporvirar;
     public static int Images[] = {
             R.drawable.camaleao,

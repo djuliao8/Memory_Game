@@ -15,24 +15,10 @@ public class Carta {
         descoberta = false;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public int getCartaVirada() {
-        return cartaVirada;
-    }
-
-    public int getCartaPorVirar() {
-        return cartaPorVirar;
-    }
-
     public void setDescoberta(boolean descoberta) {
         this.descoberta = descoberta;
     }
 
-    public boolean isDescoberta() {
-        return descoberta;
-    }
+
 
 }
