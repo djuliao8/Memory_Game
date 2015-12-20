@@ -28,5 +28,6 @@ public class IdentificaJogador extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "É necessário escrever um nome para jogar",
                     Toast.LENGTH_LONG).show();
         }
+
     }
 }
