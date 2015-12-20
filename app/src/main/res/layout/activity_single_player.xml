@@ -26,20 +26,78 @@
         android:layout_height="wrap_content"
         android:id="@+id/njogdaslabel"
         android:textSize="25dp"
-        android:layout_alignParentTop="true"
         android:text="0"
-        android:layout_toLeftOf="@+id/timer"
-        android:layout_above="@+id/gridViewJogo"
-        android:layout_toRightOf="@+id/njogadas"
-        android:layout_toEndOf="@+id/njogadas"
         android:paddingLeft="10dp"
         android:background="#ffffff"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/timer"
+        android:layout_toRightOf="@+id/njogadas"
+        android:layout_toEndOf="@+id/njogadas" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome:"
+        android:id="@+id/nomeSPlabel"
+        android:textColor="#000000"
+        android:textSize="25dp"
+        android:background="#ffffff"
+        android:layout_below="@+id/njogadas"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="10dp"
+        android:layout_toLeftOf="@+id/njogdaslabel"
+        android:layout_toStartOf="@+id/njogdaslabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:id="@+id/nomeSP"
+        android:textSize="25dp"
+        android:textColor="#000000"
+        android:background="#ffffff"
+        android:layout_below="@+id/njogdaslabel"
+        android:layout_alignLeft="@+id/njogdaslabel"
+        android:layout_alignStart="@+id/njogdaslabel"
+        android:layout_alignRight="@+id/timer"
+        android:layout_alignEnd="@+id/timer"
+        android:paddingLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pontos:"
+        android:id="@+id/pontosSPlabel"
+        android:textColor="#000000"
+        android:textSize="25dp"
+        android:background="#ffffff"
+        android:layout_below="@+id/nomeSPlabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="10dp"
+        android:layout_toLeftOf="@+id/njogdaslabel"
+        android:layout_toStartOf="@+id/njogdaslabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:id="@+id/PontoSP"
+        android:background="#ffffff"
+        android:paddingLeft="10dp"
+        android:textColor="#000000"
+        android:textSize="25dp"
+        android:layout_above="@+id/gridViewJogo"
+        android:layout_alignLeft="@+id/nomeSP"
+        android:layout_alignStart="@+id/nomeSP"
+        android:layout_alignRight="@+id/timer"
+        android:layout_alignEnd="@+id/timer" />
 
     <GridView
         android:id="@+id/gridViewJogo"
         android:choiceMode="multipleChoice"
-        android:layout_below="@+id/njogadas"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_width="match_parent"
@@ -49,17 +107,17 @@
         android:horizontalSpacing="10dp"
         android:stretchMode="columnWidth"
         android:gravity="center"
-        />
+        android:layout_below="@+id/pontosSPlabel" />
 
     <Chronometer
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/timer"
-        android:layout_above="@+id/gridViewJogo"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:textSize="25dp"
         android:background="#ffffff"
-        android:paddingRight="10dp" />
+        android:paddingRight="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

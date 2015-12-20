@@ -9,25 +9,26 @@ import android.widget.Toast;
 
 public class IdentificaJogador extends AppCompatActivity {
     static Jogador jog;
-    final EditText et = (EditText) findViewById(R.id.editText2);
+    EditText et;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_identifica_jogador);
-        jog = new Jogador(et.toString(), 0);
+        et = (EditText) findViewById(R.id.editText2);
+
+
     }
 
     public void onBotaoJogar(View v) {
-        //Se houver algum nome escrito passa para o jogo
-        if (jog.getNome() != null) {
+        jog = new Jogador(et.getText().toString(), 0);
+        if (et.getText().toString().matches("")) {
+            //Cria toast a avisar que é necessário preencher o nome do jogador!
+            Toast.makeText(getApplicationContext(), "É necessário escrever um nome para jogar", Toast.LENGTH_LONG).show();
+        } else {
+            //Se houver algum nome escrito passa para o jogo
             Intent i = new Intent(this, SinglePlayerActivity.class);
             startActivity(i);
-        } else {
-            //Cria toast a avisar que é necessário preencher o nome do jogador!
-            Toast.makeText(getApplicationContext(), "É necessário escrever um nome para jogar",
-                    Toast.LENGTH_LONG).show();
         }
-
     }
 }
