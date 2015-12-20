@@ -1,8 +1,6 @@
 package isec.memorygame;
 
-/**
- * Created by Luis on 17/12/2015.
- */
+
 public class Carta {
     int id;
     int cartaVirada;

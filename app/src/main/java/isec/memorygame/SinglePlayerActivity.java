@@ -1,21 +1,18 @@
 package isec.memorygame;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Chronometer;
-import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SinglePlayerActivity extends AppCompatActivity {
     Util ut = new Util();
@@ -23,6 +20,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
     ArrayList<Integer> viradas = new ArrayList<>();
     private int num_corretas = 0;
     private int num_jogadas = 0;
+    private int pontuacao = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +34,12 @@ public class SinglePlayerActivity extends AppCompatActivity {
 
         final TextView njogadas = (TextView)findViewById(R.id.njogdaslabel);
         njogadas.setText("0");
+
+        final TextView nome = (TextView) findViewById(R.id.nometext);
+        nome.setText(IdentificaJogador.jog.getNome());
+
+        final TextView pontos = (TextView) findViewById(R.id.pontostext);
+        pontos.setText("0");
 
         final Chronometer counter = (Chronometer)findViewById(R.id.timer);
         counter.start();
@@ -60,6 +64,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
                             carta2.setDescoberta(true);
                             viradas.clear();
                             num_corretas += 2;
+                            pontuacao += 5;
                         } else {
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
@@ -68,9 +73,11 @@ public class SinglePlayerActivity extends AppCompatActivity {
                                     viradas.clear();
                                 }
                             }, 1000);
+                            pontuacao -= 1;
                         }
                         num_jogadas++;
                         njogadas.setText(num_jogadas + "");
+                        pontos.setText(pontuacao + "");
                     }
                 }
             }
@@ -83,15 +90,12 @@ public class SinglePlayerActivity extends AppCompatActivity {
                     run = jogoAcabou();
                 }
                 counter.stop();
-
+                IdentificaJogador.jog.setPontos(pontuacao);
                 Intent i = new Intent(SinglePlayerActivity.this,FimJogoActivity.class);
-                i.putExtra("id",new Jogo(counter.getText().toString(),num_jogadas));
+                i.putExtra("id", new Jogo(counter.getText().toString(), num_jogadas, pontuacao));
                 startActivity(i);
             }
         }).start();
-
-
-
     }
 
     private ArrayList<Carta> getCartas(){
@@ -109,8 +113,4 @@ public class SinglePlayerActivity extends AppCompatActivity {
     public boolean jogoAcabou(){
         return num_corretas == ut.num_cartas;
     }
-
-
-
-
 }

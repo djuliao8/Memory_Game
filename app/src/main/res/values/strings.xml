@@ -16,6 +16,8 @@
     <string name="nivel">Nível:</string>
     <string name="clique">Clique:</string>
     <string name="tempo">Tempo:</string>
+    <string name="nomelabel">Insere o teu nome:</string>
+    <string name="jogar">Jogar</string>
     <string-array name="dropNivel">
         <item>1</item>
         <item>2</item>

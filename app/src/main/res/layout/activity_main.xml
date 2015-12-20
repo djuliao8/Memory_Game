@@ -40,7 +40,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/_2_jogadores"
-            android:id="@+id/doisjog" />
+            android:id="@+id/doisjog"
+            android:onClick="onBotao2jog" />
 
         <Button
             android:layout_width="fill_parent"
