@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Memory Game</string>
+    <string name="SP_MPara">Congratulations!</string>
+    <string name="SP_MJogadas">Turns:</string>
+    <string name="SP_LTempo">Time:</string>
+    <string name="SP_LPontuacao">Points:</string>
+    <string name="SP_BJOVez">Play Again</string>
+    <string name="SP_BVMenu">Go to Menu</string>
+    <string name="M_LTitulo">Memory Game</string>
+    <string name="M_B2jogadores">Two Players</string>
+    <string name="M_BHistorico">History</string>
+    <string name="M_BOpcoes">Settings</string>
+    <string name="M_BRede">Network</string>
+    <string name="M_BSobre">About</string>
+    <string name="M_BSolitario">Single Player</string>
+    <string name="MP_BJogar">Play</string>
+    <string name="MP_LJog1">Player 1:</string>
+    <string name="MP_LJog2">Player 2:</string>
+    <string name="MP_LNomes">Insert Names</string>
+    <string name="SPIN_LTituloIns">Insert Name</string>
+    <string name="SPIN_LJogador">Player Name</string>
+</resources>

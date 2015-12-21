@@ -13,8 +13,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/titulo"
-        android:textSize="35sp"
+        android:text="@string/M_LTitulo"
+        android:textSize="40sp"
         android:textAlignment="center"
         android:id="@+id/tituloapp"
         android:paddingTop="20dp" />
@@ -31,42 +31,48 @@
 
         <Button
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/solitario"
+            android:layout_height="60dp"
+            android:text="@string/M_BSolitario"
             android:id="@+id/umjog"
-            android:onClick="onBotao1jog" />
+            android:onClick="onBotao1jog"
+            android:textSize="20dp" />
 
         <Button
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/_2_jogadores"
+            android:layout_height="60dp"
+            android:text="@string/M_B2jogadores"
             android:id="@+id/doisjog"
-            android:onClick="onBotao2jog" />
+            android:onClick="onBotao2jog"
+            android:textSize="20dp" />
 
         <Button
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/rede"
-            android:id="@+id/rede" />
+            android:layout_height="60dp"
+            android:text="@string/M_BRede"
+            android:id="@+id/rede"
+            android:textSize="20dp" />
 
         <Button
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/historico"
-            android:id="@+id/historico" />
+            android:layout_height="60dp"
+            android:text="@string/M_BHistorico"
+            android:id="@+id/historico"
+            android:textSize="20dp" />
 
         <Button
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ops"
+            android:layout_height="60dp"
+            android:text="@string/M_BOpcoes"
             android:id="@+id/ops"
-            android:onClick="onBotaoOps" />
+            android:onClick="onBotaoOps"
+            android:textSize="20dp" />
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sobre"
+            android:layout_height="60dp"
+            android:text="@string/M_BSobre"
             android:id="@+id/sobre"
-            android:onClick="onBotaoSobre" />
+            android:onClick="onBotaoSobre"
+            android:textSize="20dp" />
     </LinearLayout>
 </RelativeLayout>

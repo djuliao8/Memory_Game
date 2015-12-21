@@ -13,9 +13,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nomelabel"
+        android:text="@string/SPIN_LTituloIns"
         android:id="@+id/nomelabel"
-        android:textSize="50sp" />
+        android:textSize="50sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,35 +25,39 @@
         android:layout_below="@+id/nomelabel">
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
             android:id="@+id/editText2"
             android:layout_below="@+id/jog1label"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp" />
+            android:layout_marginTop="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Jogador 1:"
+            android:text="@string/SPIN_LJogador"
             android:id="@+id/jog1label"
             android:textSize="25sp"
+            android:layout_marginTop="67dp"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="62dp" />
+            android:layout_centerHorizontal="true" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
             android:text="@string/jogar"
             android:id="@+id/button"
-            android:layout_marginBottom="71dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:onClick="onBotaoJogar" />
+            android:onClick="onBotaoJogar"
+            android:layout_below="@+id/editText2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="106dp"
+            android:textSize="25dp" />
     </RelativeLayout>
 </RelativeLayout>

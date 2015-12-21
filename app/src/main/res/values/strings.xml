@@ -1,23 +1,24 @@
 <resources>
     <string name="app_name">Memory Game</string>
-    <string name="titulo">Jogo de Memória</string>
-    <string name="solitario">1 Jogador</string>
-    <string name="_2_jogadores">2 Jogadores</string>
-    <string name="rede">Em Rede</string>
-    <string name="ops">Opções</string>
-    <string name="sobre">Sobre</string>
+    <string name="M_LTitulo">Jogo da Memória</string>
+    <string name="M_BSolitario">Um Jogador</string>
+    <string name="M_B2jogadores">Dois Jogadores</string>
+    <string name="M_BRede">Em Rede</string>
+    <string name="M_BOpcoes">Opções</string>
+    <string name="M_BSobre">Sobre</string>
     <string name="sobretv">Sobre:</string>
     <string name="isec">Instituto Superior de Engenharia de Coimbra</string>
     <string name="uc">Aplicações Móveis</string>
     <string name="aluno1">David Julião, 21230100</string>
     <string name="aluno2">Luís Antunes, 21230122</string>
-    <string name="historico">Histórico</string>
+    <string name="M_BHistorico">Histórico</string>
     <string name="opslabel">Opções:</string>
     <string name="nivel">Nível:</string>
     <string name="clique">Clique:</string>
     <string name="tempo">Tempo:</string>
-    <string name="nomelabel">Insere o teu nome:</string>
+    <string name="SPIN_LTituloIns">Insere Nome</string>
     <string name="jogar">Jogar</string>
+    <string name="SP_BVMenu">Menu Inicial</string>
     <string-array name="dropNivel">
         <item>1</item>
         <item>2</item>
@@ -30,4 +31,14 @@
         <item>Longo</item>
         <item>Duplo</item>
     </string-array>
+    <string name="SP_MPara">Parabéns!</string>
+    <string name="SP_MJogadas">Jogadas:</string>
+    <string name="SP_LTempo">Tempo:</string>
+    <string name="SP_LPontuacao">Pontuação:</string>
+    <string name="SP_BJOVez">Jogar Outra Vez</string>
+    <string name="MP_LNomes">Inserir Nomes</string>
+    <string name="MP_LJog1">Jogador 1:</string>
+    <string name="MP_LJog2">Jogador 2:</string>
+    <string name="MP_BJogar">Jogar</string>
+    <string name="SPIN_LJogador">Nome Jogador</string>
 </resources>
