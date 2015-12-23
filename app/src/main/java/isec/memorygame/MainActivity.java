@@ -48,4 +48,9 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, IdentificaJogadores.class);
         startActivity(i);
     }
+
+    public void onBotaoHist(View v) {
+        Intent i = new Intent(this, HistoricoActivity.class);
+        startActivity(i);
+    }
 }
