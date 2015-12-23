@@ -25,6 +25,16 @@
         android:id="@+id/listahist"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/hist" />
+        android:layout_below="@+id/hist"
+        android:layout_above="@+id/button4" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Limpar!"
+        android:id="@+id/button4"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="onBotaoLimpa" />
 
 </RelativeLayout>

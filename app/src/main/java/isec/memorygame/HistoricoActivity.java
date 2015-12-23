@@ -2,10 +2,12 @@ package isec.memorygame;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +26,7 @@ public class HistoricoActivity extends AppCompatActivity {
         //Ler ficheiro
 
         try {
+            int linhas = 0;
             InputStream inputStream = openFileInput("histfile");
 
             if (inputStream != null) {
@@ -34,7 +37,6 @@ public class HistoricoActivity extends AppCompatActivity {
 
                 while ((receiveString = bufferedReader.readLine()) != null) {
                     stringBuilder.append(receiveString);
-
                 }
 
                 inputStream.close();
@@ -42,6 +44,7 @@ public class HistoricoActivity extends AppCompatActivity {
                 ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, hist);
                 lst.setAdapter(arrayAdapter);
             }
+
         } catch (FileNotFoundException e) {
             System.err.println("O ficheiro não foi encontrado");
         } catch (IOException e) {
@@ -50,5 +53,11 @@ public class HistoricoActivity extends AppCompatActivity {
 
     }
 
-
+    public void onBotaoLimpa(View v) {
+        File dir = getFilesDir();
+        File file = new File(dir, "histfile");
+        boolean deleted = file.delete();
+        finish();
+        startActivity(getIntent());
+    }
 }
