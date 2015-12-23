@@ -1,13 +1,20 @@
 package isec.memorygame;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+
 public class fimMultiActivity extends AppCompatActivity {
     String vencedor;
+    FileOutputStream out;
+    File file;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,23 @@ public class fimMultiActivity extends AppCompatActivity {
 
         TextView pontos = (TextView) findViewById(R.id.fimpontos);
         pontos.setText(jogo.pontuacao + "");
+
+        //Guardar num ficheiro
+        file = new File("histfile");
+
+        ArrayList<String> info = new ArrayList<>();
+        info.add("Vencedor:  " + vencedor);
+        info.add("Tempo: " + tempo.getText().toString());
+        info.add("Jogadas: " + njogadas.getText().toString());
+        info.add("Pontuação: " + pontos.getText().toString());
+        info.add("Modo: Dois Jogador");
+        try {
+            out = openFileOutput(file.getName(), Context.MODE_APPEND);
+            out.write(info.toString().getBytes());
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

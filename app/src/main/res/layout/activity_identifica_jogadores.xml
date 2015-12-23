@@ -32,10 +32,10 @@
             android:id="@+id/jog1"
             android:textColor="#000000"
             android:textSize="25dp"
-            android:layout_marginTop="56dp"
+            android:paddingBottom="15dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:paddingBottom="15dp" />
+            android:layout_alignRight="@+id/jogar2jog"
+            android:layout_alignEnd="@+id/jogar2jog" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -56,11 +56,10 @@
             android:id="@+id/jog2"
             android:textColor="#000000"
             android:textSize="25dp"
+            android:paddingBottom="15dp"
             android:layout_below="@+id/jog1Text"
-            android:layout_alignRight="@+id/jog1"
-            android:layout_alignEnd="@+id/jog1"
-            android:layout_marginTop="47dp"
-            android:paddingBottom="15dp" />
+            android:layout_alignLeft="@+id/jog1"
+            android:layout_alignStart="@+id/jog1" />
 
         <EditText
             android:layout_width="wrap_content"

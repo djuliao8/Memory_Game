@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="isec.memorygame">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,7 +24,8 @@
         <activity android:name=".IdentificaJogador" />
         <activity android:name=".IdentificaJogadores" />
         <activity android:name=".MultiPlayerActivity" />
-        <activity android:name=".fimMultiActivity"></activity>
+        <activity android:name=".fimMultiActivity" />
+        <activity android:name=".HistoricoActivity"></activity>
     </application>
 
 </manifest>
