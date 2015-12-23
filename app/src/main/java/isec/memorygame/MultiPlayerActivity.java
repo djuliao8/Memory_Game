@@ -20,8 +20,8 @@ import java.util.Collections;
 import java.util.Random;
 
 public class MultiPlayerActivity extends AppCompatActivity {
-    Util ut = new Util();
-    ArrayList<Carta> cartas = getCartas();
+    Util ut;
+    ArrayList<Carta> cartas;
     ArrayList<Integer> viradas = new ArrayList<>();
     private int num_corretas = 0;
     private int num_jogadas = 0;
@@ -43,8 +43,10 @@ public class MultiPlayerActivity extends AppCompatActivity {
 
         //Inicialização da variaveis
 
+
+
         GridView gJogo = (GridView) findViewById(R.id.gridViewJogo);
-        gJogo.setNumColumns(ut.numCol);
+        //gJogo.setNumColumns(ut.getNumCol());
         final GridJogoAdapter adapter = new GridJogoAdapter(this, cartas);
         gJogo.setAdapter(adapter);
 
@@ -100,7 +102,7 @@ public class MultiPlayerActivity extends AppCompatActivity {
             public void run() {
                 boolean run = false;
                 while (run != true) {
-                    run = jogoAcabou();
+                    //run = jogoAcabou();
                 }
                 counter.stop();
 
@@ -187,10 +189,10 @@ public class MultiPlayerActivity extends AppCompatActivity {
 
     }
 
-    private ArrayList<Carta> getCartas() {
+    /*private ArrayList<Carta> getCartas() {
         ArrayList<Carta> cartas = new ArrayList<>();
 
-        for (int i = 0; i < (ut.num_cartas / 2); i++) {
+        for (int i = 0; i < (ut.getNum_cartas() / 2); i++) {
             Carta carta = new Carta(i + 1, ut.Images[i], ut.Image);
             cartas.add(carta);
             cartas.add(carta);
@@ -200,8 +202,8 @@ public class MultiPlayerActivity extends AppCompatActivity {
     }
 
     public boolean jogoAcabou() {
-        return num_corretas == ut.num_cartas;
-    }
+        return num_corretas == ut.getNum_cartas();
+    }*/
 
     @Override
     public void onBackPressed() {

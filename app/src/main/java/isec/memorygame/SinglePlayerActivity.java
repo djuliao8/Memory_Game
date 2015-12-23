@@ -1,8 +1,10 @@
 package isec.memorygame;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,20 +17,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class SinglePlayerActivity extends AppCompatActivity {
-    Util ut = new Util();
-    ArrayList<Carta> cartas = getCartas();
+    Util ut;
+    ArrayList<Carta> cartas;
     ArrayList<Integer> viradas = new ArrayList<>();
     private int num_corretas = 0;
     private int num_jogadas = 0;
     private int pontuacao = 0;
+    private SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_player);
 
+        pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        cartas = getCartas();
+
         GridView gJogo = (GridView)findViewById(R.id.gridViewJogo);
-        gJogo.setNumColumns(ut.numCol);
+        gJogo.setNumColumns(getNumCol());
         final GridJogoAdapter adapter = new GridJogoAdapter(this, cartas);
         gJogo.setAdapter(adapter);
 
@@ -104,8 +110,8 @@ public class SinglePlayerActivity extends AppCompatActivity {
 
     private ArrayList<Carta> getCartas(){
         ArrayList<Carta> cartas = new ArrayList<>();
-
-        for(int i = 0; i < (ut.num_cartas / 2);i++){
+        int num_cartas = getNum_cartas();
+        for(int i = 0; i < (num_cartas / 2);i++){
             Carta carta = new Carta(i + 1,ut.Images[i],ut.Image);
             cartas.add(carta);
             cartas.add(carta);
@@ -115,8 +121,41 @@ public class SinglePlayerActivity extends AppCompatActivity {
     }
 
     public boolean jogoAcabou(){
-        return num_corretas == ut.num_cartas;
+        return num_corretas == getNum_cartas();
     }
 
+    public int getNumCol(){
+        int pos = pref.getInt("Dificuldade",0);
+        if(pos == 0)
+            return 2;
+        if(pos == 1)
+            return 2;
+        if(pos == 2)
+            return 3;
+        if(pos == 3)
+            return 4;
+        if(pos == 4)
+            return 5;
+        return 3;
+    }
+
+    public int getNumLin(){
+        int pos = pref.getInt("Dificuldade",2);
+        if(pos == 0)
+            return 2;
+        if(pos == 1)
+            return 3;
+        if(pos == 2)
+            return 4;
+        if(pos == 3)
+            return 5;
+        if(pos == 4)
+            return 6;
+        return 3;
+    }
+
+    public int getNum_cartas(){
+        return getNumCol() * getNumLin();
+    }
 
 }

@@ -41,24 +41,49 @@ public class OpcoesActivity extends AppCompatActivity {
         final TextView tv = (TextView) findViewById(R.id.Tempolabel);
         final EditText et = (EditText) findViewById(R.id.editText);
 
+        sNivel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt("Dificuldade",position);
+                editor.apply();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                int pos = pref.getInt("Dificuladade",0);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt("Dificuldade",pos);
+                editor.apply();
+            }
+        });
+
         sClick.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt("Click",position);
+
                 if (position == 2) {
                     tv.setVisibility(View.VISIBLE);
                     et.setVisibility(View.VISIBLE);
+                    editor.putInt("Tempo",Integer.parseInt(et.getText().toString()));
                 } else {
                     tv.setVisibility(View.INVISIBLE);
                     et.setVisibility(View.INVISIBLE);
                 }
-
+                editor.apply();
 
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
+                int pos = pref.getInt("Click",0);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt("Click",pos);
+                editor.apply();
                 tv.setVisibility(View.INVISIBLE);
                 et.setVisibility(View.INVISIBLE);
             }

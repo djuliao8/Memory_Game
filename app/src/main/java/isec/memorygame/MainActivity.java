@@ -20,10 +20,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void DefineDefault(){
         pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putInt("Dificuldade",2);
-        editor.putInt("Click", 0);
-        editor.apply();
+        if(!pref.contains("Dificuldade") && !pref.contains("Click")) {
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putInt("Dificuldade", 2);
+            editor.putInt("Click", 0);
+            editor.apply();
+        }
     }
 
     //Botões

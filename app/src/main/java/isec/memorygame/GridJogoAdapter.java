@@ -52,6 +52,7 @@ public class GridJogoAdapter extends BaseAdapter{
         }
         imageView.setPadding(2, 3, 2, 3);
 
+
         if (cartas.get(position).descoberta)
             imageView.setImageResource(cartas.get(position).cartaVirada);
         else

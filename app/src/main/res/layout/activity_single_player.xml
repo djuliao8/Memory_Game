@@ -90,14 +90,11 @@
         android:choiceMode="multipleChoice"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:columnWidth="90dp"
-        android:numColumns="auto_fit"
         android:horizontalSpacing="10dp"
-        android:stretchMode="columnWidth"
-        android:gravity="center"
         android:nestedScrollingEnabled="true"
+        android:stretchMode="columnWidth"
         android:layout_below="@+id/nomeSPlabel" />
 
     <Chronometer
