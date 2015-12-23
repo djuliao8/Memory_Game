@@ -20,4 +20,44 @@
     <string name="MP_LNomes">Insert Names</string>
     <string name="SPIN_LTituloIns">Insert Name</string>
     <string name="SPIN_LJogador">Player Name</string>
+    <string name="SPIN_BJogar">Play</string>
+    <string name="MP_LJogadas">Plays:</string>
+    <string name="MP_LJogador1">Player 1:</string>
+    <string name="MP_LJogador2">Player 2:</string>
+    <string name="FM_BJogar">Play Again</string>
+    <string name="FM_BMenu">Back Menu</string>
+    <string name="FM_LJogadas">Plays:</string>
+    <string name="FM_LParabens">Congratulations</string>
+    <string name="FM_LPontuacao">Points:</string>
+    <string name="FM_LTempo">Time:</string>
+    <string name="O_LClique">Click:</string>
+    <string name="O_LNivel">Difficulty:</string>
+    <string name="O_LOpcoes">Options</string>
+    <string name="O_LTempo">Time</string>
+    <string-array name="dropNivel">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string-array name="dropClick">
+        <item>Simple</item>
+        <item>Long</item>
+        <item>Double</item>
+    </string-array>
+    <string name="SPJ_LJogadas">Plays:</string>
+    <string name="SPJ_LNome">Name:</string>
+    <string name="SPJ_LPontos">Points:</string>
+    <string name="S_LIsec">Instituto Superior de Engenharia de Coimbra</string>
+    <string name="S_LNome1">David Julião, 21230100</string>
+    <string name="S_LNome2">Luís Antunes, 21230122</string>
+    <string name="S_LSobre">About</string>
+    <string name="S_LUnic">Aplicações Móveis</string>
+    <string name="Err_FaltaNome">Write your name to play!</string>
+    <string name="Err_Nomegrande">Name is too big. Only can have 12 letters.</string>
+    <string name="Err_Nomeigual">Same names. Change one of them.</string>
+    <string name="Err_Nomrgrande7">Name is too big. Only can have 7 letters.</string>
+    <string name="JogadorAJogar">Turn of</string>
+    <string name="FM_LEmpate">Tie!</string>
 </resources>

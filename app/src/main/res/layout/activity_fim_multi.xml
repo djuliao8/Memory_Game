@@ -13,22 +13,23 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Parabéns!"
+        android:text="@string/FM_LParabens"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textSize="45dp" />
+        android:textSize="35dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Num. Jogadas:"
+        android:text="@string/FM_LJogadas"
         android:id="@+id/textView2"
-        android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
         android:textSize="25dp"
-        android:paddingTop="30dp" />
+        android:paddingTop="40dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,13 +45,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tempo:"
+        android:text="@string/FM_LTempo"
         android:id="@+id/textView4"
         android:layout_below="@+id/textView2"
         android:layout_alignLeft="@+id/textView2"
         android:layout_alignStart="@+id/textView2"
         android:textSize="25dp"
-        android:paddingTop="40dp" />
+        android:paddingTop="40dp"
+        android:paddingLeft="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -67,13 +69,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pontuação:"
+        android:text="@string/FM_LPontuacao"
         android:id="@+id/pontoslabel"
         android:textSize="25dp"
         android:layout_below="@+id/textView4"
         android:layout_alignLeft="@+id/textView4"
         android:layout_alignStart="@+id/textView4"
-        android:paddingTop="40dp" />
+        android:paddingTop="40dp"
+        android:paddingLeft="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -89,22 +92,22 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Jogar Outra Vez"
+        android:text="@string/FM_BJogar"
         android:id="@+id/button2"
         android:layout_marginTop="60dp"
         android:onClick="onBotaoOutraVez"
         android:layout_below="@+id/pontoslabel"
-        android:layout_toLeftOf="@+id/tempolabel"
-        android:layout_toStartOf="@+id/tempolabel" />
+        android:layout_toStartOf="@+id/numjogad"
+        android:layout_toLeftOf="@+id/numjogad" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Voltar ao Menu"
+        android:text="@string/FM_BMenu"
         android:id="@+id/button3"
         android:onClick="onBotaoVoltar"
         android:layout_alignBottom="@+id/button2"
-        android:layout_alignLeft="@+id/fimpontos"
-        android:layout_alignStart="@+id/fimpontos" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

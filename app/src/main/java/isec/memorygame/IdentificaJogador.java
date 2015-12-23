@@ -22,10 +22,15 @@ public class IdentificaJogador extends AppCompatActivity {
 
     public void onBotaoJogar(View v) {
         jog = new Jogador(et.getText().toString(), 0);
-        if (et.getText().toString().matches("")) {
+        String nome = et.getText().toString();
+        if (nome.equals("")) {
             //Cria toast a avisar que é necessário preencher o nome do jogador!
-            Toast.makeText(getApplicationContext(), "É necessário escrever um nome para jogar", Toast.LENGTH_LONG).show();
-        } else {
+            Toast.makeText(getApplicationContext(),R.string.Err_FaltaNome, Toast.LENGTH_LONG).show();
+        }
+        else if(nome.length() > 12) {
+            Toast.makeText(getApplicationContext(),R.string.Err_Nomegrande, Toast.LENGTH_LONG).show();
+            et.setText("");
+        }else {
             //Se houver algum nome escrito passa para o jogo
             Intent i = new Intent(this, SinglePlayerActivity.class);
             startActivity(i);

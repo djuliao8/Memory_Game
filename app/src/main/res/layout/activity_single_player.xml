@@ -11,9 +11,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Jogadas:"
+        android:text="@string/SPJ_LJogadas"
         android:id="@+id/njogadas"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -25,52 +25,46 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/njogdaslabel"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:text="0"
         android:paddingLeft="10dp"
         android:background="#ffffff"
         android:textColor="#000000"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/timer"
-        android:layout_toRightOf="@+id/njogadas"
-        android:layout_toEndOf="@+id/njogadas" />
+        android:layout_toRightOf="@+id/njogadas" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nome:"
+        android:text="@string/SPJ_LNome"
         android:id="@+id/nomeSPlabel"
         android:textColor="#000000"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:background="#ffffff"
         android:layout_below="@+id/njogadas"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:paddingLeft="10dp"
-        android:layout_toLeftOf="@+id/njogdaslabel"
-        android:layout_toStartOf="@+id/njogdaslabel" />
+        android:paddingLeft="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/nomeSP"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:textColor="#000000"
         android:background="#ffffff"
-        android:layout_below="@+id/njogdaslabel"
-        android:layout_alignLeft="@+id/njogdaslabel"
-        android:layout_alignStart="@+id/njogdaslabel"
         android:paddingLeft="10dp"
-        android:layout_toLeftOf="@+id/PontoSP"
-        android:layout_toStartOf="@+id/PontoSP" />
+        android:layout_alignRight="@+id/njogdaslabel"
+        android:layout_alignEnd="@+id/njogdaslabel"
+        android:layout_below="@+id/njogadas"
+        android:layout_toRightOf="@+id/nomeSPlabel"
+        android:layout_toEndOf="@+id/nomeSPlabel" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pontos:"
+        android:text="@string/SPJ_LPontos"
         android:id="@+id/pontosSPlabel"
         android:textColor="#000000"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:background="#ffffff"
         android:paddingLeft="10dp"
         android:layout_alignTop="@+id/njogdaslabel"
@@ -85,10 +79,11 @@
         android:background="#ffffff"
         android:paddingLeft="10dp"
         android:textColor="#000000"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:layout_alignTop="@+id/njogdaslabel"
         android:layout_toRightOf="@+id/pontosSPlabel"
-        android:layout_toEndOf="@+id/pontosSPlabel" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <GridView
         android:id="@+id/gridViewJogo"
@@ -109,7 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/timer"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:background="#ffffff"
         android:paddingRight="10dp"
         android:layout_below="@+id/njogdaslabel"

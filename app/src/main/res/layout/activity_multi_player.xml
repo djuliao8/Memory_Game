@@ -12,12 +12,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Jogadas:"
+        android:text="@string/MP_LJogadas"
         android:id="@+id/tvjogadas"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:textColor="#000000"
         android:paddingLeft="10dp"
         android:background="#ffffff" />
@@ -28,49 +28,49 @@
         android:text="0"
         android:id="@+id/nrjogadas"
         android:textColor="#000000"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:layout_alignTop="@+id/tvjogadas"
-        android:layout_toRightOf="@+id/tvjogadas"
         android:paddingLeft="10dp"
         android:background="#ffffff"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_toLeftOf="@+id/nomejog2"
+        android:layout_toRightOf="@+id/tvjogadas"
+        android:layout_toEndOf="@+id/tvjogadas" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Jog1:"
+        android:text="@string/MP_LJogador1"
         android:id="@+id/nomejog1"
-        android:textSize="25dp"
-        android:layout_below="@+id/tvjogadas"
+        android:textSize="20dp"
         android:textColor="#000000"
         android:background="#ffffff"
         android:paddingLeft="10dp"
-        android:layout_toLeftOf="@+id/nrjogadas"
+        android:layout_below="@+id/tvjogadas"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
         android:id="@+id/pontos1"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:textColor="#000000"
         android:background="#ffffff"
         android:paddingLeft="10dp"
-        android:layout_below="@+id/tvjogadas"
-        android:layout_toLeftOf="@+id/nrjogadas"
-        android:layout_toStartOf="@+id/nrjogadas" />
+        android:layout_above="@+id/gridViewJogo"
+        android:layout_toLeftOf="@+id/nomejog2"
+        android:layout_alignTop="@+id/nomejog1"
+        android:layout_toRightOf="@+id/nomejog1"
+        android:layout_toEndOf="@+id/nomejog1" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Jog2:"
+        android:text="@string/MP_LJogador2"
         android:id="@+id/nomejog2"
         android:paddingLeft="10dp"
         android:textColor="#000000"
-        android:textSize="25dp"
+        android:textSize="20sp"
         android:background="#ffffff"
         android:layout_below="@+id/nrjogadas"
         android:layout_toLeftOf="@+id/pontos2"
@@ -80,17 +80,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
         android:id="@+id/pontos2"
         android:background="#ffffff"
         android:paddingLeft="10dp"
         android:textColor="#000000"
-        android:textSize="25dp"
-        android:layout_below="@+id/nrjogadas"
+        android:textSize="20dp"
+        android:layout_below="@+id/timermulti"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/timermulti"
-        android:layout_alignStart="@+id/timermulti" />
+        android:paddingRight="5dp" />
 
     <Chronometer
         android:layout_width="wrap_content"
@@ -101,7 +99,7 @@
         android:layout_alignParentRight="true"
         android:background="#ffffff"
         android:paddingRight="10dp"
-        android:textSize="25dp" />
+        android:textSize="20dp" />
 
     <GridView
         android:layout_width="wrap_content"

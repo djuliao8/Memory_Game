@@ -4,15 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Chronometer;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class MultiPlayerActivity extends AppCompatActivity {
     Util ut = new Util();
@@ -23,12 +28,20 @@ public class MultiPlayerActivity extends AppCompatActivity {
     private int pontuacao1 = 0;
     private int pontuacao2 = 0;
     private int pontosvencedor = 0;
-    private boolean acertou = true;
+    private int JogadorJoga;
+
+    //Toast
+    LayoutInflater inflater;
+    View layout;
+    TextView text;
+    Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multi_player);
+
+        //Inicialização da variaveis
 
         GridView gJogo = (GridView) findViewById(R.id.gridViewJogo);
         gJogo.setNumColumns(ut.numCol);
@@ -43,17 +56,44 @@ public class MultiPlayerActivity extends AppCompatActivity {
 
         //Dados para o jogador 1
         final TextView nomejog1 = (TextView) findViewById(R.id.nomejog1);
-        nomejog1.setText(IdentificaJogadores.jog1.getNome());
-
         final TextView pontosjog1 = (TextView) findViewById(R.id.pontos1);
         pontosjog1.setText("0");
 
         //Dados para o jogador 2
         final TextView nomejog2 = (TextView) findViewById(R.id.nomejog2);
-        nomejog2.setText(IdentificaJogadores.jog2.getNome());
-
         final TextView pontosjog2 = (TextView) findViewById(R.id.pontos2);
         pontosjog2.setText("0");
+
+        //Define jogador que joga primeiro
+        Random rand = new Random();
+        JogadorJoga = rand.nextInt(2);
+
+        //Toast a indicar quem joga
+
+        inflater = getLayoutInflater();
+        layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_layout_root));
+        text = (TextView) layout.findViewById(R.id.text);
+        text.setTextSize(35);
+        final String turn = getResources().getString(R.string.JogadorAJogar);
+        if(JogadorJoga == 0) {
+            text.setText(turn + " " + IdentificaJogadores.jog1.getNome());
+            nomejog1.setText("* " + IdentificaJogadores.jog1.getNome() + ":");
+            nomejog2.setText(IdentificaJogadores.jog2.getNome() + ":");
+        }
+        else {
+            text.setText(turn + " " + IdentificaJogadores.jog2.getNome());
+            nomejog1.setText(IdentificaJogadores.jog1.getNome() + ":");
+            nomejog2.setText("* " + IdentificaJogadores.jog2.getNome() + ":");
+        }
+        toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+
+
+
+
 
         new Thread(new Runnable() {
             @Override
@@ -71,6 +111,7 @@ public class MultiPlayerActivity extends AppCompatActivity {
 
                 IdentificaJogadores.jog1.setPontos(pontuacao1);
                 IdentificaJogadores.jog2.setPontos(pontuacao2);
+                toast.cancel();
                 Intent i = new Intent(MultiPlayerActivity.this, fimMultiActivity.class);
                 i.putExtra("id", new Jogo(counter.getText().toString(), num_jogadas, pontosvencedor));
                 startActivity(i);
@@ -97,10 +138,20 @@ public class MultiPlayerActivity extends AppCompatActivity {
                             carta2.setDescoberta(true);
                             viradas.clear();
                             num_corretas += 2;
-                            if (acertou == true)
+                            if (JogadorJoga == 0) {
                                 pontuacao1 += 5;
-                            else
+                                text.setText(turn + " " + IdentificaJogadores.jog1.getNome());
+                                nomejog1.setText("* " + IdentificaJogadores.jog1.getNome() + ":");
+                                nomejog2.setText(IdentificaJogadores.jog2.getNome() + ":");
+                                toast.show();
+                            }
+                            else {
                                 pontuacao2 += 5;
+                                nomejog1.setText(IdentificaJogadores.jog1.getNome() + ":");
+                                nomejog2.setText("* " + IdentificaJogadores.jog2.getNome() + ":");
+                                text.setText(turn + " " + IdentificaJogadores.jog2.getNome());
+                                toast.show();
+                            }
                         } else {
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
@@ -109,12 +160,20 @@ public class MultiPlayerActivity extends AppCompatActivity {
                                     viradas.clear();
                                 }
                             }, 1000);
-                            if (acertou == true) {
+                            if (JogadorJoga == 0) {
                                 pontuacao1 -= 1;
-                                acertou = false;
+                                JogadorJoga = 1;
+                                nomejog1.setText(IdentificaJogadores.jog1.getNome() + ":");
+                                nomejog2.setText("* " + IdentificaJogadores.jog2.getNome() + ":");
+                                text.setText(turn + " " + IdentificaJogadores.jog2.getNome());
+                                toast.show();
                             } else {
                                 pontuacao2 -= 1;
-                                acertou = true;
+                                JogadorJoga = 0;
+                                text.setText(turn + " " + IdentificaJogadores.jog1.getNome());
+                                nomejog1.setText("* " + IdentificaJogadores.jog1.getNome() + ":");
+                                nomejog2.setText(IdentificaJogadores.jog2.getNome() + ":");
+                                toast.show();
                             }
                         }
                         num_jogadas++;
@@ -142,5 +201,11 @@ public class MultiPlayerActivity extends AppCompatActivity {
 
     public boolean jogoAcabou() {
         return num_corretas == ut.num_cartas;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        toast.cancel();
     }
 }

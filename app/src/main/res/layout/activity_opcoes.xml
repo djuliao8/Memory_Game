@@ -13,86 +13,84 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/opslabel"
+        android:text="@string/O_LOpcoes"
         android:id="@+id/opslabel"
+        android:textSize="50sp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="50sp" />
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="40dp" />
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/opslabel"
-        android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/editText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="#ffffff">
+        android:paddingLeft="10dp">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/O_LNivel"
+            android:id="@+id/nivellabel"
+            android:textSize="25sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dropNivel"
+            android:spinnerMode="dropdown"
+            android:layout_alignBottom="@+id/nivellabel"
+            android:layout_toRightOf="@+id/nivellabel"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/O_LClique"
+            android:id="@+id/cliquelabel"
+            android:textSize="25dp"
+            android:layout_below="@+id/nivellabel"
+            android:layout_alignLeft="@+id/nivellabel"
+            android:layout_alignStart="@+id/nivellabel" />
+
+        <Spinner
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/dropClick"
+            android:spinnerMode="dropdown"
+            android:clickable="false"
+            android:layout_below="@+id/nivellabel"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/nivellabel"
+            android:layout_above="@+id/Tempolabel"
+            android:layout_toRightOf="@+id/nivellabel" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/nivel"
-                android:id="@+id/nivellabel"
-                android:textSize="30sp"
-                android:layout_marginTop="10dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/O_LTempo"
+            android:id="@+id/Tempolabel"
+            android:textSize="25dp"
+            android:visibility="invisible"
+            android:layout_below="@+id/cliquelabel"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/dropNivel"
-                android:spinnerMode="dropdown"
-                android:layout_alignTop="@+id/scrollView"
-                android:layout_toRightOf="@+id/opslabel"
-                android:layout_toEndOf="@+id/opslabel" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/clique"
-                android:id="@+id/cliquelabel"
-                android:textSize="30sp"
-                android:layout_marginTop="50dp" />
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/dropClick"
-                android:spinnerMode="dropdown"
-                android:layout_below="@+id/dropNivel"
-                android:layout_alignLeft="@+id/dropNivel"
-                android:layout_alignStart="@+id/dropNivel"
-                android:clickable="false" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tempo"
-                android:id="@+id/Tempolabel"
-                android:textSize="30sp"
-                android:layout_marginTop="75dp"
-                android:visibility="invisible" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/editText"
-                android:layout_below="@+id/dropClick"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:visibility="invisible" />
-
-
-        </LinearLayout>
-    </ScrollView>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/editText"
+            android:visibility="invisible"
+            android:layout_below="@+id/Tempolabel"
+            android:layout_centerHorizontal="true"
+            android:textSize="23dp" />
+    </RelativeLayout>
 
 </RelativeLayout>

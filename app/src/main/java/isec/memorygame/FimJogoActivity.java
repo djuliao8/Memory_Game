@@ -14,9 +14,6 @@ public class FimJogoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fim_jogo);
         Jogo jogo = (Jogo)getIntent().getSerializableExtra("id");
 
-        TextView msg = (TextView) findViewById(R.id.textView);
-        msg.setText("Parabéns " + IdentificaJogador.jog.getNome());
-
         TextView tempo = (TextView)findViewById(R.id.tempolabel);
         tempo.setText(jogo.time + "");
 

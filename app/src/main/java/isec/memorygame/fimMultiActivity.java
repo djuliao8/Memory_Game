@@ -15,13 +15,20 @@ public class fimMultiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fim_multi);
         Jogo jogo = (Jogo) getIntent().getSerializableExtra("id");
 
-        if (IdentificaJogadores.jog1.getPontos() > IdentificaJogadores.jog2.getPontos())
-            vencedor = IdentificaJogadores.jog1.getNome();
-        else
-            vencedor = IdentificaJogadores.jog2.getNome();
-
         TextView msg = (TextView) findViewById(R.id.textView);
-        msg.setText("Parabéns " + vencedor);
+
+        if (IdentificaJogadores.jog1.getPontos() > IdentificaJogadores.jog2.getPontos()) {
+            vencedor = IdentificaJogadores.jog1.getNome();
+            msg.setText(R.string.FM_LParabens + vencedor + "!");
+        }else if(IdentificaJogadores.jog2.getPontos() > IdentificaJogadores.jog1.getPontos()) {
+            vencedor = IdentificaJogadores.jog2.getNome();
+            msg.setText(R.string.FM_LParabens + vencedor + "!");
+        }else{
+            msg.setText(R.string.FM_LEmpate);
+        }
+
+
+
 
         TextView tempo = (TextView) findViewById(R.id.tempolabel);
         tempo.setText(jogo.time + "");
@@ -37,17 +44,19 @@ public class fimMultiActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         Intent i = new Intent(this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
     }
 
     public void onBotaoVoltar(View v) {
         Intent i = new Intent(this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
     }
 
     public void onBotaoOutraVez(View v) {
-
         Intent i = new Intent(this, MultiPlayerActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
     }
 }

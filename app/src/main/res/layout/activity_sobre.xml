@@ -13,12 +13,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sobretv"
+        android:text="@string/S_LSobre"
         android:id="@+id/labelsobre"
+        android:textSize="50sp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="50sp" />
+        android:layout_centerHorizontal="true" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,7 +36,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/uc"
+            android:text="@string/S_LUnic"
             android:id="@+id/uclabel"
             android:textSize="25sp"
             android:layout_below="@+id/isecimg"
@@ -48,7 +47,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/aluno1"
+            android:text="@string/S_LNome1"
             android:id="@+id/aluno1"
             android:textSize="20sp"
             android:layout_marginBottom="124dp"
@@ -59,7 +58,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/aluno2"
+            android:text="@string/S_LNome2"
             android:id="@+id/aluno2"
             android:textSize="20dp"
             android:textIsSelectable="false"

@@ -22,12 +22,19 @@ public class IdentificaJogadores extends AppCompatActivity {
     }
 
     public void onBotaoJogar2(View v) {
-        jog1 = new Jogador(et1.getText().toString(), 0);
-        jog2 = new Jogador(et2.getText().toString(), 0);
-        if (et1.getText().toString().matches("") || et2.getText().toString().matches("")) {
+        String jogador1 = et1.getText().toString();
+        String jogador2 = et2.getText().toString();
+        jog1 = new Jogador(jogador1, 0);
+        jog2 = new Jogador(jogador2, 0);
+        if (jogador1.equals("") || jogador2.equals("")) {
             //Cria toast a avisar que é necessário preencher o nome do jogador!
-            Toast.makeText(getApplicationContext(), "É necessário escrever os nomes para jogar", Toast.LENGTH_LONG).show();
-        } else {
+            Toast.makeText(getApplicationContext(), R.string.Err_FaltaNome, Toast.LENGTH_LONG).show();
+        }else if(jogador1.length() > 7 || jogador2.length() > 7) {
+            Toast.makeText(getApplicationContext(), R.string.Err_Nomrgrande7, Toast.LENGTH_LONG).show();
+        }else if(jogador1.equals(jogador2)){
+            Toast.makeText(getApplicationContext(), R.string.Err_Nomeigual, Toast.LENGTH_LONG).show();
+        }
+        else {
             //Se houver algum nome escrito passa para o jogo
             Intent i = new Intent(this, MultiPlayerActivity.class);
             startActivity(i);
