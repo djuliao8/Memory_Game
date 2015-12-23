@@ -35,7 +35,8 @@ public class SinglePlayerActivity extends AppCompatActivity {
 
         GridView gJogo = (GridView)findViewById(R.id.gridViewJogo);
         gJogo.setNumColumns(getNumCol());
-        final GridJogoAdapter adapter = new GridJogoAdapter(this, cartas);
+
+        final GridJogoAdapter adapter = new GridJogoAdapter(this, cartas,gJogo.getColumnWidth());
         gJogo.setAdapter(adapter);
 
         final TextView njogadas = (TextView)findViewById(R.id.njogdaslabel);

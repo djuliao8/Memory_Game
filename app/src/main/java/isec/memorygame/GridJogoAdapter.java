@@ -1,9 +1,14 @@
 package isec.memorygame;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -15,10 +20,14 @@ public class GridJogoAdapter extends BaseAdapter{
 
     ArrayList<Carta> cartas;
     Context context;
+    SharedPreferences pref;
+    int width;
+    int posi;
 
-    GridJogoAdapter(SinglePlayerActivity single,ArrayList<Carta> cartas){
+    GridJogoAdapter(SinglePlayerActivity single,ArrayList<Carta> cartas,int width){
         context = single;
         this.cartas = cartas;
+        this.width = width;
     }
 
     GridJogoAdapter(MultiPlayerActivity multi, ArrayList<Carta> cartas) {
@@ -52,6 +61,18 @@ public class GridJogoAdapter extends BaseAdapter{
         }
         imageView.setPadding(2, 3, 2, 3);
 
+        //Alterar tamanho das linhas com base no ecra
+        pref = PreferenceManager.getDefaultSharedPreferences(context);
+        int pos = pref.getInt("Dificuldade",2);
+        DisplayMetrics metrics = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+        if(pos == 0)
+            imageView.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT,metrics.widthPixels/2));
+        else
+            imageView.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT,metrics.widthPixels/(pos + 1)));
+
 
         if (cartas.get(position).descoberta)
             imageView.setImageResource(cartas.get(position).cartaVirada);
@@ -59,4 +80,6 @@ public class GridJogoAdapter extends BaseAdapter{
             imageView.setImageResource(cartas.get(position).cartaPorVirar);
         return imageView;
     }
+
+
 }
