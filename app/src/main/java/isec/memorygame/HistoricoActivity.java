@@ -23,8 +23,8 @@ public class HistoricoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_historico);
         ListView lst = (ListView) findViewById(R.id.listahist);
         hist = new ArrayList<>();
-        //Ler ficheiro
 
+        //Ler ficheiro
         try {
             int linhas = 0;
             InputStream inputStream = openFileInput("histfile");
