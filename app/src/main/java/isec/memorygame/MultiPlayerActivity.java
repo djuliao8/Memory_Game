@@ -1,8 +1,10 @@
 package isec.memorygame;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,6 +31,7 @@ public class MultiPlayerActivity extends AppCompatActivity {
     private int pontuacao2 = 0;
     private int pontosvencedor = 0;
     private int JogadorJoga;
+    private SharedPreferences pref;
 
     //Toast
     LayoutInflater inflater;
@@ -41,12 +44,11 @@ public class MultiPlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multi_player);
 
+        pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        cartas = getCartas();
         //Inicialização da variaveis
-
-
-
         GridView gJogo = (GridView) findViewById(R.id.gridViewJogo);
-        //gJogo.setNumColumns(ut.getNumCol());
+        gJogo.setNumColumns(getNumCol());
         final GridJogoAdapter adapter = new GridJogoAdapter(this, cartas);
         gJogo.setAdapter(adapter);
 
@@ -102,7 +104,7 @@ public class MultiPlayerActivity extends AppCompatActivity {
             public void run() {
                 boolean run = false;
                 while (run != true) {
-                    //run = jogoAcabou();
+                    run = jogoAcabou();
                 }
                 counter.stop();
 
@@ -189,10 +191,10 @@ public class MultiPlayerActivity extends AppCompatActivity {
 
     }
 
-    /*private ArrayList<Carta> getCartas() {
+    private ArrayList<Carta> getCartas() {
         ArrayList<Carta> cartas = new ArrayList<>();
 
-        for (int i = 0; i < (ut.getNum_cartas() / 2); i++) {
+        for (int i = 0; i < (getNum_cartas() / 2); i++) {
             Carta carta = new Carta(i + 1, ut.Images[i], ut.Image);
             cartas.add(carta);
             cartas.add(carta);
@@ -202,8 +204,42 @@ public class MultiPlayerActivity extends AppCompatActivity {
     }
 
     public boolean jogoAcabou() {
-        return num_corretas == ut.getNum_cartas();
-    }*/
+        return num_corretas == getNum_cartas();
+    }
+
+    public int getNumCol(){
+        int pos = pref.getInt("Dificuldade",0);
+        if(pos == 0)
+            return 2;
+        if(pos == 1)
+            return 2;
+        if(pos == 2)
+            return 3;
+        if(pos == 3)
+            return 4;
+        if(pos == 4)
+            return 5;
+        return 3;
+    }
+
+    public int getNumLin(){
+        int pos = pref.getInt("Dificuldade",2);
+        if(pos == 0)
+            return 2;
+        if(pos == 1)
+            return 3;
+        if(pos == 2)
+            return 4;
+        if(pos == 3)
+            return 5;
+        if(pos == 4)
+            return 6;
+        return 3;
+    }
+
+    public int getNum_cartas(){
+        return getNumCol() * getNumLin();
+    }
 
     @Override
     public void onBackPressed() {
