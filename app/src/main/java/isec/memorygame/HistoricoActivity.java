@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class HistoricoActivity extends AppCompatActivity {
     ArrayList<String> hist;
@@ -22,41 +23,16 @@ public class HistoricoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historico);
         ListView lst = (ListView) findViewById(R.id.listahist);
-        hist = new ArrayList<>();
-
-        //Ler ficheiro
-        try {
-            int linhas = 0;
-            InputStream inputStream = openFileInput("histfile");
-
-            if (inputStream != null) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ((receiveString = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(receiveString);
-                }
-
-                inputStream.close();
-                hist.add(stringBuilder.toString());
-                ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, hist);
-                lst.setAdapter(arrayAdapter);
-            }
-
-        } catch (FileNotFoundException e) {
-            System.err.println("O ficheiro não foi encontrado");
-        } catch (IOException e) {
-            System.err.println("Erro no tratamento do ficheiro");
-        }
+        hist = new Util().lerFicheiro(getApplicationContext());
+        Collections.reverse(hist);
+        lst.setAdapter(new ListAdapter(this,hist));
 
     }
 
     public void onBotaoLimpa(View v) {
         File dir = getFilesDir();
-        File file = new File(dir, "histfile");
-        boolean deleted = file.delete();
+        File file = new File(dir, "histfile.txt");
+        file.delete();
         finish();
         startActivity(getIntent());
     }

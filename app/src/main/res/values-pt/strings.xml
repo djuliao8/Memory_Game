@@ -60,4 +60,21 @@
     <string name="Err_Nomrgrande7">Nome demasiado grande. Só pode conter 7 carateres.</string>
     <string name="JogadorAJogar">Vez do</string>
     <string name="FM_LEmpate">Empate!</string>
+    <string name="AI_TituloImage">Adiciona Imagem</string>
+    <string name="AI_addImage">Adicionar</string>
+    <string name="AI_procuraImage">Procurar</string>
+    <string name="Err_FaltaImage">Necessário procurar imagem, só depois pode adicionar.</string>
+    <string name="AI_removeImage">Eliminar</string>
+    <string name="GA_LTitulo">Galeria</string>
+    <string name="GA_BAddGallery">Adicionar</string>
+    <string name="GA_BEditGallery">Editar</string>
+    <string name="GA_BRemGallery">Remover</string>
+    <string name="GA_LGalleryCompleta">Completa</string>
+    <string name="Err_NoneSelected">Selecione um elemento primeiro</string>
+    <string name="MSG_Box">De certeza?</string>
+    <string name="MSG_Box_no">Não</string>
+    <string name="MSG_Box_yes">Sim</string>
+    <string name="AG_LTitulo">Adiciona galeria</string>
+    <string name="AG_BAdd">Adicionar</string>
+    <string name="Err_Nomeexistente">Galeria com nome igual, introduza um novo.</string>
 </resources>

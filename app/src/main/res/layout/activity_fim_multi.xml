@@ -94,11 +94,11 @@
         android:layout_height="wrap_content"
         android:text="@string/FM_BJogar"
         android:id="@+id/button2"
-        android:layout_marginTop="60dp"
         android:onClick="onBotaoOutraVez"
         android:layout_below="@+id/pontoslabel"
-        android:layout_toStartOf="@+id/numjogad"
-        android:layout_toLeftOf="@+id/numjogad" />
+        android:layout_alignRight="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2"
+        android:layout_marginTop="30dp" />
 
     <Button
         android:layout_width="wrap_content"

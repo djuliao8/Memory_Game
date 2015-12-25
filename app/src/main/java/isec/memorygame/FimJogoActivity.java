@@ -12,14 +12,14 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 public class FimJogoActivity extends AppCompatActivity {
-    static FileOutputStream out;
-    static File file;
+    Jogador jogador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fim_jogo);
         Jogo jogo = (Jogo)getIntent().getSerializableExtra("id");
+        jogador = (Jogador)getIntent().getSerializableExtra("jogador");
 
         TextView tempo = (TextView)findViewById(R.id.tempolabel);
         tempo.setText(jogo.time + "");
@@ -30,38 +30,26 @@ public class FimJogoActivity extends AppCompatActivity {
         TextView pontos = (TextView) findViewById(R.id.fimpontos);
         pontos.setText(jogo.pontuacao + "");
 
-        //Guardar num ficheiro
-        file = new File("histfile");
-
-        ArrayList<String> info = new ArrayList<>();
-        info.add("Tempo: " + tempo.getText().toString());
-        info.add("Jogadas: " + njogadas.getText().toString());
-        info.add("Pontuação: " + pontos.getText().toString());
-        info.add("Modo: Um Jogador");
-        try {
-            out = openFileOutput(file.getName(), Context.MODE_APPEND);
-            out.write(info.toString().getBytes());
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         Intent i = new Intent(this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
     }
 
     public void onBotaoVoltar(View v) {
         Intent i = new Intent(this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
     }
 
     public void onBotaoOutraVez(View v) {
 
         Intent i = new Intent(this, SinglePlayerActivity.class);
+        i.putExtra("jogador",jogador);
         startActivity(i);
     }
 }

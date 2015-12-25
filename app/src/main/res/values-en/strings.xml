@@ -60,4 +60,21 @@
     <string name="Err_Nomrgrande7">Name is too big. Only can have 7 letters.</string>
     <string name="JogadorAJogar">Turn of</string>
     <string name="FM_LEmpate">Tie!</string>
+    <string name="AI_TituloImage">Add Image</string>
+    <string name="AI_addImage">Add</string>
+    <string name="AI_procuraImage">Search</string>
+    <string name="Err_FaltaImage">First search image, then add it.</string>
+    <string name="AI_removeImage">Remove</string>
+    <string name="GA_LTitulo">Gallery</string>
+    <string name="GA_BAddGallery">Add</string>
+    <string name="GA_BEditGallery">Edit</string>
+    <string name="GA_BRemGallery">Remove</string>
+    <string name="GA_LGalleryCompleta">Completed</string>
+    <string name="Err_NoneSelected">Select one element first</string>
+    <string name="MSG_Box">Are you sure?</string>
+    <string name="MSG_Box_no">No</string>
+    <string name="MSG_Box_yes">Yes</string>
+    <string name="AG_LTitulo">Add gallery</string>
+    <string name="AG_BAdd">Add</string>
+    <string name="Err_Nomeexistente">Gallery name already exists, introduce a new one.</string>
 </resources>

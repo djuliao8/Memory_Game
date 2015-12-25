@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/tipojogo"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nome"
+        android:textSize="25sp"
+        android:layout_below="@+id/tipojogo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pontos"
+        android:textSize="15sp"
+        android:layout_alignTop="@+id/nome"
+        android:layout_toLeftOf="@+id/njogadas"
+        android:layout_toStartOf="@+id/njogadas"
+        android:paddingRight="10dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/njogadas"
+        android:textSize="15sp"
+        android:layout_alignTop="@+id/pontos"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dificuldade"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tipojogo"
+        android:layout_toEndOf="@+id/tipojogo"
+        android:textSize="19sp" />
+
+</RelativeLayout>

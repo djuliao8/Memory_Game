@@ -1,7 +1,9 @@
 package isec.memorygame;
 
 
-public class Jogador {
+import java.io.Serializable;
+
+public class Jogador implements Serializable{
     String nome;
     int pontos;
 

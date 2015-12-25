@@ -6,6 +6,7 @@ public class Carta {
     int cartaVirada;
     int cartaPorVirar;
     boolean descoberta;
+    boolean par_intruso;
 
 
     public Carta(int id,int cartaVirada, int cartaPorVirar) {

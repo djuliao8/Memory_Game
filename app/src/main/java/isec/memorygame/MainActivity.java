@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Botões
     public void onBotaoSobre(View v) {
-        Intent i = new Intent(this, SobreActivity.class);
+        Intent i = new Intent(this, GalleryActivity.class);
         startActivity(i);
     }
 

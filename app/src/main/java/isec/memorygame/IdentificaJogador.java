@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class IdentificaJogador extends AppCompatActivity {
-    static Jogador jog;
+    Jogador jog;
     EditText et;
 
     @Override
@@ -33,6 +33,7 @@ public class IdentificaJogador extends AppCompatActivity {
         }else {
             //Se houver algum nome escrito passa para o jogo
             Intent i = new Intent(this, SinglePlayerActivity.class);
+            i.putExtra("jogador",jog);
             startActivity(i);
         }
     }

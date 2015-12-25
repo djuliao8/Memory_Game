@@ -24,14 +24,16 @@ public class SinglePlayerActivity extends AppCompatActivity {
     private int num_jogadas = 0;
     private int pontuacao = 0;
     private SharedPreferences pref;
+    private Jogador jogador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_player);
-
+        jogador = (Jogador)getIntent().getSerializableExtra("jogador");
         pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         cartas = getCartas();
+        ut = new Util();
 
         GridView gJogo = (GridView)findViewById(R.id.gridViewJogo);
         gJogo.setNumColumns(getNumCol());
@@ -46,7 +48,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
         counter.start();
 
         final TextView nome = (TextView) findViewById(R.id.nomeSP);
-        nome.setText(IdentificaJogador.jog.getNome());
+        nome.setText(jogador.getNome());
 
         final TextView pontos = (TextView) findViewById(R.id.PontoSP);
         pontos.setText("0");
@@ -59,10 +61,14 @@ public class SinglePlayerActivity extends AppCompatActivity {
                     run = jogoAcabou();
                 }
                 counter.stop();
+                jogador.setPontos(pontuacao);
 
-                IdentificaJogador.jog.setPontos(pontuacao);
+                String escreve = "SinglePlayer" + " " + jogador.getNome() + " " + jogador.getPontos() + " " + num_jogadas + " " + counter.getText().toString() + " " + (pref.getInt("Dificuldade",0) + 1);
+                ut.escreverFicheiro(getApplicationContext(),escreve);
+
                 Intent i = new Intent(SinglePlayerActivity.this, FimJogoActivity.class);
                 i.putExtra("id", new Jogo(counter.getText().toString(), num_jogadas, pontuacao));
+                i.putExtra("jogador",jogador);
                 startActivity(i);
             }
         }).start();
@@ -95,7 +101,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
                                     adapter.notifyDataSetChanged();
                                     viradas.clear();
                                 }
-                            }, 1000);
+                            }, 800);
                             pontuacao -= 1;
                         }
                         num_jogadas++;

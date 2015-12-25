@@ -89,26 +89,27 @@
         android:paddingLeft="10dp" />
 
     <Button
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="55dp"
         android:text="@string/SP_BJOVez"
         android:id="@+id/button2"
-        android:layout_marginTop="62dp"
         android:onClick="onBotaoOutraVez"
         android:textSize="16dp"
         android:layout_below="@+id/pontoslabel"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp" />
 
     <Button
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="55dp"
         android:text="@string/SP_BVMenu"
         android:id="@+id/button3"
         android:onClick="onBotaoVoltar"
-        android:layout_alignBottom="@+id/button2"
+        android:textSize="16dp"
+        android:layout_below="@+id/fimpontos"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textSize="16dp" />
+        android:layout_marginTop="30dp" />
 
 </RelativeLayout>

@@ -13,7 +13,4 @@ public class SobreActivity extends AppCompatActivity {
         ImageView img = (ImageView) findViewById(R.id.isecimg);
         img.setImageResource(R.drawable.isec);
     }
-
-    //dadjsakldksaldlsa
-    //Teste 1111
 }
