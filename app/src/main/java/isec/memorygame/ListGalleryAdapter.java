@@ -40,17 +40,24 @@ public class ListGalleryAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        String string[] = gallery.get(position).split(" ");
+        String string[] = gallery.get(position).split("-");
+
 
         View rowView = inflater.inflate(R.layout.gallery_layout, null);
         TextView nome = (TextView)rowView.findViewById(R.id.tituGallery);
         nome.setText(string[0]);
 
-        TextView quant = (TextView)rowView.findViewById(R.id.sizeGallery);
-        if((string.length - 1) == 16)
-            quant.setText(context.getResources().getString(R.string.GA_LGalleryCompleta));
-        else
-            quant.setText((string.length - 1) + "");
+        TextView cardTurn = (TextView)rowView.findViewById(R.id.cardTurnGallery);
+        String split1 [] = string[1].split(" ");
+        cardTurn.setText(split1.length + "/1");
+
+        TextView par = (TextView)rowView.findViewById(R.id.parGallery);
+        String split2 [] = string[2].split(" ");
+        par.setText(split2.length + "/2");
+
+        TextView size = (TextView)rowView.findViewById(R.id.cardsGallery);
+        String split3[] = string[3].split(" ");
+        size.setText(( split1.length + split2.length + split3.length) + "/16");
 
         return rowView;
     }

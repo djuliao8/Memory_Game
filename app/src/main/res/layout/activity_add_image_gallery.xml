@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:text="@string/AI_TituloImage"
         android:textSize="35sp"
-        android:paddingBottom="20dp" />
+        android:paddingBottom="5dp" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -32,7 +32,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/titImage"
-        android:layout_above="@+id/imgView"/>
+        android:layout_above="@+id/imgView"
+        android:layout_marginBottom="10dp" />
 
     <Button
         android:layout_width="wrap_content"

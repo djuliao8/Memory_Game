@@ -1,32 +1,18 @@
 package isec.memorygame;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
-import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Parcelable;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+
 
 public class GalleryActivity extends AppCompatActivity {
 
@@ -69,13 +55,12 @@ public class GalleryActivity extends AppCompatActivity {
                 });
 
         gallery = new Util().getAllImages(getApplicationContext());
-
         lst.setAdapter(new ListGalleryAdapter(this, gallery));
 
         lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String[] string = gallery.get(position).split(" ");
+                String[] string = gallery.get(position).split("-");
                 gallerySelected = string[0];
             }
         });

@@ -93,7 +93,7 @@ public class Util{
         ArrayList<String> images = getAllImages(context);
         ArrayList<String> imgs = new ArrayList<>();
         for(int i = 0; i < images.size();i++){
-            String [] string = images.get(i).split(" ");
+            String [] string = images.get(i).split("-");
             imgs.add(string[0]);
         }
         return imgs;
@@ -101,21 +101,12 @@ public class Util{
 
     public void addGallery(Context context,String nomeColecao){
         StringBuilder text = new StringBuilder();
-        ArrayList<String> gallerys = getGallerys(context);
+        ArrayList<String> gallerys = getAllImages(context);
         for(int i = 0;i < gallerys.size();i++)
             text.append(gallerys.get(i)).append("\n");
-        text.append(nomeColecao).append("\n");
+        text.append(nomeColecao + "-" + " " + "-" + " " + "-" + " ").append("\n");
 
-        OutputStreamWriter outputStreamWriter = null;
-        try {
-            outputStreamWriter = new OutputStreamWriter(context.openFileOutput("imgfile.txt", Context.MODE_PRIVATE));
-            outputStreamWriter.write(text.toString());
-            outputStreamWriter.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        escreveImagemFicheiro(context,text.toString());
     }
 
     public void addImage(Context context,String nomeColecao,String image){
@@ -124,43 +115,80 @@ public class Util{
         ArrayList<String> images = getAllImages(context);
         for (int i = 0; i < images.size(); i++) {
             String x = images.get(i);
-            String[] string = images.get(i).split(" ");
+            String[] string = images.get(i).split("-");
             if (string[0].equals(nomeColecao)) {
-                x += (" " + image);
+                if(string[3].equals(" "))
+                    x = string[0] + "-" + string[1] + "-" + string[2] + "-" + (image + " ");
+                else
+                    x += (image + " ");
             }
             text.append(x).append("\n");
         }
-        OutputStreamWriter outputStreamWriter = null;
-        try {
-            outputStreamWriter = new OutputStreamWriter(context.openFileOutput("imgfile.txt", Context.MODE_PRIVATE));
-            outputStreamWriter.write(text.toString());
-            outputStreamWriter.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        escreveImagemFicheiro(context,text.toString());
     }
+
 
     public void removeGallery(Context context,String nomeColecao){
         StringBuilder content = new StringBuilder();
         ArrayList<String> images = getAllImages(context);
         for(int i = 0; i < images.size();i++){
-            String [] string = images.get(i).split(" ");
+            String [] string = images.get(i).split("-");
             if(!string[0].equals(nomeColecao))
                 content.append(images.get(i)).append("\n");
         }
-        OutputStreamWriter outputStreamWriter = null;
+        escreveImagemFicheiro(context,content.toString());
+    }
+
+    public String getTurnCard(Context context,String nomeColecao){
+        String card = "";
         try {
-            outputStreamWriter = new OutputStreamWriter(context.openFileOutput("imgfile.txt", Context.MODE_PRIVATE));
-            outputStreamWriter.write(content.toString());
-            outputStreamWriter.close();
+            InputStream inputStream = context.openFileInput("imgfile.txt");
+
+            if (inputStream != null) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                String receiveString;
+                while ((receiveString = bufferedReader.readLine()) != null) {
+                    String []  images = receiveString.split("-");
+                    if(images[0].equals(nomeColecao)){
+                        return images[1];
+                    }
+                }
+                inputStream.close();
+            }
+
+
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.err.println("O ficheiro não foi encontrado");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Erro no tratamento do ficheiro");
         }
+        return card;
+    }
+
+    public void addTurnCard(Context context,String nomeColecao,String imagePath){
+        StringBuilder content = new StringBuilder();
+        String oldCard = getTurnCard(context,nomeColecao);
+        if(!oldCard.equals(" ")){
+            removeImage(context,nomeColecao,oldCard);
+            addImage(context,nomeColecao,oldCard);
+            removeImage(context,nomeColecao,imagePath);
+        }
+        else
+            removeImage(context,nomeColecao,imagePath);
+        ArrayList<String> images = getAllImages(context);
+        for(int i = 0; i < images.size();i++){
+            String text = images.get(i);
+            String [] string = images.get(i).split("-");
+            if(string[0].equals(nomeColecao)){
+                string [1] = imagePath;
+                text = string[0] + "-" + string[1] + "-" + string[2] + "-" + string[3];
+            }
+            content.append(text).append("\n");
+        }
+
+        escreveImagemFicheiro(context,content.toString());
     }
 
     public void removeImage(Context context,String nomeColecao,String imagePath){
@@ -170,27 +198,30 @@ public class Util{
 
         for (int i = 0; i < images.size(); i++) {
             String x = images.get(i);
-            String[] string = images.get(i).split(" ");
+            String[] string = images.get(i).split("-");
             if (string[0].equals(nomeColecao)) {
-                x = string[0];
-                for(int j = 1; j < string.length;j++){
-                    if(!string[j].equals(imagePath))
-                        x += (" " + string[j]);
+                x = string[0] + "-";
+                for(int j = 1; j < 4;j++){
+                    String imag[] = string[j].split(" ");
+                    for(int y = 0; y < imag.length; y++){
+                        if(!imag[y].equals(imagePath))
+                            x += (imag[y] + " ");
+                        else{
+                            if(imag.length == 1)
+                                x += " ";
+                        }
+
+                    }
+                    if(imag.length == 0)
+                        x += " ";
+                    if(j != 3)
+                        x += "-";
                 }
             }
             text.append(x).append("\n");
         }
 
-        OutputStreamWriter outputStreamWriter = null;
-        try {
-            outputStreamWriter = new OutputStreamWriter(context.openFileOutput("imgfile.txt", Context.MODE_PRIVATE));
-            outputStreamWriter.write(text.toString());
-            outputStreamWriter.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        escreveImagemFicheiro(context,text.toString());
     }
 
     public ArrayList<String> getAllImages(Context context) {
@@ -229,10 +260,11 @@ public class Util{
 
                 String receiveString;
                 while ((receiveString = bufferedReader.readLine()) != null) {
-                    String []  images = receiveString.split(" ");
+                    String []  images = receiveString.split("-");
                     if(images[0].equals(nomeColecao)){
-                        for(int i = 1; i < images.length;i++)
-                            imgs.add(images[i]);
+                        String oimages []= images[3].split(" ");
+                        for(int i = 0; i < oimages.length;i++)
+                            imgs.add(oimages[i]);
                     }
 
                 }
@@ -246,6 +278,19 @@ public class Util{
             System.err.println("Erro no tratamento do ficheiro");
         }
         return imgs;
+    }
+
+    public void escreveImagemFicheiro(Context context,String content){
+        OutputStreamWriter outputStreamWriter = null;
+        try {
+            outputStreamWriter = new OutputStreamWriter(context.openFileOutput("imgfile.txt", Context.MODE_PRIVATE));
+            outputStreamWriter.write(content);
+            outputStreamWriter.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

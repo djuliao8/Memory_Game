@@ -77,4 +77,11 @@
     <string name="AG_LTitulo">Adiciona galeria</string>
     <string name="AG_BAdd">Adicionar</string>
     <string name="Err_Nomeexistente">Galeria com nome igual, introduza um novo.</string>
+    <string name="PO_LTitulo">Opções Imagem</string>
+    <string name="PO_BCarta">Definir Parte de trás da carta</string>
+    <string name="PO_BPar">Definir par intruso</string>
+    <string name="PO_BRemove">Remover Imagem</string>
+    <string name="PO_BCancel">Cancelar</string>
+    <string name="Err_ExcessoImage">Já não pode adicionar mais imagens. Remova uma primeiro.</string>
+    <string name="PO_BRemParteCarta">Remover parte de trás da carta</string>
 </resources>

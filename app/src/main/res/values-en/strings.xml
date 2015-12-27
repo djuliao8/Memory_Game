@@ -77,4 +77,11 @@
     <string name="AG_LTitulo">Add gallery</string>
     <string name="AG_BAdd">Add</string>
     <string name="Err_Nomeexistente">Gallery name already exists, introduce a new one.</string>
+    <string name="PO_LTitulo">Image Options</string>
+    <string name="PO_BCarta">Define back of card</string>
+    <string name="PO_BPar">Define intruder par</string>
+    <string name="PO_BRemove">Remove Image</string>
+    <string name="PO_BCancel">Cancel</string>
+    <string name="Err_ExcessoImage">Cannot add more images. Remove one first.</string>
+    <string name="PO_BRemParteCarta">Remove back of card</string>
 </resources>

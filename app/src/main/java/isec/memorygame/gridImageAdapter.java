@@ -46,13 +46,7 @@ public class gridImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
-        if (convertView == null) {
-            imageView = new ImageView(context);
-
-        } else {
-            imageView = (ImageView) convertView;
-        }
+        ImageView imageView = new ImageView(context);
         imageView.setPadding(2, 0, 2, 0);
 
         //Alterar tamanho das linhas com base no ecra
