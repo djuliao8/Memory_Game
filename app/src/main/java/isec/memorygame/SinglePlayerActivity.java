@@ -73,6 +73,9 @@ public class SinglePlayerActivity extends AppCompatActivity {
             }
         }).start();
 
+        int pos = pref.getInt("Click", 0);
+
+        if (pos == 0) {
         gJogo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -111,9 +114,50 @@ public class SinglePlayerActivity extends AppCompatActivity {
                 }
             }
         });
+        }
+        if (pos == 1) {
+            gJogo.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (!(cartas.get(position).descoberta) && !(viradas.size() == 2)) {
+                        if (viradas.size() == 1) {
+                            if (position == viradas.get(0))
+                                return false;
+                        }
+                        ImageView img = (ImageView) view;
+                        img.setImageResource(cartas.get(position).cartaVirada);
+                        viradas.add(position);
 
-
+                        if (viradas.size() == 2) {
+                            Carta carta1 = cartas.get(viradas.get(0));
+                            Carta carta2 = cartas.get(viradas.get(1));
+                            if (carta1.id == carta2.id) {
+                                carta1.setDescoberta(true);
+                                carta2.setDescoberta(true);
+                                viradas.clear();
+                                num_corretas += 2;
+                                pontuacao += 5;
+                            } else {
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        adapter.notifyDataSetChanged();
+                                        viradas.clear();
+                                    }
+                                }, 800);
+                                pontuacao -= 1;
+                            }
+                            num_jogadas++;
+                            njogadas.setText(num_jogadas + "");
+                            pontos.setText(pontuacao + "");
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
     }
+
 
     private ArrayList<Carta> getCartas(){
         ArrayList<Carta> cartas = new ArrayList<>();
@@ -145,6 +189,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
             return 5;
         return 3;
     }
+
 
     public int getNumLin(){
         int pos = pref.getInt("Dificuldade",2);
