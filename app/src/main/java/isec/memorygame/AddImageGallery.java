@@ -36,7 +36,7 @@ public class AddImageGallery extends AppCompatActivity {
     ArrayList<String> img,par,turnCard;
     PopupWindow pw;
     Bitmap bitmap = null;
-    AlertDialog.Builder builder;
+    AlertDialog.Builder builder,addBack;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,8 @@ public class AddImageGallery extends AppCompatActivity {
 
         imageGallery = (GridView)findViewById(R.id.imageContent);
         imageGallery.setNumColumns(5);
-        MsgBox();
+        MsgBoxRemove();
+        MsgAddBack();
 
         imageReset = (ImageView)findViewById(R.id.imgView);
 
@@ -62,7 +63,7 @@ public class AddImageGallery extends AppCompatActivity {
 
                 img.addAll(turnCard);
                 img.addAll(par);
-                final gridImageAdapter grid = new gridImageAdapter(getApplicationContext(), img);
+                final gridImageAdapter grid = new gridImageAdapter(AddImageGallery.this, img);
                 imageGallery.setAdapter(grid);
             }
         }).start();
@@ -105,6 +106,10 @@ public class AddImageGallery extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), R.string.Err_ExcessoImage, Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(img.contains(imagePath)) {
+                    Toast.makeText(getApplicationContext(), R.string.Err_ImageAdd, Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 util.addImage(getApplicationContext(), nome_Colecao, imagePath);
                 imagePath = "";
                 finish();
@@ -131,7 +136,8 @@ public class AddImageGallery extends AppCompatActivity {
         }
 
     }
-    public void MsgBox(){
+
+    public void MsgBoxRemove() {
         builder = new AlertDialog.Builder(AddImageGallery.this);
         builder.setMessage(getResources().getString(R.string.MSG_Box));
         builder.setCancelable(true);
@@ -153,14 +159,36 @@ public class AddImageGallery extends AppCompatActivity {
                 });
     }
 
+    public void MsgAddBack() {
+        addBack = new AlertDialog.Builder(AddImageGallery.this);
+        addBack.setMessage(getResources().getString(R.string.MSG_Box));
+        addBack.setCancelable(true);
+        addBack.setPositiveButton(getResources().getString(R.string.MSG_Box_yes),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        util.removeTurnCard(AddImageGallery.this, nome_Colecao, imagePath);
+                        dialog.cancel();
+                        pw.dismiss();
+                        finish();
+                        startActivity(getIntent());
+                    }
+                });
+        addBack.setNegativeButton(getResources().getString(R.string.MSG_Box_no),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+    }
+
     private void initiatePopupWindow(final String imagepath) {
         try {
             //We need to get the instance of the LayoutInflater, use the context of this activity
             LayoutInflater inflater = (LayoutInflater) AddImageGallery.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             //Inflate the view from a predefined XML layout
-            View layout = inflater.inflate(R.layout.popup_layout,(ViewGroup) findViewById(R.id.popup));
+            View layout = inflater.inflate(R.layout.popup_layout, (ViewGroup) findViewById(R.id.popup));
             // create a 300px width and 470px height PopupWindow
-            pw = new PopupWindow(layout,ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,true);
+            pw = new PopupWindow(layout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             // display the popup in the center
             pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
             imagePath = imagepath;
@@ -170,10 +198,10 @@ public class AddImageGallery extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            final ImageView img = (ImageView)layout.findViewById(R.id.PO_Image);
+            final ImageView img = (ImageView) layout.findViewById(R.id.PO_Image);
             img.setImageBitmap(bitmap);
 
-            Button remImage = (Button)layout.findViewById(R.id.PO_BRemove);
+            Button remImage = (Button) layout.findViewById(R.id.PO_BRemove);
             remImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -182,55 +210,55 @@ public class AddImageGallery extends AppCompatActivity {
                 }
             });
 
-            final Button addTurnCard = (Button)layout.findViewById(R.id.PO_BDefineCarta);
-            turnCard = util.getTurnCard(getApplicationContext(),nome_Colecao);
+            final Button addTurnCard = (Button) layout.findViewById(R.id.PO_BDefineCarta);
+            turnCard = util.getTurnCard(getApplicationContext(), nome_Colecao);
             if (turnCard.size() != 0) {
-                if(turnCard.get(0).equals(imagepath))
+                if (turnCard.get(0).equals(imagepath))
                     addTurnCard.setText(getResources().getString(R.string.PO_BRemParteCarta));
                 else
                     addTurnCard.setText(getResources().getString(R.string.PO_BCarta));
-            }else
+            } else
                 addTurnCard.setText(getResources().getString(R.string.PO_BCarta));
             addTurnCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(addTurnCard.getText().equals(getResources().getString(R.string.PO_BCarta))) {
+                    if (addTurnCard.getText().equals(getResources().getString(R.string.PO_BCarta))) {
                         util.addTurnCard(AddImageGallery.this, nome_Colecao, imagepath);
                         pw.dismiss();
                         finish();
                         startActivity(getIntent());
-                    }
-                    else if(addTurnCard.getText().equals(getResources().getString(R.string.PO_BRemParteCarta))) {
-                        util.removeTurnCard(AddImageGallery.this, nome_Colecao, imagepath);
-                        pw.dismiss();
-                        finish();
-                        startActivity(getIntent());
+                    } else if (addTurnCard.getText().equals(getResources().getString(R.string.PO_BRemParteCarta))) {
+                        AlertDialog alert = addBack.create();
+                        alert.show();
                     }
                 }
             });
 
-            final Button addParIntruso = (Button)layout.findViewById(R.id.PO_BDefinePar);
-            par = util.getParIntruso(getApplicationContext(),nome_Colecao);
-            if(par.size() != 0){
-                if(par.contains(imagepath))
+            final Button addParIntruso = (Button) layout.findViewById(R.id.PO_BDefinePar);
+            par = util.getParIntruso(getApplicationContext(), nome_Colecao);
+            if (par.size() != 0) {
+                if (par.contains(imagepath))
                     addParIntruso.setText(getResources().getString(R.string.PO_BRemParIntruso));
                 else
                     addParIntruso.setText(getResources().getString(R.string.PO_BPar));
-            }
-            else
+            } else
                 addParIntruso.setText(getResources().getString(R.string.PO_BPar));
 
             addParIntruso.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(addParIntruso.getText().equals(getResources().getString(R.string.PO_BRemParIntruso))){
-                        util.removeParIntruso(AddImageGallery.this,nome_Colecao,imagepath);
+
+                    if (addParIntruso.getText().equals(getResources().getString(R.string.PO_BRemParIntruso))) {
+                        util.removeParIntruso(AddImageGallery.this, nome_Colecao, imagepath);
                         pw.dismiss();
                         finish();
                         startActivity(getIntent());
-                    }
-                    else if(addParIntruso.getText().equals(getResources().getString(R.string.PO_BPar))){
-                        util.addParIntruso(AddImageGallery.this,nome_Colecao,imagepath);
+                    } else if (addParIntruso.getText().equals(getResources().getString(R.string.PO_BPar))) {
+                        if (par.size() > 4) {
+                            Toast.makeText(getApplicationContext(), R.string.Err_ExcessoPar, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        util.addParIntruso(AddImageGallery.this, nome_Colecao, imagepath);
                         pw.dismiss();
                         finish();
                         startActivity(getIntent());
@@ -239,7 +267,7 @@ public class AddImageGallery extends AppCompatActivity {
             });
 
 
-            Button cancel = (Button)layout.findViewById(R.id.PO_BCancel);
+            Button cancel = (Button) layout.findViewById(R.id.PO_BCancel);
             cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -20,17 +20,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void DefineDefault(){
         pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if(!pref.contains("Dificuldade") && !pref.contains("Click")) {
+        if(!pref.contains("Dificuldade") && !pref.contains("Click") && !pref.contains("Gallery")) {
             SharedPreferences.Editor editor = pref.edit();
             editor.putInt("Dificuldade", 2);
             editor.putInt("Click", 0);
+            editor.putInt("Gallery",0);
             editor.apply();
         }
     }
 
     //Botões
     public void onBotaoSobre(View v) {
-        Intent i = new Intent(this, GalleryActivity.class);
+        Intent i = new Intent(this, SobreActivity.class);
         startActivity(i);
     }
 

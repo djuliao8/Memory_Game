@@ -1,5 +1,7 @@
 package isec.memorygame;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -7,12 +9,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class OpcoesActivity extends AppCompatActivity {
     SharedPreferences pref;
+    Util util = new Util();
+    Dialog dialog;
+    SeekBar sk;
+    TextView progres;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +45,64 @@ public class OpcoesActivity extends AppCompatActivity {
         sClick.setAdapter(adapter1);
         sClick.setSelection(pref.getInt("Click",0));
 
+        //Popup para o tempo
+        dialog = new Dialog(OpcoesActivity.this);
+        dialog.setContentView(R.layout.tempo_layout);
+        dialog.setTitle(R.string.OP_LTempo);
+
+        sk = (SeekBar)dialog.findViewById(R.id.OP_SeekBar);
+        progres = (TextView)dialog.findViewById(R.id.OP_Progress);
+
+        sk.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressvalue = 0;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progressvalue = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                progres.setText(progressvalue + "/" + seekBar.getMax());
+
+            }
+        });
+        Button cancel = (Button)dialog.findViewById(R.id.OP_Cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        Button add = (Button)dialog.findViewById(R.id.OP_AddTempo);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt("Tempo",sk.getProgress());
+                dialog.dismiss();
+            }
+        });
+
+
+
+        //Spinner para galerias
+        Spinner sGallery = (Spinner)findViewById(R.id.dropGallery);
+        ArrayList<String> gallery = util.getGallerysCompleted(getApplicationContext());
+        gallery.add("Default");
+        String [] string = new String[gallery.size()];
+        string = gallery.toArray(string);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item,string);
+        sGallery.setAdapter(adapter2);
+
+
+
 
         //Para tornar o tempo do duplo click visivel
         final TextView tv = (TextView) findViewById(R.id.Tempolabel);
@@ -52,7 +120,7 @@ public class OpcoesActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
                 int pos = pref.getInt("Dificuladade",0);
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putInt("Dificuldade",pos);
+                editor.putInt("Dificuldade", pos);
                 editor.apply();
             }
         });
@@ -66,12 +134,9 @@ public class OpcoesActivity extends AppCompatActivity {
                 editor.putInt("Click",position);
 
                 if (position == 2) {
-                    tv.setVisibility(View.VISIBLE);
-                    et.setVisibility(View.VISIBLE);
-                    editor.putString("Tempo", et.getText().toString());
+                    dialog.show();
                 } else {
-                    tv.setVisibility(View.INVISIBLE);
-                    et.setVisibility(View.INVISIBLE);
+                    dialog.dismiss();
                 }
                 editor.apply();
 
@@ -83,10 +148,18 @@ public class OpcoesActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putInt("Click",pos);
                 editor.apply();
-                tv.setVisibility(View.INVISIBLE);
-                et.setVisibility(View.INVISIBLE);
+                tv.setVisibility(View.GONE);
+                et.setVisibility(View.GONE);
             }
         });
 
+        Button galleryButton = (Button)findViewById(R.id.OP_GerirGall);
+        galleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(OpcoesActivity.this, GalleryActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }

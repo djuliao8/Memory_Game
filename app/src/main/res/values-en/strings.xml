@@ -85,4 +85,11 @@
     <string name="Err_ExcessoImage">Cannot add more images. Remove one first.</string>
     <string name="PO_BRemParteCarta">Remove back of card</string>
     <string name="PO_BRemParIntruso">Remove from intruder par</string>
+    <string name="Err_ExcessoPar">Cannot add more intruder pairs. Limit is 5.</string>
+    <string name="OP_LGallery">Gallery:</string>
+    <string name="Err_ImageAdd">Image already added.</string>
+    <string name="OP_LGerir">Manage Galleries</string>
+    <string name="OP_LTempo">Define Time</string>
+    <string name="OP_AddTempo">Add</string>
+    <string name="OP_Cancel">Cancel</string>
 </resources>

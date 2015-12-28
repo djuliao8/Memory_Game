@@ -98,6 +98,17 @@ public class Util{
         }
         return imgs;
     }
+    public ArrayList<String> getGallerysCompleted(Context context){
+        StringBuilder text = new StringBuilder();
+        ArrayList<String> images = getAllImages(context);
+        ArrayList<String> imgs = new ArrayList<>();
+        for(int i = 0; i < images.size();i++){
+            String [] string = images.get(i).split("-");
+            if((!string[1].equals(" ") && string[1].length() == 1) && string[2].length() >= 2 && (string[1].length() + string[2].length() + string[3].length()) ==  16)
+                imgs.add(string[1]);
+        }
+        return imgs;
+    }
 
     public void addGallery(Context context,String nomeColecao){
         StringBuilder text = new StringBuilder();
