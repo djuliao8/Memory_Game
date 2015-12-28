@@ -68,7 +68,7 @@ public class OpcoesActivity extends AppCompatActivity {
                 if (position == 2) {
                     tv.setVisibility(View.VISIBLE);
                     et.setVisibility(View.VISIBLE);
-                    editor.putString("autoSave", et.getText().toString());
+                    editor.putString("Tempo", et.getText().toString());
                 } else {
                     tv.setVisibility(View.INVISIBLE);
                     et.setVisibility(View.INVISIBLE);

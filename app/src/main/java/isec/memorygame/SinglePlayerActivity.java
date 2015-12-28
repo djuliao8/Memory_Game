@@ -33,21 +33,21 @@ public class SinglePlayerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_player);
-        jogador = (Jogador)getIntent().getSerializableExtra("jogador");
+        jogador = (Jogador) getIntent().getSerializableExtra("jogador");
         pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         cartas = getCartas();
         ut = new Util();
 
-        GridView gJogo = (GridView)findViewById(R.id.gridViewJogo);
+        GridView gJogo = (GridView) findViewById(R.id.gridViewJogo);
         gJogo.setNumColumns(getNumCol());
 
-        final GridJogoAdapter adapter = new GridJogoAdapter(this, cartas,gJogo.getColumnWidth());
+        final GridJogoAdapter adapter = new GridJogoAdapter(this, cartas, gJogo.getColumnWidth());
         gJogo.setAdapter(adapter);
 
-        final TextView njogadas = (TextView)findViewById(R.id.njogdaslabel);
+        final TextView njogadas = (TextView) findViewById(R.id.njogdaslabel);
         njogadas.setText("0");
 
-        final Chronometer counter = (Chronometer)findViewById(R.id.timer);
+        final Chronometer counter = (Chronometer) findViewById(R.id.timer);
         counter.start();
 
         final TextView nome = (TextView) findViewById(R.id.nomeSP);
@@ -66,12 +66,12 @@ public class SinglePlayerActivity extends AppCompatActivity {
                 counter.stop();
                 jogador.setPontos(pontuacao);
 
-                String escreve = "SinglePlayer" + " " + jogador.getNome() + " " + jogador.getPontos() + " " + num_jogadas + " " + counter.getText().toString() + " " + (pref.getInt("Dificuldade",0) + 1);
-                ut.escreverFicheiro(getApplicationContext(),escreve);
+                String escreve = "SinglePlayer" + " " + jogador.getNome() + " " + jogador.getPontos() + " " + num_jogadas + " " + counter.getText().toString() + " " + (pref.getInt("Dificuldade", 0) + 1);
+                ut.escreverFicheiro(getApplicationContext(), escreve);
 
                 Intent i = new Intent(SinglePlayerActivity.this, FimJogoActivity.class);
                 i.putExtra("id", new Jogo(counter.getText().toString(), num_jogadas, pontuacao));
-                i.putExtra("jogador",jogador);
+                i.putExtra("jogador", jogador);
                 startActivity(i);
             }
         }).start();
@@ -79,44 +79,44 @@ public class SinglePlayerActivity extends AppCompatActivity {
         int pos = pref.getInt("Click", 0);
 
         if (pos == 0) {
-        gJogo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (!(cartas.get(position).descoberta) && !(viradas.size() == 2)) {
-                    if (viradas.size() == 1) {
-                        if (position == viradas.get(0))
-                            return;
-                    }
-                    ImageView img = (ImageView) view;
-                    img.setImageResource(cartas.get(position).cartaVirada);
-                    viradas.add(position);
-
-                    if (viradas.size() == 2) {
-                        Carta carta1 = cartas.get(viradas.get(0));
-                        Carta carta2 = cartas.get(viradas.get(1));
-                        if (carta1.id == carta2.id) {
-                            carta1.setDescoberta(true);
-                            carta2.setDescoberta(true);
-                            viradas.clear();
-                            num_corretas += 2;
-                            pontuacao += 5;
-                        } else {
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                public void run() {
-                                    adapter.notifyDataSetChanged();
-                                    viradas.clear();
-                                }
-                            }, 800);
-                            pontuacao -= 1;
+            gJogo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (!(cartas.get(position).descoberta) && !(viradas.size() == 2)) {
+                        if (viradas.size() == 1) {
+                            if (position == viradas.get(0))
+                                return;
                         }
-                        num_jogadas++;
-                        njogadas.setText(num_jogadas + "");
-                        pontos.setText(pontuacao + "");
+                        ImageView img = (ImageView) view;
+                        img.setImageResource(cartas.get(position).cartaVirada);
+                        viradas.add(position);
+
+                        if (viradas.size() == 2) {
+                            Carta carta1 = cartas.get(viradas.get(0));
+                            Carta carta2 = cartas.get(viradas.get(1));
+                            if (carta1.id == carta2.id) {
+                                carta1.setDescoberta(true);
+                                carta2.setDescoberta(true);
+                                viradas.clear();
+                                num_corretas += 2;
+                                pontuacao += 5;
+                            } else {
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        adapter.notifyDataSetChanged();
+                                        viradas.clear();
+                                    }
+                                }, 800);
+                                pontuacao -= 1;
+                            }
+                            num_jogadas++;
+                            njogadas.setText(num_jogadas + "");
+                            pontos.setText(pontuacao + "");
+                        }
                     }
                 }
-            }
-        });
+            });
         }
         if (pos == 1) {
             gJogo.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -160,52 +160,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
             });
         }
         if (pos == 2) {
-            long pressTime = System.currentTimeMillis();
-            long LastPressTime = 0;
-            int time = pref.getInt("Tempo", 1);
-            if (pressTime - LastPressTime <= time * 1000 && !DoubleClick)
-                gJogo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        if (!(cartas.get(position).descoberta) && !(viradas.size() == 2)) {
-                            if (viradas.size() == 1) {
-                                if (position == viradas.get(0))
-                                    return;
-                            }
-                            ImageView img = (ImageView) view;
-                            img.setImageResource(cartas.get(position).cartaVirada);
-                            viradas.add(position);
-
-                            if (viradas.size() == 2) {
-                                Carta carta1 = cartas.get(viradas.get(0));
-                                Carta carta2 = cartas.get(viradas.get(1));
-                                if (carta1.id == carta2.id) {
-                                    carta1.setDescoberta(true);
-                                    carta2.setDescoberta(true);
-                                    viradas.clear();
-                                    num_corretas += 2;
-                                    pontuacao += 5;
-                                } else {
-                                    Handler handler = new Handler();
-                                    handler.postDelayed(new Runnable() {
-                                        public void run() {
-                                            adapter.notifyDataSetChanged();
-                                            viradas.clear();
-                                        }
-                                    }, 800);
-                                    pontuacao -= 1;
-                                }
-                                num_jogadas++;
-                                njogadas.setText(num_jogadas + "");
-                                pontos.setText(pontuacao + "");
-                            }
-                        }
-                        DoubleClick = true;
-                    }
-                });
-            LastPressTime = pressTime;
         }
-
     }
 
 
