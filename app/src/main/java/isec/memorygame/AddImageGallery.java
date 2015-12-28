@@ -33,7 +33,7 @@ public class AddImageGallery extends AppCompatActivity {
     String nome_Colecao;
     GridView imageGallery;
     ImageView imageReset;
-    ArrayList<String> img;
+    ArrayList<String> img,par,turnCard;
     PopupWindow pw;
     Bitmap bitmap = null;
     AlertDialog.Builder builder;
@@ -56,9 +56,11 @@ public class AddImageGallery extends AppCompatActivity {
         new Thread(new Runnable() {
             public void run() {
                 //Se já houver alguma image adiciona à gridview
-                String turnCard = util.getTurnCard(getApplicationContext(), nome_Colecao);
+                turnCard = util.getTurnCard(getApplicationContext(), nome_Colecao);
                 img = util.getImages(getApplicationContext(), nome_Colecao);
-                img.add(turnCard);
+                par = new ArrayList<>();
+                img.addAll(turnCard);
+                img.addAll(par);
                 final gridImageAdapter grid = new gridImageAdapter(getApplicationContext(), img);
                 imageGallery.setAdapter(grid);
             }
@@ -180,18 +182,25 @@ public class AddImageGallery extends AppCompatActivity {
             });
 
             final Button addTurnCard = (Button)layout.findViewById(R.id.PO_BDefineCarta);
-            String turnCard = util.getTurnCard(getApplicationContext(),nome_Colecao);
-            if(turnCard.equals(imagepath)){
-                addTurnCard.setText(getResources().getString(R.string.PO_BRemParteCarta));
-            }
-            else{
+            turnCard = util.getTurnCard(getApplicationContext(),nome_Colecao);
+            if (turnCard.size() != 0) {
+                if(turnCard.get(0).equals(imagepath))
+                    addTurnCard.setText(getResources().getString(R.string.PO_BRemParteCarta));
+                else
+                    addTurnCard.setText(getResources().getString(R.string.PO_BCarta));
+            }else
                 addTurnCard.setText(getResources().getString(R.string.PO_BCarta));
-            }
             addTurnCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(addTurnCard.getText().equals(getResources().getString(R.string.PO_BCarta))) {
                         util.addTurnCard(AddImageGallery.this, nome_Colecao, imagepath);
+                        pw.dismiss();
+                        finish();
+                        startActivity(getIntent());
+                    }
+                    else if(addTurnCard.getText().equals(getResources().getString(R.string.PO_BRemParteCarta))) {
+                        util.removeTurnCard(AddImageGallery.this, nome_Colecao, imagepath);
                         pw.dismiss();
                         finish();
                         startActivity(getIntent());

@@ -139,8 +139,8 @@ public class Util{
         escreveImagemFicheiro(context,content.toString());
     }
 
-    public String getTurnCard(Context context,String nomeColecao){
-        String card = "";
+    public ArrayList<String> getTurnCard(Context context,String nomeColecao){
+        ArrayList<String> card = new ArrayList<>();
         try {
             InputStream inputStream = context.openFileInput("imgfile.txt");
 
@@ -152,7 +152,8 @@ public class Util{
                 while ((receiveString = bufferedReader.readLine()) != null) {
                     String []  images = receiveString.split("-");
                     if(images[0].equals(nomeColecao)){
-                        return images[1];
+                        if(!images[1].equals(" "))
+                            card.add(images[1]);
                     }
                 }
                 inputStream.close();
@@ -169,10 +170,10 @@ public class Util{
 
     public void addTurnCard(Context context,String nomeColecao,String imagePath){
         StringBuilder content = new StringBuilder();
-        String oldCard = getTurnCard(context,nomeColecao);
-        if(!oldCard.equals(" ")){
-            removeImage(context,nomeColecao,oldCard);
-            addImage(context,nomeColecao,oldCard);
+        ArrayList<String> oldCard = getTurnCard(context,nomeColecao);
+        if(oldCard.size() != 0){
+            removeImage(context,nomeColecao,oldCard.get(0));
+            addImage(context,nomeColecao,oldCard.get(0));
             removeImage(context,nomeColecao,imagePath);
         }
         else
@@ -189,6 +190,15 @@ public class Util{
         }
 
         escreveImagemFicheiro(context,content.toString());
+    }
+    public void removeTurnCard(Context context,String nomeColecao,String imagePath){
+        ArrayList<String> turnCard = getTurnCard(context,nomeColecao);
+        if(!turnCard.get(0).equals(imagePath))
+            return;
+        removeImage(context,nomeColecao,imagePath);
+        addImage(context,nomeColecao,imagePath);
+
+
     }
 
     public void removeImage(Context context,String nomeColecao,String imagePath){
@@ -263,8 +273,12 @@ public class Util{
                     String []  images = receiveString.split("-");
                     if(images[0].equals(nomeColecao)){
                         String oimages []= images[3].split(" ");
-                        for(int i = 0; i < oimages.length;i++)
-                            imgs.add(oimages[i]);
+                        for(int i = 0; i < oimages.length;i++){
+                            if(!oimages[i].equals(" "))
+                                imgs.add(oimages[i]);
+                        }
+
+
                     }
 
                 }
