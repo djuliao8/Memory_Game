@@ -2,7 +2,6 @@ package isec.memorygame;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -69,7 +68,7 @@ public class OpcoesActivity extends AppCompatActivity {
                 if (position == 2) {
                     tv.setVisibility(View.VISIBLE);
                     et.setVisibility(View.VISIBLE);
-                    editor.putInt("Tempo",Integer.parseInt(et.getText().toString()));
+                    editor.putString("Tempo", et.getText().toString());
                 } else {
                     tv.setVisibility(View.INVISIBLE);
                     et.setVisibility(View.INVISIBLE);
