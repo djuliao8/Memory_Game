@@ -58,7 +58,8 @@ public class AddImageGallery extends AppCompatActivity {
                 //Se já houver alguma image adiciona à gridview
                 turnCard = util.getTurnCard(getApplicationContext(), nome_Colecao);
                 img = util.getImages(getApplicationContext(), nome_Colecao);
-                par = new ArrayList<>();
+                par = util.getParIntruso(getApplicationContext(),nome_Colecao);
+
                 img.addAll(turnCard);
                 img.addAll(par);
                 final gridImageAdapter grid = new gridImageAdapter(getApplicationContext(), img);
@@ -201,6 +202,35 @@ public class AddImageGallery extends AppCompatActivity {
                     }
                     else if(addTurnCard.getText().equals(getResources().getString(R.string.PO_BRemParteCarta))) {
                         util.removeTurnCard(AddImageGallery.this, nome_Colecao, imagepath);
+                        pw.dismiss();
+                        finish();
+                        startActivity(getIntent());
+                    }
+                }
+            });
+
+            final Button addParIntruso = (Button)layout.findViewById(R.id.PO_BDefinePar);
+            par = util.getParIntruso(getApplicationContext(),nome_Colecao);
+            if(par.size() != 0){
+                if(par.contains(imagepath))
+                    addParIntruso.setText(getResources().getString(R.string.PO_BRemParIntruso));
+                else
+                    addParIntruso.setText(getResources().getString(R.string.PO_BPar));
+            }
+            else
+                addParIntruso.setText(getResources().getString(R.string.PO_BPar));
+
+            addParIntruso.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(addParIntruso.getText().equals(getResources().getString(R.string.PO_BRemParIntruso))){
+                        util.removeParIntruso(AddImageGallery.this,nome_Colecao,imagepath);
+                        pw.dismiss();
+                        finish();
+                        startActivity(getIntent());
+                    }
+                    else if(addParIntruso.getText().equals(getResources().getString(R.string.PO_BPar))){
+                        util.addParIntruso(AddImageGallery.this,nome_Colecao,imagepath);
                         pw.dismiss();
                         finish();
                         startActivity(getIntent());

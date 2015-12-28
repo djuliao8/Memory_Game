@@ -83,4 +83,5 @@
     <string name="PO_BCancel">Cancelar</string>
     <string name="Err_ExcessoImage">Já não pode adicionar mais imagens. Remova uma primeiro.</string>
     <string name="PO_BRemParteCarta">Remover parte de trás da carta</string>
+    <string name="PO_BRemParIntruso">Remover de pares intrusos</string>
 </resources>

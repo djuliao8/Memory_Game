@@ -151,9 +151,13 @@ public class Util{
                 String receiveString;
                 while ((receiveString = bufferedReader.readLine()) != null) {
                     String []  images = receiveString.split("-");
+
                     if(images[0].equals(nomeColecao)){
-                        if(!images[1].equals(" "))
-                            card.add(images[1]);
+                        String x [] = images[1].split(" ");
+                        if(x.length != 0) {
+                            if (!x[0].equals(" "))
+                                card.add(x[0]);
+                        }
                     }
                 }
                 inputStream.close();
@@ -189,14 +193,14 @@ public class Util{
             content.append(text).append("\n");
         }
 
-        escreveImagemFicheiro(context,content.toString());
+        escreveImagemFicheiro(context, content.toString());
     }
     public void removeTurnCard(Context context,String nomeColecao,String imagePath){
         ArrayList<String> turnCard = getTurnCard(context,nomeColecao);
         if(!turnCard.get(0).equals(imagePath))
             return;
         removeImage(context,nomeColecao,imagePath);
-        addImage(context,nomeColecao,imagePath);
+        addImage(context, nomeColecao, imagePath);
 
 
     }
@@ -231,7 +235,7 @@ public class Util{
             text.append(x).append("\n");
         }
 
-        escreveImagemFicheiro(context,text.toString());
+        escreveImagemFicheiro(context, text.toString());
     }
 
     public ArrayList<String> getAllImages(Context context) {
@@ -292,6 +296,71 @@ public class Util{
             System.err.println("Erro no tratamento do ficheiro");
         }
         return imgs;
+    }
+
+    public ArrayList<String> getParIntruso(Context context, String nomeColecao){
+        ArrayList<String> images = new ArrayList<>();
+        try {
+            InputStream inputStream = context.openFileInput("imgfile.txt");
+
+            if (inputStream != null) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                String receiveString;
+                while ((receiveString = bufferedReader.readLine()) != null) {
+                    String []  par = receiveString.split("-");
+                    if(par[0].equals(nomeColecao)){
+                        String [] pares = par[2].split(" ");
+                        for(int i = 0; i < pares.length;i++) {
+                            if (!pares[i].equals(" "))
+                                images.add(pares[i]);
+                        }
+                    }
+                }
+                inputStream.close();
+            }
+
+        } catch (FileNotFoundException e) {
+            System.err.println("O ficheiro não foi encontrado");
+        } catch (IOException e) {
+            System.err.println("Erro no tratamento do ficheiro");
+        }
+        return images;
+    }
+
+    public void addParIntruso(Context context,String nomeColecao,String imagePath){
+        StringBuilder content = new StringBuilder();
+        StringBuilder write = new StringBuilder();
+        ArrayList<String> parIntruso = getParIntruso(context,nomeColecao);
+
+        removeImage(context,nomeColecao,imagePath);
+
+        ArrayList<String> images = getAllImages(context);
+        for(int i = 0; i < images.size();i++){
+            String text = images.get(i);
+            String [] string = images.get(i).split("-");
+            if(string[0].equals(nomeColecao)){
+                for(int j = 0; j < parIntruso.size();j++)
+                    content.append(parIntruso.get(j));
+                if(parIntruso.size() == 0)
+                    string [2] = imagePath;
+                else
+                    string [2] = content.toString() + " " + imagePath;
+                text = string[0] + "-" + string[1] + "-" + string[2] + "-" + string[3];
+            }
+            write.append(text).append("\n");
+        }
+
+        escreveImagemFicheiro(context, write.toString());
+    }
+
+    public void removeParIntruso(Context context,String nomeColecao,String imagePath){
+        ArrayList<String> pares = getParIntruso(context,nomeColecao);
+        if(pares.contains(imagePath)) {
+            removeImage(context, nomeColecao, imagePath);
+            addImage(context, nomeColecao, imagePath);
+        }
     }
 
     public void escreveImagemFicheiro(Context context,String content){

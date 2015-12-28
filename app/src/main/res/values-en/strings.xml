@@ -84,4 +84,5 @@
     <string name="PO_BCancel">Cancel</string>
     <string name="Err_ExcessoImage">Cannot add more images. Remove one first.</string>
     <string name="PO_BRemParteCarta">Remove back of card</string>
+    <string name="PO_BRemParIntruso">Remove from intruder par</string>
 </resources>
