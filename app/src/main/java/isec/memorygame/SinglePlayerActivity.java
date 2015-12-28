@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.GestureDetector;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Chronometer;
@@ -25,6 +26,8 @@ public class SinglePlayerActivity extends AppCompatActivity {
     private int pontuacao = 0;
     private SharedPreferences pref;
     private Jogador jogador;
+    private GestureDetector gestor;
+    private boolean DoubleClick = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +159,53 @@ public class SinglePlayerActivity extends AppCompatActivity {
                 }
             });
         }
+        if (pos == 2) {
+            long pressTime = System.currentTimeMillis();
+            long LastPressTime = 0;
+            int time = pref.getInt("Tempo", 1);
+            if (pressTime - LastPressTime <= time * 1000 && !DoubleClick)
+                gJogo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        if (!(cartas.get(position).descoberta) && !(viradas.size() == 2)) {
+                            if (viradas.size() == 1) {
+                                if (position == viradas.get(0))
+                                    return;
+                            }
+                            ImageView img = (ImageView) view;
+                            img.setImageResource(cartas.get(position).cartaVirada);
+                            viradas.add(position);
+
+                            if (viradas.size() == 2) {
+                                Carta carta1 = cartas.get(viradas.get(0));
+                                Carta carta2 = cartas.get(viradas.get(1));
+                                if (carta1.id == carta2.id) {
+                                    carta1.setDescoberta(true);
+                                    carta2.setDescoberta(true);
+                                    viradas.clear();
+                                    num_corretas += 2;
+                                    pontuacao += 5;
+                                } else {
+                                    Handler handler = new Handler();
+                                    handler.postDelayed(new Runnable() {
+                                        public void run() {
+                                            adapter.notifyDataSetChanged();
+                                            viradas.clear();
+                                        }
+                                    }, 800);
+                                    pontuacao -= 1;
+                                }
+                                num_jogadas++;
+                                njogadas.setText(num_jogadas + "");
+                                pontos.setText(pontuacao + "");
+                            }
+                        }
+                        DoubleClick = true;
+                    }
+                });
+            LastPressTime = pressTime;
+        }
+
     }
 
 
