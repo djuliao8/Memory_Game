@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Chronometer;
@@ -26,8 +26,6 @@ public class SinglePlayerActivity extends AppCompatActivity {
     private int pontuacao = 0;
     private SharedPreferences pref;
     private Jogador jogador;
-    private GestureDetector gestor;
-    private boolean DoubleClick = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,6 +158,23 @@ public class SinglePlayerActivity extends AppCompatActivity {
             });
         }
         if (pos == 2) {
+            View.OnTouchListener cardDoubleTouchListener = new View.OnTouchListener() {
+
+                boolean firstTouch = false;
+                Carta currentCard = null;
+                long time;
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() != MotionEvent.ACTION_DOWN) {
+                        return true;
+                    }
+                    
+                    return true;
+                }
+
+
+            };
         }
     }
 
