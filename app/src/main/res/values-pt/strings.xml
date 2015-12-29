@@ -85,4 +85,11 @@
     <string name="Err_ExcessoImage">Já não pode adicionar mais imagens. Remova uma primeiro.</string>
     <string name="PO_BRemParteCarta">Remover parte de trás da carta</string>
     <string name="PO_BRemParIntruso">Remover de pares intrusos</string>
+    <string name="Err_ExcessoPar">Já não pode adicionar mais pares. Limite é 5.</string>
+    <string name="OP_LGallery">Galeria:</string>
+    <string name="Err_ImageAdd">Imagem já adicionada.</string>
+    <string name="OP_LGerir">Gerir Galerias</string>
+    <string name="OP_LTempo">Definir Tempo</string>
+    <string name="OP_AddTempo">Adicionar</string>
+    <string name="OP_Cancel">Cancelar</string>
 </resources>

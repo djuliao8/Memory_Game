@@ -23,8 +23,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="10dp"
         android:layout_below="@+id/opslabel"
-        android:paddingLeft="10dp">
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,7 +36,8 @@
             android:textSize="25sp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true" />
+            android:layout_alignParentTop="true"
+            android:paddingBottom="10dp" />
 
         <Spinner
             android:layout_width="wrap_content"
@@ -55,7 +58,8 @@
             android:textSize="25dp"
             android:layout_below="@+id/nivellabel"
             android:layout_alignLeft="@+id/nivellabel"
-            android:layout_alignStart="@+id/nivellabel" />
+            android:layout_alignStart="@+id/nivellabel"
+            android:paddingBottom="10dp" />
 
         <Spinner
             android:layout_width="match_parent"
@@ -67,8 +71,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_toEndOf="@+id/nivellabel"
-            android:layout_above="@+id/Tempolabel"
-            android:layout_toRightOf="@+id/nivellabel" />
+            android:layout_toRightOf="@+id/nivellabel"
+            android:layout_alignBottom="@+id/cliquelabel" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -77,9 +81,9 @@
             android:id="@+id/Tempolabel"
             android:textSize="25dp"
             android:visibility="invisible"
-            android:layout_below="@+id/cliquelabel"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_above="@+id/OP_LGallery"
+            android:layout_alignLeft="@+id/cliquelabel"
+            android:layout_alignStart="@+id/cliquelabel" />
 
         <EditText
             android:layout_width="match_parent"
@@ -88,9 +92,41 @@
             android:ems="10"
             android:id="@+id/editText"
             android:visibility="invisible"
-            android:layout_below="@+id/Tempolabel"
-            android:layout_centerHorizontal="true"
-            android:textSize="23dp" />
+            android:textSize="23dp"
+            android:layout_alignTop="@+id/Tempolabel"
+            android:layout_alignLeft="@+id/dropClick"
+            android:layout_alignStart="@+id/dropClick"
+            android:layout_above="@+id/dropGallery" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/OP_LGallery"
+            android:id="@+id/OP_LGallery"
+            android:textSize="25dp"
+            android:layout_below="@+id/cliquelabel"
+            android:layout_alignLeft="@+id/cliquelabel"
+            android:layout_alignStart="@+id/cliquelabel"
+            android:paddingBottom="10dp" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dropGallery"
+            android:spinnerMode="dropdown"
+            android:layout_below="@+id/dropClick"
+            android:layout_alignLeft="@+id/dropClick"
+            android:layout_alignStart="@+id/dropClick"
+            android:layout_alignBottom="@+id/OP_LGallery" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/OP_LGerir"
+            android:id="@+id/OP_GerirGall"
+            android:textSize="17dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
 </RelativeLayout>
