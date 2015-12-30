@@ -7,6 +7,9 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 public class MainActivity extends AppCompatActivity {
     SharedPreferences pref;
 
@@ -16,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         DefineDefault();
 
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
+        ImageLoader.getInstance().init(config);
+
     }
 
     public void DefineDefault(){
@@ -24,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = pref.edit();
             editor.putInt("Dificuldade", 2);
             editor.putInt("Click", 0);
-            editor.putInt("Gallery",0);
+            editor.putString("Gallery","Default");
             editor.apply();
         }
     }

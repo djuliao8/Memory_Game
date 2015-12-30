@@ -125,12 +125,7 @@ public class AddImageGallery extends AppCompatActivity {
             Uri uri = data.getData();
             imagePath = uri.toString();
 
-            Bitmap bitmap = null;
-            try {
-                bitmap = util.decodeUri(uri, getApplicationContext());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+            Bitmap bitmap = util.decodeUri(uri, getApplicationContext());
             ImageView imageView = (ImageView) findViewById(R.id.imgView);
             imageView.setImageBitmap(bitmap);
         }
@@ -192,11 +187,8 @@ public class AddImageGallery extends AppCompatActivity {
             // display the popup in the center
             pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
             imagePath = imagepath;
-            try {
-                bitmap = util.decodeUri(Uri.parse(imagepath), getApplicationContext());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+
+            bitmap = util.decodeUri(Uri.parse(imagepath), getApplicationContext());
 
             final ImageView img = (ImageView) layout.findViewById(R.id.PO_Image);
             img.setImageBitmap(bitmap);

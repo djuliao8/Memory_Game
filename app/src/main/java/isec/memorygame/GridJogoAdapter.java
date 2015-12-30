@@ -2,6 +2,8 @@ package isec.memorygame;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -10,6 +12,10 @@ import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.ArrayList;
 
@@ -22,12 +28,15 @@ public class GridJogoAdapter extends BaseAdapter{
     Context context;
     SharedPreferences pref;
     int width;
-    int posi;
+    Util util = new Util();
+    ImageLoader imageLoader;
+    Uri uri;
 
     GridJogoAdapter(SinglePlayerActivity single,ArrayList<Carta> cartas,int width){
         context = single;
         this.cartas = cartas;
         this.width = width;
+        imageLoader = ImageLoader.getInstance();
     }
 
     GridJogoAdapter(MultiPlayerActivity multi, ArrayList<Carta> cartas) {
@@ -51,8 +60,8 @@ public class GridJogoAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        final ImageView imageView;
         if (convertView == null) {
             imageView = new ImageView(context);
 
@@ -74,10 +83,24 @@ public class GridJogoAdapter extends BaseAdapter{
             imageView.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT,metrics.widthPixels/(pos + 1)));
 
 
-        if (cartas.get(position).descoberta)
-            imageView.setImageResource(cartas.get(position).cartaVirada);
-        else
-            imageView.setImageResource(cartas.get(position).cartaPorVirar);
+        String gallery = pref.getString("Gallery","Default");
+
+        if (cartas.get(position).descoberta) {
+            if(gallery.equals("Default"))
+                imageView.setImageResource(cartas.get(position).cartaVirada);
+            else{
+                uri = Uri.parse(cartas.get(position).cartaViradaS);
+                imageView.setImageBitmap(util.getBitmap(context, uri));
+            }
+
+        }else {
+            if(gallery.equals("Default"))
+                imageView.setImageResource(cartas.get(position).cartaPorVirar);
+            else{
+                uri = Uri.parse(cartas.get(position).cartaPorVirarS);
+                imageView.setImageBitmap(util.getBitmap(context, uri));
+            }
+        }
         return imageView;
     }
 

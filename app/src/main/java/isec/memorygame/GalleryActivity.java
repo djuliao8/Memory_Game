@@ -100,5 +100,10 @@ public class GalleryActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(GalleryActivity.this,OpcoesActivity.class);
+        startActivity(i);
+    }
 }

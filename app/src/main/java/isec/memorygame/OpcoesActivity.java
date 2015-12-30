@@ -93,14 +93,28 @@ public class OpcoesActivity extends AppCompatActivity {
 
         //Spinner para galerias
         Spinner sGallery = (Spinner)findViewById(R.id.dropGallery);
-        ArrayList<String> gallery = util.getGallerysCompleted(getApplicationContext());
+        final ArrayList<String> gallery = util.getGallerysCompleted(getApplicationContext());
         gallery.add("Default");
         String [] string = new String[gallery.size()];
         string = gallery.toArray(string);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,string);
         sGallery.setAdapter(adapter2);
+        sGallery.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("Gallery", gallery.get(position));
+                editor.apply();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("Gallery", "Default");
+                editor.apply();
+            }
+        });
 
 
 
@@ -161,5 +175,13 @@ public class OpcoesActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(OpcoesActivity.this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
     }
 }

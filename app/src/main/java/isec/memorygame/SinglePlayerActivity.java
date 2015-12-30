@@ -2,6 +2,7 @@ package isec.memorygame;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class SinglePlayerActivity extends AppCompatActivity {
-    Util ut;
+    Util ut = new Util();
     ArrayList<Carta> cartas;
     ArrayList<Integer> viradas = new ArrayList<>();
     private int num_corretas = 0;
@@ -27,7 +28,10 @@ public class SinglePlayerActivity extends AppCompatActivity {
     private SharedPreferences pref;
     private Jogador jogador;
     private GestureDetector gestor;
-    private boolean DoubleClick = false;
+    private int DoubleClick = 0;
+    GridJogoAdapter adapter = null;
+    TextView njogadas;
+    TextView pontos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +40,15 @@ public class SinglePlayerActivity extends AppCompatActivity {
         jogador = (Jogador) getIntent().getSerializableExtra("jogador");
         pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         cartas = getCartas();
-        ut = new Util();
+
 
         GridView gJogo = (GridView) findViewById(R.id.gridViewJogo);
         gJogo.setNumColumns(getNumCol());
 
-        final GridJogoAdapter adapter = new GridJogoAdapter(this, cartas, gJogo.getColumnWidth());
+        adapter = new GridJogoAdapter(this, cartas, gJogo.getColumnWidth());
         gJogo.setAdapter(adapter);
 
-        final TextView njogadas = (TextView) findViewById(R.id.njogdaslabel);
+        njogadas = (TextView) findViewById(R.id.njogdaslabel);
         njogadas.setText("0");
 
         final Chronometer counter = (Chronometer) findViewById(R.id.timer);
@@ -53,7 +57,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
         final TextView nome = (TextView) findViewById(R.id.nomeSP);
         nome.setText(jogador.getNome());
 
-        final TextView pontos = (TextView) findViewById(R.id.PontoSP);
+        pontos = (TextView) findViewById(R.id.PontoSP);
         pontos.setText("0");
 
         new Thread(new Runnable() {
@@ -87,33 +91,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
                             if (position == viradas.get(0))
                                 return;
                         }
-                        ImageView img = (ImageView) view;
-                        img.setImageResource(cartas.get(position).cartaVirada);
-                        viradas.add(position);
-
-                        if (viradas.size() == 2) {
-                            Carta carta1 = cartas.get(viradas.get(0));
-                            Carta carta2 = cartas.get(viradas.get(1));
-                            if (carta1.id == carta2.id) {
-                                carta1.setDescoberta(true);
-                                carta2.setDescoberta(true);
-                                viradas.clear();
-                                num_corretas += 2;
-                                pontuacao += 5;
-                            } else {
-                                Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    public void run() {
-                                        adapter.notifyDataSetChanged();
-                                        viradas.clear();
-                                    }
-                                }, 800);
-                                pontuacao -= 1;
-                            }
-                            num_jogadas++;
-                            njogadas.setText(num_jogadas + "");
-                            pontos.setText(pontuacao + "");
-                        }
+                        jogo(view,position);
                     }
                 }
             });
@@ -127,39 +105,82 @@ public class SinglePlayerActivity extends AppCompatActivity {
                             if (position == viradas.get(0))
                                 return false;
                         }
-                        ImageView img = (ImageView) view;
-                        img.setImageResource(cartas.get(position).cartaVirada);
-                        viradas.add(position);
-
-                        if (viradas.size() == 2) {
-                            Carta carta1 = cartas.get(viradas.get(0));
-                            Carta carta2 = cartas.get(viradas.get(1));
-                            if (carta1.id == carta2.id) {
-                                carta1.setDescoberta(true);
-                                carta2.setDescoberta(true);
-                                viradas.clear();
-                                num_corretas += 2;
-                                pontuacao += 5;
-                            } else {
-                                Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    public void run() {
-                                        adapter.notifyDataSetChanged();
-                                        viradas.clear();
-                                    }
-                                }, 800);
-                                pontuacao -= 1;
-                            }
-                            num_jogadas++;
-                            njogadas.setText(num_jogadas + "");
-                            pontos.setText(pontuacao + "");
-                        }
+                        jogo(view,position);
                     }
                     return false;
                 }
             });
         }
         if (pos == 2) {
+            DoubleClick = 0;
+            gJogo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    DoubleClick++;
+                    Handler handler = new Handler();
+                    Runnable r = new Runnable() {
+
+                        @Override
+                        public void run() {
+                            DoubleClick = 0;
+                        }
+                    };
+
+                    if (DoubleClick == 1) {
+                        //Single click
+                        handler.removeCallbacks(r);
+                        handler.postDelayed(r, 700);
+                    }
+                    if(DoubleClick == 2){
+
+                        handler.removeCallbacks(r);
+                        DoubleClick = 0;
+                        if (!(cartas.get(position).descoberta) && !(viradas.size() == 2)) {
+                            if (viradas.size() == 1) {
+                                if (position == viradas.get(0))
+                                    return;
+                            }
+                            jogo(view,position);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    public void jogo(View view, int position){
+        ImageView img = (ImageView) view;
+        if(pref.getString("Gallery","Default").equals("Default"))
+            img.setImageResource(cartas.get(position).cartaVirada);
+        else {
+            Uri uri = Uri.parse(cartas.get(position).cartaViradaS);
+            img.setImageBitmap(ut.getBitmap(SinglePlayerActivity.this,uri));
+        }
+        viradas.add(position);
+
+        if (viradas.size() == 2) {
+            Carta carta1 = cartas.get(viradas.get(0));
+            Carta carta2 = cartas.get(viradas.get(1));
+            if (carta1.id == carta2.id) {
+                carta1.setDescoberta(true);
+                carta2.setDescoberta(true);
+                viradas.clear();
+                num_corretas += 2;
+                pontuacao += 5;
+            } else {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        adapter.notifyDataSetChanged();
+                        viradas.clear();
+                    }
+                }, 700);
+                pontuacao -= 1;
+            }
+            num_jogadas++;
+            njogadas.setText(num_jogadas + "");
+            pontos.setText(pontuacao + "");
         }
     }
 
@@ -167,8 +188,27 @@ public class SinglePlayerActivity extends AppCompatActivity {
     private ArrayList<Carta> getCartas(){
         ArrayList<Carta> cartas = new ArrayList<>();
         int num_cartas = getNum_cartas();
+        ArrayList<String> turncard = new ArrayList<>();
+        ArrayList<String> par = new ArrayList<>();
+        ArrayList<String> images = new ArrayList<>();
+        String gallery = pref.getString("Gallery","Default");
+        if(!gallery.equals("Default")){
+            images = ut.getImages(SinglePlayerActivity.this, gallery);
+            par = ut.getParIntruso(getApplicationContext(), gallery);
+            images.addAll(par);
+            turncard = ut.getTurnCard(getApplicationContext(), gallery);
+        }
         for(int i = 0; i < (num_cartas / 2);i++){
-            Carta carta = new Carta(i + 1,ut.Images[i],ut.Image);
+
+            Carta carta = null;
+            if(gallery.equals("Default")){
+                 carta = new Carta(i + 1, ut.Images[i], ut.Image);
+            }
+            else{
+                carta = new Carta(i + 1,images.get(i),turncard.get(0));
+                if(i > (images.size() - par.size()))
+                    carta.setPar_intruso(true);
+            }
             cartas.add(carta);
             cartas.add(carta);
         }

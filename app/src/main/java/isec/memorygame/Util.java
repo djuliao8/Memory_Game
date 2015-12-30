@@ -1,12 +1,16 @@
 package isec.memorygame;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,6 +26,13 @@ import java.util.Collections;
  * Created by Luis on 17/12/2015.
  */
 public class Util{
+    Activity ac;
+    Util(){
+
+    }
+    Util(Activity ac){
+        this.ac = ac;
+    }
     public static int Image = R.drawable.cartaporvirar;
     public static int Images[] = {
             R.drawable.camaleao,
@@ -104,8 +115,10 @@ public class Util{
         ArrayList<String> imgs = new ArrayList<>();
         for(int i = 0; i < images.size();i++){
             String [] string = images.get(i).split("-");
-            if((!string[1].equals(" ") && string[1].length() == 1) && string[2].length() >= 2 && (string[1].length() + string[2].length() + string[3].length()) ==  16)
-                imgs.add(string[1]);
+            String [] par = string[2].split(" ");
+            String [] im = string[3].split(" ");
+            if(!string[1].equals(" ") && par.length >= 2 && (par.length + im.length) ==  15)
+                imgs.add(string[0]);
         }
         return imgs;
     }
@@ -353,11 +366,11 @@ public class Util{
             String [] string = images.get(i).split("-");
             if(string[0].equals(nomeColecao)){
                 for(int j = 0; j < parIntruso.size();j++)
-                    content.append(parIntruso.get(j));
+                    content.append(parIntruso.get(j) + " ");
                 if(parIntruso.size() == 0)
                     string [2] = imagePath;
                 else
-                    string [2] = content.toString() + " " + imagePath;
+                    string [2] = content.toString() + imagePath;
                 text = string[0] + "-" + string[1] + "-" + string[2] + "-" + string[3];
             }
             write.append(text).append("\n");
@@ -388,16 +401,151 @@ public class Util{
     }
 
 
-    public Bitmap decodeUri(Uri selectedImage,Context context) throws FileNotFoundException {
+    public String getPath(Context context,Uri uri)
+    {
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        String image = cursor.getString(idx);
+        cursor.close();
+        return image;
+    }
+
+    /*public static Bitmap decodeBitmapFromUri(String image, int reqWidth, int reqHeight) {
+
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(image,options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(image,options);
+    }
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+*/
+
+    public static Bitmap getBitmap(Context context,Uri image) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        try {
+            BitmapFactory.decodeStream(context.getContentResolver().openInputStream(image), null, options);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, 128,128);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+
+        Bitmap bitmap = null;
+        try {
+            bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(image), null, options);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            // Calculate ratios of height and width to requested height and width
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+
+            // Choose the smallest ratio as inSampleSize value, this will guarantee
+            // a final image with both dimensions larger than or equal to the
+            // requested height and width.
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+        }
+
+        return inSampleSize;
+    }
+
+    /*public Bitmap getBitmap(Uri selectedImage,Context context)	{
+        //	Get the dimensions of the View
+        int targetW	=	128;
+        int targetH	=	128;
+
+        //	Get the dimensions of the	bitmap
+        BitmapFactory.Options bmOptions	=	new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds	=	true;
+        try {
+            BitmapFactory.decodeStream(context.getContentResolver().openInputStream(selectedImage), null, bmOptions);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        int photoW	=	bmOptions.outWidth;
+        int photoH	=	bmOptions.outHeight;
+
+        //	Determine	how much	to	scale down the image
+        int scaleFactor	=	Math.min(photoW/targetW,	photoH/targetH);
+
+        //	Decode the image	file	into	a	Bitmap	sized	to	fill the View
+        bmOptions.inJustDecodeBounds	=	false;
+        bmOptions.inSampleSize	=	scaleFactor;
+
+        Bitmap	bitmap = null;
+
+        try {
+            bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(selectedImage), null, bmOptions);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+    */
+    public Bitmap decodeUri(Uri selectedImage,Context context){
 
         // Decode image size
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inJustDecodeBounds = true;
-        BitmapFactory.decodeStream(context.getContentResolver().openInputStream(selectedImage), null, o);
+        try {
+            BitmapFactory.decodeStream(context.getContentResolver().openInputStream(selectedImage), null, o);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
 
         // The new size we want to scale to
-        final int REQUIRED_SIZE = 128;
+        final int REQUIRED_SIZE = 12;
 
         // Find the correct scale value. It should be the power of 2.
         int width_tmp = o.outWidth, height_tmp = o.outHeight;
@@ -415,7 +563,13 @@ public class Util{
         // Decode with inSampleSize
         BitmapFactory.Options o2 = new BitmapFactory.Options();
         o2.inSampleSize = scale;
-        return BitmapFactory.decodeStream(context.getContentResolver().openInputStream(selectedImage), null, o2);
+        InputStream input = null;
+        try {
+            input = context.getContentResolver().openInputStream(selectedImage);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return BitmapFactory.decodeStream(input,null, o2);
 
     }
 
