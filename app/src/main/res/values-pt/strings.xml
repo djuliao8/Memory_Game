@@ -92,4 +92,6 @@
     <string name="OP_LTempo">Definir Tempo</string>
     <string name="OP_AddTempo">Adicionar</string>
     <string name="OP_Cancel">Cancelar</string>
+    <string name="Err_NoConnection">Sem conexão há internet!</string>
+    <string name="Err_NoOne">Ninguém se juntou ao jogo!</string>
 </resources>

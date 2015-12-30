@@ -19,8 +19,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Enumeration;
 
 /**
  * Created by Luis on 17/12/2015.
@@ -53,6 +57,9 @@ public class Util{
             R.drawable.kangaroo,
             R.drawable.rabbit5
     };
+
+    public static final int PORT = 8899;
+    public static final int WAIT = 30000;
 
     public void escreverFicheiro(Context context,String data) {
             ArrayList<String> strings = lerFicheiro(context);
@@ -571,6 +578,42 @@ public class Util{
         }
         return BitmapFactory.decodeStream(input,null, o2);
 
+    }
+
+    public static String getLocalIpAddress() {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof InetAddress) {
+                        return inetAddress.getHostAddress();
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public int[][] getRandMatrix(int lin,int col){
+        ArrayList<Integer> nums = new ArrayList<>();
+        int Matrix [][] = new int[lin][col];
+        int num = (lin * col) / 2;
+        for(int i = 1; i < num;i++){
+            nums.add(i);
+            nums.add(i);
+        }
+        Collections.shuffle(nums);
+        for(int i = 0; i < col;i++){
+            for(int j = 0; j < lin;j++){
+                Matrix[i][j] = nums.get(0);
+                nums.remove(0);
+            }
+        }
+        return Matrix;
     }
 
 
