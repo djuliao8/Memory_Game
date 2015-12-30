@@ -22,7 +22,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/AG_addtext"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:inputType="textPersonName" />
 
     <Button
         android:layout_width="wrap_content"
