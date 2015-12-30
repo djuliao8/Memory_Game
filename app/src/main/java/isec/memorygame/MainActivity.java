@@ -60,4 +60,9 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, HistoricoActivity.class);
         startActivity(i);
     }
+
+    public void onBotaoRede(View v) {
+        Intent i = new Intent(this, IdentificaJogadorRede.class);
+        startActivity(i);
+    }
 }

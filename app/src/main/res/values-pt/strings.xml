@@ -92,4 +92,7 @@
     <string name="OP_LTempo">Definir Tempo</string>
     <string name="OP_AddTempo">Adicionar</string>
     <string name="OP_Cancel">Cancelar</string>
+    <string name="nomeRede">Nome:</string>
+    <string name="cjRede">Criar Jogo</string>
+    <string name="jjRede">Juntar a Jogo</string>
 </resources>
