@@ -52,6 +52,7 @@ public class OpcoesActivity extends AppCompatActivity {
 
         sk = (SeekBar)dialog.findViewById(R.id.OP_SeekBar);
         progres = (TextView)dialog.findViewById(R.id.OP_Progress);
+        progres.setText("0/25");
 
         sk.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressvalue = 0;
@@ -59,11 +60,12 @@ public class OpcoesActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressvalue = progress;
+
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                progres.setText(progressvalue + "/" + seekBar.getMax());
             }
 
             @Override
@@ -72,6 +74,7 @@ public class OpcoesActivity extends AppCompatActivity {
 
             }
         });
+
         Button cancel = (Button)dialog.findViewById(R.id.OP_Cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override

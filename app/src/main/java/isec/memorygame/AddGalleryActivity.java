@@ -1,8 +1,8 @@
 package isec.memorygame;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +25,7 @@ public class AddGalleryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String nome = et.getText().toString();
+                nome.replaceAll(" ", "");
                 if(nome.equals("")) {
                     Toast.makeText(getApplicationContext(), R.string.Err_FaltaNome, Toast.LENGTH_SHORT).show();
                     return;

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.GestureDetector;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Chronometer;
@@ -27,7 +26,6 @@ public class SinglePlayerActivity extends AppCompatActivity {
     private int pontuacao = 0;
     private SharedPreferences pref;
     private Jogador jogador;
-    private GestureDetector gestor;
     private int DoubleClick = 0;
     GridJogoAdapter adapter = null;
     TextView njogadas;

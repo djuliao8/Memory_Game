@@ -34,8 +34,7 @@
             android:textSize="25dp"
             android:paddingBottom="15dp"
             android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/jogar2jog"
-            android:layout_alignEnd="@+id/jogar2jog" />
+            android:layout_centerHorizontal="true" />
 
         <EditText
             android:layout_width="wrap_content"
