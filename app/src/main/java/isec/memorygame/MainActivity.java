@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBotaoRede(View v) {
-        Intent i = new Intent(this, IdentificaJogadorRede.class);
+        Intent i = new Intent(this, EmRedeActivity.class);
         startActivity(i);
     }
 }

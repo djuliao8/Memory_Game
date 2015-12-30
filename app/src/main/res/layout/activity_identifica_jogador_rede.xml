@@ -14,12 +14,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/SPIN_LTituloIns"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:id="@+id/ltituloRede"
         android:textColor="#000000"
-        android:textSize="40dp" />
+        android:textSize="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,43 +26,32 @@
         android:text="@string/nomeRede"
         android:id="@+id/labelnomerede"
         android:textColor="#000000"
-        android:textSize="25dp"
-        android:layout_marginTop="66dp"
-        android:layout_below="@+id/ltituloRede"
-        android:layout_centerHorizontal="true" />
+        android:textSize="30dp"
+        android:layout_above="@+id/nomejrede"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/nomejrede"
-        android:layout_marginTop="52dp"
-        android:layout_below="@+id/labelnomerede"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/button5"
+        android:layout_alignStart="@+id/button5" />
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:text="@string/cjRede"
         android:id="@+id/button5"
-        android:layout_marginTop="87dp"
+        android:onClick="onBotaoCriar"
         android:layout_below="@+id/nomejrede"
-        android:layout_alignRight="@+id/nomejrede"
-        android:layout_alignEnd="@+id/nomejrede"
-        android:layout_alignLeft="@+id/nomejrede"
-        android:layout_alignStart="@+id/nomejrede"
-        android:onClick="onBotaoCriar" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20dp" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/jjRede"
-        android:id="@+id/button6"
-        android:layout_below="@+id/button5"
-        android:layout_alignLeft="@+id/button5"
-        android:layout_alignStart="@+id/button5"
-        android:layout_alignRight="@+id/button5"
-        android:layout_alignEnd="@+id/button5"
-        android:onClick="onBotaoJuntar" />
 </RelativeLayout>

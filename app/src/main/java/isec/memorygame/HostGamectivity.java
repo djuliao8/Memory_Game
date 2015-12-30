@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -25,6 +26,7 @@ public class HostGamectivity extends AppCompatActivity {
     ObjectInputStream input;
     ObjectOutputStream output;
     Matrix matrix;
+    TextView labelIp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +40,21 @@ public class HostGamectivity extends AppCompatActivity {
             finish();
             return;
         }
-
-        server();
+        labelIp = (TextView)findViewById(R.id.HG_TIP);
         String ip = ut.getLocalIpAddress();
+        labelIp.setText(ip);
 
 
 
 
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //server();
     }
 
     public void server() {
@@ -82,9 +92,7 @@ public class HostGamectivity extends AppCompatActivity {
                 output.writeObject(matrix);
 
                 while (!Thread.currentThread().isInterrupted()) {
-                    String read = input.readLine();
-                    final int move = Integer.parseInt(read);
-                    moveOtherPlayer(move);
+
                 }
             } catch (Exception e) {
                 finish();

@@ -7,4 +7,125 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="isec.memorygame.HostGamectivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/HG_LTitulo"
+        android:id="@+id/HG_Titulo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="40sp"
+        android:paddingBottom="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/HG_LLin"
+        android:id="@+id/HG_LLin"
+        android:textSize="25sp"
+        android:layout_below="@+id/HG_LIp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/HG_LCol"
+        android:id="@+id/HG_LCol"
+        android:textSize="25sp"
+        android:layout_below="@+id/HG_LLin"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:phoneNumber="true"
+        android:layout_marginBottom="20dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/HG_SLin"
+        android:layout_alignLeft="@+id/HG_SCol"
+        android:layout_alignStart="@+id/HG_SCol"
+        android:layout_alignBottom="@+id/HG_LLin"
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/HG_TIP" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/HG_SCol"
+        android:layout_alignBottom="@+id/HG_LCol"
+        android:layout_toEndOf="@+id/HG_LCol"
+        android:layout_below="@+id/HG_SLin"
+        android:spinnerMode="dropdown"
+        android:layout_alignLeft="@+id/HG_SPar"
+        android:layout_alignStart="@+id/HG_SPar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/HG_LIp"
+        android:textSize="25dp"
+        android:layout_below="@+id/HG_Titulo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="@string/HG_LIp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_alignTop="@+id/HG_LIp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/HG_SLin"
+        android:layout_alignStart="@+id/HG_SLin"
+        android:id="@+id/HG_TIP" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/HG_LPar"
+        android:id="@+id/HG_LPar"
+        android:layout_below="@+id/HG_LCol"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="25sp"
+        android:layout_marginBottom="20dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/HG_SPar"
+        android:layout_below="@+id/HG_SCol"
+        android:layout_toRightOf="@+id/HG_LPar"
+        android:layout_toEndOf="@+id/HG_LPar"
+        android:layout_alignBottom="@+id/HG_LPar"
+        android:spinnerMode="dropdown" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/HG_Num"
+        android:id="@+id/HG_NNum"
+        android:layout_below="@+id/HG_LPar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="25dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText3"
+        android:layout_alignBottom="@+id/HG_NNum"
+        android:layout_alignLeft="@+id/HG_SPar"
+        android:layout_alignStart="@+id/HG_SPar"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="20dp" />
+
 </RelativeLayout>

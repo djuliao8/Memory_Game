@@ -97,4 +97,13 @@
     <string name="nomeRede">Nome:</string>
     <string name="cjRede">Criar Jogo</string>
     <string name="jjRede">Juntar a Jogo</string>
+    <string name="ER_LTitulo">Rede</string>
+    <string name="ER_BJoin">Entrar num Jogo</string>
+    <string name="ER_BHost">Criar Jogo</string>
+    <string name="HG_LTitulo">Criar Jogo</string>
+    <string name="HG_LLin">Linhas:</string>
+    <string name="HG_LCol">Colunas:</string>
+    <string name="HG_LIp">IP:</string>
+    <string name="HG_LPar">P. Intruso:</string>
+    <string name="HG_Num">Número:</string>
 </resources>

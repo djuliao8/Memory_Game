@@ -97,4 +97,14 @@
     <string name="jjRede">Join Game</string>
     <string name="Err_NoConnection">No internet connection!</string>
     <string name="Err_NoOne">No one join the game!</string>
+    <string name="HG_LIp">IP:</string>
+    <string name="ER_BHost">Create Game</string>
+    <string name="ER_BJoin">Enter Game</string>
+    <string name="ER_LTitulo">Network</string>
+    <string name="HG_LCol">Columns:</string>
+    <string name="HG_LLin">Lines:</string>
+    <string name="HG_LPar">Intruder P:</string>
+    <string name="HG_LTitulo">Create Game</string>
+    <string name="HG_Par"></string>
+    <string name="HG_Num">Number:</string>
 </resources>
