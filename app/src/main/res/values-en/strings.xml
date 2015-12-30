@@ -92,6 +92,9 @@
     <string name="OP_LTempo">Define Time</string>
     <string name="OP_AddTempo">Add</string>
     <string name="OP_Cancel">Cancel</string>
+    <string name="nomeRede">Name:</string>
+    <string name="cjRede">Create Game</string>
+    <string name="jjRede">Join Game</string>
     <string name="Err_NoConnection">No internet connection!</string>
     <string name="Err_NoOne">No one join the game!</string>
 </resources>

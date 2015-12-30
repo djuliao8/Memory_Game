@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences pref;
+    Button b1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBotaoHist(View v) {
         Intent i = new Intent(this, HistoricoActivity.class);
+        startActivity(i);
+    }
+
+    public void onBotaoRede(View v) {
+        Intent i = new Intent(this, IdentificaJogadorRede.class);
         startActivity(i);
     }
 }

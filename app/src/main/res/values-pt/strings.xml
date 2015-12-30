@@ -94,4 +94,7 @@
     <string name="OP_Cancel">Cancelar</string>
     <string name="Err_NoConnection">Sem conexão há internet!</string>
     <string name="Err_NoOne">Ninguém se juntou ao jogo!</string>
+    <string name="nomeRede">Nome:</string>
+    <string name="cjRede">Criar Jogo</string>
+    <string name="jjRede">Juntar a Jogo</string>
 </resources>

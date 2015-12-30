@@ -54,7 +54,8 @@
             android:layout_height="60dp"
             android:text="@string/M_BRede"
             android:id="@+id/rede"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:onClick="onBotaoRede" />
 
         <Button
             android:layout_width="fill_parent"
