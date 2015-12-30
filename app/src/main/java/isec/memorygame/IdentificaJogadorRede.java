@@ -17,7 +17,7 @@ public class IdentificaJogadorRede extends AppCompatActivity {
 
     }
 
-    public void onBotaoJuntar() {
+    public void onBotaoJuntar(View v) {
         Intent i = new Intent(this, JoinActivity.class);
         startActivity(i);
     }
