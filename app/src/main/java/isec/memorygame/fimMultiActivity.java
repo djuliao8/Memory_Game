@@ -23,13 +23,14 @@ public class fimMultiActivity extends AppCompatActivity {
         Jogo jogo = (Jogo) getIntent().getSerializableExtra("id");
 
         TextView msg = (TextView) findViewById(R.id.textView);
+        String congrats = getString(R.string.FM_LParabens) + " ";
 
         if (IdentificaJogadores.jog1.getPontos() > IdentificaJogadores.jog2.getPontos()) {
             vencedor = IdentificaJogadores.jog1.getNome();
-            msg.setText(R.string.FM_LParabens + vencedor + "!");
+            msg.setText(congrats + vencedor + "!");
         }else if(IdentificaJogadores.jog2.getPontos() > IdentificaJogadores.jog1.getPontos()) {
             vencedor = IdentificaJogadores.jog2.getNome();
-            msg.setText(R.string.FM_LParabens + vencedor + "!");
+            msg.setText(congrats + vencedor + "!");
         }else{
             msg.setText(R.string.FM_LEmpate);
         }
