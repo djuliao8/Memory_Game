@@ -48,7 +48,7 @@
         android:layout_alignStart="@+id/HG_SCol"
         android:layout_alignBottom="@+id/HG_LLin"
         android:spinnerMode="dropdown"
-        android:layout_below="@+id/HG_TIP" />
+        android:layout_alignTop="@+id/HG_LLin" />
 
     <Spinner
         android:layout_width="wrap_content"
@@ -56,10 +56,10 @@
         android:id="@+id/HG_SCol"
         android:layout_alignBottom="@+id/HG_LCol"
         android:layout_toEndOf="@+id/HG_LCol"
-        android:layout_below="@+id/HG_SLin"
         android:spinnerMode="dropdown"
         android:layout_alignLeft="@+id/HG_SPar"
-        android:layout_alignStart="@+id/HG_SPar" />
+        android:layout_alignStart="@+id/HG_SPar"
+        android:layout_alignTop="@+id/HG_LCol" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -99,11 +99,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/HG_SPar"
-        android:layout_below="@+id/HG_SCol"
         android:layout_toRightOf="@+id/HG_LPar"
         android:layout_toEndOf="@+id/HG_LPar"
         android:layout_alignBottom="@+id/HG_LPar"
-        android:spinnerMode="dropdown" />
+        android:spinnerMode="dropdown"
+        android:layout_alignTop="@+id/HG_LPar"
+        android:layout_marginLeft="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -120,12 +121,24 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText3"
+        android:id="@+id/HG_ENum"
         android:layout_alignBottom="@+id/HG_NNum"
         android:layout_alignLeft="@+id/HG_SPar"
         android:layout_alignStart="@+id/HG_SPar"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:textSize="20dp"
+        android:layout_below="@+id/HG_SPar"
+        android:layout_marginLeft="10dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/HG_BCreate"
+        android:layout_below="@+id/HG_NNum"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:text="@string/cjRede"
         android:textSize="20dp" />
 
 </RelativeLayout>

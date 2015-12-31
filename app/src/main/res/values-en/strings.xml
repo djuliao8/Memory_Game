@@ -104,7 +104,13 @@
     <string name="HG_LCol">Columns:</string>
     <string name="HG_LLin">Lines:</string>
     <string name="HG_LPar">Intruder P:</string>
-    <string name="HG_LTitulo">Create Game</string>
+    <string name="HG_LTitulo">Game Options</string>
     <string name="HG_Par"></string>
     <string name="HG_Num">Number:</string>
+    <string name="GA_waitPl">Waiting for Player...</string>
+    <string name="GA_Aguarde">Wait...</string>
+    <string name="Err_UnableConnect">Impossible to connect!</string>
+    <string name="JG_LIP">IP</string>
+    <string name="JG_LJoin">Enter Game</string>
+    <string name="JG_Nome">Name</string>
 </resources>

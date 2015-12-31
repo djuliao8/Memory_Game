@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -59,7 +60,7 @@ public class Util{
     };
 
     public static final int PORT = 8899;
-    public static final int WAIT = 30000;
+    public static final int WAIT = 60000;
 
     public void escreverFicheiro(Context context,String data) {
             ArrayList<String> strings = lerFicheiro(context);
@@ -586,9 +587,8 @@ public class Util{
                 NetworkInterface intf = en.nextElement();
                 for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
                     InetAddress inetAddress = enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof InetAddress) {
-                        return inetAddress.getHostAddress();
-                    }
+                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address)
+                        return inetAddress.getHostAddress().toString();
                 }
             }
         } catch (SocketException ex) {
@@ -598,23 +598,7 @@ public class Util{
     }
 
 
-    public int[][] getRandMatrix(int lin,int col){
-        ArrayList<Integer> nums = new ArrayList<>();
-        int Matrix [][] = new int[lin][col];
-        int num = (lin * col) / 2;
-        for(int i = 1; i < num;i++){
-            nums.add(i);
-            nums.add(i);
-        }
-        Collections.shuffle(nums);
-        for(int i = 0; i < col;i++){
-            for(int j = 0; j < lin;j++){
-                Matrix[i][j] = nums.get(0);
-                nums.remove(0);
-            }
-        }
-        return Matrix;
-    }
+
 
 
 }

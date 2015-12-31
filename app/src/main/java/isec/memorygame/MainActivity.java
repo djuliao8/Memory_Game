@@ -5,11 +5,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
+import java.util.logging.Handler;
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences pref;
@@ -21,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         DefineDefault();
 
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
-        ImageLoader.getInstance().init(config);
+
+
 
     }
 

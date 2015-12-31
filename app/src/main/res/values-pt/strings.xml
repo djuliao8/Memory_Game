@@ -100,10 +100,16 @@
     <string name="ER_LTitulo">Rede</string>
     <string name="ER_BJoin">Entrar num Jogo</string>
     <string name="ER_BHost">Criar Jogo</string>
-    <string name="HG_LTitulo">Criar Jogo</string>
+    <string name="HG_LTitulo">Opções de Jogo</string>
     <string name="HG_LLin">Linhas:</string>
     <string name="HG_LCol">Colunas:</string>
     <string name="HG_LIp">IP:</string>
     <string name="HG_LPar">P. Intruso:</string>
     <string name="HG_Num">Número:</string>
+    <string name="GA_waitPl">À espera de jogador...</string>
+    <string name="GA_Aguarde">Aguarde..</string>
+    <string name="JG_LJoin">Entra no Jogo</string>
+    <string name="JG_Nome">Nome</string>
+    <string name="JG_LIP">IP</string>
+    <string name="Err_UnableConnect">Impossível de conectar!</string>
 </resources>

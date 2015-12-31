@@ -1,10 +1,18 @@
 package isec.memorygame;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,17 +29,29 @@ import java.net.SocketTimeoutException;
 
 public class HostGamectivity extends AppCompatActivity {
     Util ut = new Util();
-    ServerSocket svSocket;
-    Socket socketGame = null;
-    ObjectInputStream input;
-    ObjectOutputStream output;
-    Matrix matrix;
+
     TextView labelIp;
+    Spinner sCol;
+    Spinner sLin;
+    Spinner sPar;
+    EditText eNum;
+    Button bCreate;
+
+    String aCol [] = new String[] {"2", "3", "4", "5"};
+    String aLin [] = new String[] {"2", "3", "4", "5","6"};
+
+    String Col;
+    String Lin;
+    String Par;
+    String ip;
+    String Num;
+    String Nome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_gamectivity);
+        Nome = getIntent().getStringExtra("Nome");
 
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -41,64 +61,77 @@ public class HostGamectivity extends AppCompatActivity {
             return;
         }
         labelIp = (TextView)findViewById(R.id.HG_TIP);
-        String ip = ut.getLocalIpAddress();
+        ip = ut.getLocalIpAddress();
         labelIp.setText(ip);
 
 
-
-
-
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //server();
-    }
-
-    public void server() {
-        Thread t = new Thread(new Runnable() {
+        sCol = (Spinner) findViewById(R.id.HG_SCol);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, aCol);
+        sCol.setAdapter(adapter);
+        sCol.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void run() {
-                try {
-                    svSocket = new ServerSocket(ut.PORT);
-                    svSocket.setSoTimeout(ut.WAIT);
-                    socketGame = svSocket.accept();
-                    svSocket.close();
-                    svSocket = null;
-                    commThread.start();
-                } catch (SocketTimeoutException e){
-                    socketGame = null;
-                    Toast.makeText(getApplicationContext(),R.string.Err_NoOne, Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    socketGame = null;
-                }
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Col = aCol[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Col = aCol[0];
             }
         });
-        if(socketGame == null)
-            finish();
-    }
 
-
-    Thread commThread = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            try {
-                input = new ObjectInputStream(socketGame.getInputStream());
-                output = new ObjectOutputStream(socketGame.getOutputStream());
-                matrix = new Matrix(2,2);
-                output.writeObject(matrix);
-
-                while (!Thread.currentThread().isInterrupted()) {
-
-                }
-            } catch (Exception e) {
-                finish();
-                Toast.makeText(getApplicationContext(),"The game was finished",Toast.LENGTH_LONG).show();
+        sLin = (Spinner) findViewById(R.id.HG_SLin);
+        ArrayAdapter<String> adapterLin = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, aLin);
+        sLin.setAdapter(adapterLin);
+        sLin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Lin = aLin[position];
             }
-        }
-    });
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Lin = aLin[0];
+            }
+        });
+
+        sPar = (Spinner) findViewById(R.id.HG_SPar);
+        ArrayAdapter<String> adapterPar = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, aCol);
+        sPar.setAdapter(adapterPar);
+        sPar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Par = aCol[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Par = aCol[0];
+            }
+        });
+
+        eNum = (EditText)findViewById(R.id.HG_ENum);
+
+
+
+        bCreate = (Button)findViewById(R.id.HG_BCreate);
+        bCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Num = eNum.getText().toString();
+                SmsManager smsManager = SmsManager.getDefault();
+                if(!Num.equals(""))
+                    smsManager.sendTextMessage(Num, null, ip, null, null);
+
+                Intent i = new Intent(HostGamectivity.this, GameActivity.class);
+                Matrix matrix = new Matrix(Integer.parseInt(Lin),Integer.parseInt(Col),Integer.parseInt(Par));
+                matrix.addJogador(Nome);
+                i.putExtra("Game",matrix);
+                startActivity(i);
+
+            }
+        });
+
+    }
 
 }

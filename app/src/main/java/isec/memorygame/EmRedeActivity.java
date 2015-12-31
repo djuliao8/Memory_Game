@@ -28,7 +28,7 @@ public class EmRedeActivity extends AppCompatActivity {
         bjoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(EmRedeActivity.this, IdentificaJogadorRede.class);
+                Intent i = new Intent(EmRedeActivity.this, JoinGameActivity.class);
                 i.putExtra("Tipo",1);
                 startActivity(i);
             }
