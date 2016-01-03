@@ -82,7 +82,7 @@ public class AddImageGallery extends AppCompatActivity {
 
             @Override
             public void onClick(View arg0) {
-                if(img.size() > 15){
+                if (img.size() > 15) {
                     Toast.makeText(getApplicationContext(), R.string.Err_ExcessoImage, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -102,18 +102,18 @@ public class AddImageGallery extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), R.string.Err_FaltaImage, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(img.size() > 15){
+                if (img.size() > 15) {
                     Toast.makeText(getApplicationContext(), R.string.Err_ExcessoImage, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(img.contains(imagePath)) {
+                if (img.contains(imagePath)) {
                     Toast.makeText(getApplicationContext(), R.string.Err_ImageAdd, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 util.addImage(getApplicationContext(), nome_Colecao, imagePath);
                 imagePath = "";
                 finish();
-                Intent i = getIntent().putExtra("nome",nome_Colecao);
+                Intent i = getIntent().putExtra("nome", nome_Colecao);
                 startActivity(i);
             }
         });
@@ -273,6 +273,8 @@ public class AddImageGallery extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+
 
 
     @Override

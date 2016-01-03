@@ -16,26 +16,24 @@ import java.util.logging.Handler;
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences pref;
-    Button b1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Inicializa opções
         DefineDefault();
-
-
-
-
     }
 
     public void DefineDefault(){
         pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if(!pref.contains("Dificuldade") && !pref.contains("Click") && !pref.contains("Gallery")) {
+        if(!pref.contains("Dificuldade") && !pref.contains("Click") && !pref.contains("Gallery") && !pref.contains("Tempo")) {
             SharedPreferences.Editor editor = pref.edit();
             editor.putInt("Dificuldade", 2);
             editor.putInt("Click", 0);
             editor.putString("Gallery","Default");
+            editor.putInt("Tempo",5);
             editor.apply();
         }
     }

@@ -21,6 +21,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
     Util ut = new Util();
     ArrayList<Carta> cartas;
     ArrayList<Integer> viradas = new ArrayList<>();
+    ArrayList<Integer> cliques = new ArrayList<>();
     private int num_corretas = 0;
     private int num_jogadas = 0;
     private int pontuacao = 0;
@@ -28,19 +29,25 @@ public class SinglePlayerActivity extends AppCompatActivity {
     private Jogador jogador;
     private int DoubleClick = 0;
     GridJogoAdapter adapter = null;
+
+
     TextView njogadas;
     TextView pontos;
+    GridView gJogo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_player);
+
+        //Recebe jogador
         jogador = (Jogador) getIntent().getSerializableExtra("jogador");
         pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         cartas = getCartas();
 
 
-        GridView gJogo = (GridView) findViewById(R.id.gridViewJogo);
+        gJogo = (GridView) findViewById(R.id.gridViewJogo);
         gJogo.setNumColumns(getNumCol());
 
         adapter = new GridJogoAdapter(this, cartas, gJogo.getColumnWidth());
@@ -84,13 +91,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
             gJogo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (!(cartas.get(position).descoberta) && !(viradas.size() == 2)) {
-                        if (viradas.size() == 1) {
-                            if (position == viradas.get(0))
-                                return;
-                        }
-                        jogo(view,position);
-                    }
+                    jogo(view,position);
                 }
             });
         }
@@ -98,13 +99,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
             gJogo.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (!(cartas.get(position).descoberta) && !(viradas.size() == 2)) {
-                        if (viradas.size() == 1) {
-                            if (position == viradas.get(0))
-                                return false;
-                        }
-                        jogo(view,position);
-                    }
+                    jogo(view, position);
                     return false;
                 }
             });
@@ -115,73 +110,95 @@ public class SinglePlayerActivity extends AppCompatActivity {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    cliques.add(position);
                     DoubleClick++;
+
                     Handler handler = new Handler();
                     Runnable r = new Runnable() {
 
                         @Override
                         public void run() {
                             DoubleClick = 0;
+                            cliques.clear();
                         }
                     };
 
+                    if (DoubleClick == 2) {
+                        if(cliques.get(0) == cliques.get(1)) {
+                            handler.removeCallbacks(r);
+                            DoubleClick = 0;
+                            jogo(view, position);
+                            cliques.clear();
+                        }
+                        else {
+                            handler.removeCallbacks(r);
+                            cliques.remove(0);
+                            DoubleClick = 1;
+                        }
+                    }
                     if (DoubleClick == 1) {
                         //Single click
                         handler.removeCallbacks(r);
-                        handler.postDelayed(r, 700);
+                        int tempo = pref.getInt("Tempo",5)*1000;
+                        handler.postDelayed(r,tempo);
                     }
-                    if(DoubleClick == 2){
 
-                        handler.removeCallbacks(r);
-                        DoubleClick = 0;
-                        if (!(cartas.get(position).descoberta) && !(viradas.size() == 2)) {
-                            if (viradas.size() == 1) {
-                                if (position == viradas.get(0))
-                                    return;
-                            }
-                            jogo(view,position);
-                        }
-                    }
                 }
             });
         }
     }
 
-    public void jogo(View view, int position){
-        ImageView img = (ImageView) view;
-        if(pref.getString("Gallery","Default").equals("Default"))
-            img.setImageResource(cartas.get(position).cartaVirada);
-        else {
-            Uri uri = Uri.parse(cartas.get(position).cartaViradaS);
-            img.setImageBitmap(ut.getBitmap(SinglePlayerActivity.this,uri));
-        }
-        viradas.add(position);
-
-        if (viradas.size() == 2) {
-            Carta carta1 = cartas.get(viradas.get(0));
-            Carta carta2 = cartas.get(viradas.get(1));
-            if (carta1.id == carta2.id) {
-                carta1.setDescoberta(true);
-                carta2.setDescoberta(true);
-                viradas.clear();
-                num_corretas += 2;
-                pontuacao += 5;
-            } else {
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        adapter.notifyDataSetChanged();
-                        viradas.clear();
-                    }
-                }, 700);
-                pontuacao -= 1;
+    public void jogo(View view, final int position){
+        if (!(cartas.get(position).descoberta) && !(viradas.size() == 2)) {
+            if (viradas.size() == 1) {
+                if (position == viradas.get(0))
+                    return;
             }
-            num_jogadas++;
-            njogadas.setText(num_jogadas + "");
-            pontos.setText(pontuacao + "");
+            final ImageView img = (ImageView) view;
+            if (pref.getString("Gallery", "Default").equals("Default"))
+                img.setImageResource(cartas.get(position).cartaVirada);
+            else {
+                Uri uri = Uri.parse(cartas.get(position).cartaViradaS);
+                img.setImageBitmap(ut.getBitmap(SinglePlayerActivity.this, uri));
+            }
+            viradas.add(position);
+
+            //Quando duas quartas estão viradas verifica se são iguais
+            if (viradas.size() == 2) {
+                Carta carta1 = cartas.get(viradas.get(0));
+                Carta carta2 = cartas.get(viradas.get(1));
+                if (carta1.id == carta2.id) {
+                    carta1.setDescoberta(true);
+                    carta2.setDescoberta(true);
+                    viradas.clear();
+                    num_corretas += 2;
+                    if(!carta1.par_intruso && !carta2.par_intruso)
+                        pontuacao += 5;
+                } else {
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            for (int i = 0; i < viradas.size(); i++) {
+                                ImageView image = (ImageView)gJogo.getChildAt(viradas.get(i));
+                                if (pref.getString("Gallery", "Default").equals("Default"))
+                                    image.setImageResource(cartas.get(viradas.get(i)).cartaPorVirar);
+                                else {
+                                    Uri uri = Uri.parse(cartas.get(viradas.get(i)).cartaPorVirarS);
+                                    image.setImageBitmap(ut.getBitmap(SinglePlayerActivity.this, uri));
+                                }
+                            }
+                            viradas.clear();
+                        }
+                    }, 700);
+                    pontuacao -= 1;
+
+                }
+                num_jogadas++;
+                njogadas.setText(num_jogadas + "");
+                pontos.setText(pontuacao + "");
+            }
         }
     }
-
 
     private ArrayList<Carta> getCartas(){
         ArrayList<Carta> cartas = new ArrayList<>();
@@ -200,7 +217,9 @@ public class SinglePlayerActivity extends AppCompatActivity {
 
             Carta carta = null;
             if(gallery.equals("Default")){
-                 carta = new Carta(i + 1, ut.Images[i], ut.Image);
+                carta = new Carta(i + 1, ut.Images[i], ut.Image);
+                if(i > 12)
+                    carta.setPar_intruso(true);
             }
             else{
                 carta = new Carta(i + 1,images.get(i),turncard.get(0));
@@ -222,31 +241,14 @@ public class SinglePlayerActivity extends AppCompatActivity {
         int pos = pref.getInt("Dificuldade",0);
         if(pos == 0)
             return 2;
-        if(pos == 1)
-            return 2;
-        if(pos == 2)
-            return 3;
-        if(pos == 3)
-            return 4;
-        if(pos == 4)
-            return 5;
-        return 3;
+        else
+            return pos + 1;
     }
 
 
     public int getNumLin(){
         int pos = pref.getInt("Dificuldade",2);
-        if(pos == 0)
-            return 2;
-        if(pos == 1)
-            return 3;
-        if(pos == 2)
-            return 4;
-        if(pos == 3)
-            return 5;
-        if(pos == 4)
-            return 6;
-        return 3;
+        return pos + 2;
     }
 
     public int getNum_cartas(){

@@ -29,14 +29,12 @@ public class GridJogoAdapter extends BaseAdapter{
     SharedPreferences pref;
     int width;
     Util util = new Util();
-    ImageLoader imageLoader;
     Uri uri;
 
     GridJogoAdapter(SinglePlayerActivity single,ArrayList<Carta> cartas,int width){
         context = single;
         this.cartas = cartas;
         this.width = width;
-        imageLoader = ImageLoader.getInstance();
     }
 
     GridJogoAdapter(MultiPlayerActivity multi, ArrayList<Carta> cartas) {

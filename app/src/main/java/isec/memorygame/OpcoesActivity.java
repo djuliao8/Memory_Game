@@ -52,7 +52,8 @@ public class OpcoesActivity extends AppCompatActivity {
 
         sk = (SeekBar)dialog.findViewById(R.id.OP_SeekBar);
         progres = (TextView)dialog.findViewById(R.id.OP_Progress);
-        progres.setText("0/25");
+        progres.setText(pref.getInt("Tempo",0) + "/25");
+        sk.setProgress(pref.getInt("Tempo",0));
 
         sk.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressvalue = 0;
@@ -88,6 +89,7 @@ public class OpcoesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putInt("Tempo",sk.getProgress());
+                editor.apply();
                 dialog.dismiss();
             }
         });

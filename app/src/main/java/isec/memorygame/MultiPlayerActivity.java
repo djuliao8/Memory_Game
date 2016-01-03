@@ -60,6 +60,7 @@ public class MultiPlayerActivity extends AppCompatActivity {
         adapter = new GridJogoAdapter(this, cartas);
         gJogo.setAdapter(adapter);
 
+        ut = new Util();
         njogadas = (TextView) findViewById(R.id.nrjogadas);
         njogadas.setText("0");
 
@@ -112,13 +113,23 @@ public class MultiPlayerActivity extends AppCompatActivity {
                 }
                 counter.stop();
 
-                if (pontuacao1 > pontuacao2)
-                    pontosvencedor = pontuacao1;
-                else
-                    pontosvencedor = pontuacao2;
-
                 IdentificaJogadores.jog1.setPontos(pontuacao1);
                 IdentificaJogadores.jog2.setPontos(pontuacao2);
+                
+                String escreve;
+                if (pontuacao1 > pontuacao2) {
+                    pontosvencedor = pontuacao1;
+                    escreve = "Multiplayer" + " " + IdentificaJogadores.jog1.getNome() + " " + IdentificaJogadores.jog1.getPontos() + " " + num_jogadas + " " + counter.getText().toString() + " " + (pref.getInt("Dificuldade", 0) + 1);
+                }else {
+                    pontosvencedor = pontuacao2;
+                    escreve = "Multiplayer" + " " + IdentificaJogadores.jog2.getNome() + " " + IdentificaJogadores.jog2.getPontos() + " " + num_jogadas + " " + counter.getText().toString() + " " + (pref.getInt("Dificuldade", 0) + 1);
+                }
+
+
+
+                ut.escreverFicheiro(getApplicationContext(), escreve);
+
+
                 toast.cancel();
                 Intent i = new Intent(MultiPlayerActivity.this, fimMultiActivity.class);
                 i.putExtra("id", new Jogo(counter.getText().toString(), num_jogadas, pontosvencedor));
@@ -272,30 +283,13 @@ public class MultiPlayerActivity extends AppCompatActivity {
         int pos = pref.getInt("Dificuldade",0);
         if(pos == 0)
             return 2;
-        if(pos == 1)
-            return 2;
-        if(pos == 2)
-            return 3;
-        if(pos == 3)
-            return 4;
-        if(pos == 4)
-            return 5;
-        return 3;
+        else
+            return pos + 1;
     }
 
     public int getNumLin(){
         int pos = pref.getInt("Dificuldade",2);
-        if(pos == 0)
-            return 2;
-        if(pos == 1)
-            return 3;
-        if(pos == 2)
-            return 4;
-        if(pos == 3)
-            return 5;
-        if(pos == 4)
-            return 6;
-        return 3;
+        return pos + 2;
     }
 
     public int getNum_cartas(){

@@ -10,20 +10,58 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
         android:id="@+id/GA_Jog1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="20dp" />
+        android:textSize="25sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/GA_"
-        android:textSize="20dp"
+        android:id="@+id/GA_Jog2"
+        android:textSize="25sp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/GA_LPjog1"
+        android:layout_below="@+id/GA_Jog1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/GA_LPjog2"
+        android:layout_below="@+id/GA_Jog2"
+        android:layout_alignRight="@+id/GA_Jog2"
+        android:layout_alignEnd="@+id/GA_Jog2"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="vs"
+        android:id="@+id/GA_LVs"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp" />
+
+    <Chronometer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/GA_CClock"
+        android:layout_below="@+id/GA_LVs"
+        android:layout_centerHorizontal="true" />
+
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/GA_Grid"
+        android:layout_below="@+id/GA_LPjog2"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

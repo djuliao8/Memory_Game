@@ -53,10 +53,9 @@ public class Util{
             R.drawable.bear6,
             R.drawable.chick2,
             R.drawable.deer4,
-            R.drawable.dolphin1,
-            R.drawable.halloween237,
-            R.drawable.kangaroo,
-            R.drawable.rabbit5
+            R.drawable.ball23,
+            R.drawable.soccer19
+
     };
 
     public static final int PORT = 8899;

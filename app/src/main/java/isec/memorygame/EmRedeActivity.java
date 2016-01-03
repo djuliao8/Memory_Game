@@ -21,7 +21,6 @@ public class EmRedeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(EmRedeActivity.this, IdentificaJogadorRede.class);
-                i.putExtra("Tipo",0);
                 startActivity(i);
             }
         });
@@ -29,7 +28,6 @@ public class EmRedeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(EmRedeActivity.this, JoinGameActivity.class);
-                i.putExtra("Tipo",1);
                 startActivity(i);
             }
         });
