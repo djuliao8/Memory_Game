@@ -115,7 +115,7 @@ public class MultiPlayerActivity extends AppCompatActivity {
 
                 IdentificaJogadores.jog1.setPontos(pontuacao1);
                 IdentificaJogadores.jog2.setPontos(pontuacao2);
-                
+
                 String escreve;
                 if (pontuacao1 > pontuacao2) {
                     pontosvencedor = pontuacao1;

@@ -8,14 +8,13 @@ import java.util.Collections;
  * Created by Luis on 30/12/2015.
  */
 public class Matrix implements Serializable {
-    int col,lin,par,turn;
+    int col,lin,turn;
     ArrayList<Integer> matrix = new ArrayList<>();
     ArrayList<Jogador> jog = new ArrayList<>();
 
-    Matrix(int lin,int col,int par){
+    Matrix(int lin,int col){
         this.lin = lin;
         this.col = col;
-        this.par = par;
         if(Math.random() < 0.5){turn = 0;}
         else{turn = 1;}
         getRandMatrix(lin, col);

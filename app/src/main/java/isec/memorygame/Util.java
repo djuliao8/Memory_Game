@@ -58,6 +58,8 @@ public class Util{
 
     };
 
+    public static final int SERVER = 1;
+    public static final int CLI = 2;
     public static final int PORT = 8899;
     public static final int WAIT = 60000;
 

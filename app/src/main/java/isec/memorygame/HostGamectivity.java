@@ -60,6 +60,7 @@ public class HostGamectivity extends AppCompatActivity {
             finish();
             return;
         }
+
         labelIp = (TextView)findViewById(R.id.HG_TIP);
         ip = ut.getLocalIpAddress();
         labelIp.setText(ip);
@@ -124,9 +125,10 @@ public class HostGamectivity extends AppCompatActivity {
                     smsManager.sendTextMessage(Num, null, ip, null, null);
 
                 Intent i = new Intent(HostGamectivity.this, GameActivity.class);
-                Matrix matrix = new Matrix(Integer.parseInt(Lin),Integer.parseInt(Col),Integer.parseInt(Par));
+                Matrix matrix = new Matrix(Integer.parseInt(Lin),Integer.parseInt(Col));
                 matrix.addJogador(Nome);
                 i.putExtra("Game",matrix);
+                i.putExtra("ID",ut.SERVER);
                 startActivity(i);
 
             }

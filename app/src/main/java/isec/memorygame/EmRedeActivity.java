@@ -10,6 +10,7 @@ public class EmRedeActivity extends AppCompatActivity {
 
     Button bhost;
     Button bjoin;
+    Util ut = new Util();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,14 +21,16 @@ public class EmRedeActivity extends AppCompatActivity {
         bhost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(EmRedeActivity.this, IdentificaJogadorRede.class);
+                Intent i = new Intent(EmRedeActivity.this, GameActivity.class);
+                i.putExtra("ID",ut.SERVER);
                 startActivity(i);
             }
         });
         bjoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(EmRedeActivity.this, JoinGameActivity.class);
+                Intent i = new Intent(EmRedeActivity.this, GameActivity.class);
+                i.putExtra("ID",ut.CLI);
                 startActivity(i);
             }
         });

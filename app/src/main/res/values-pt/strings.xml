@@ -112,4 +112,12 @@
     <string name="JG_Nome">Nome</string>
     <string name="JG_LIP">IP</string>
     <string name="Err_UnableConnect">Impossível de conectar!</string>
+    <string name="SV_Titulo">Servidor</string>
+    <string name="SV_Nome">Nome:</string>
+    <string name="SV_Col">Colunas:</string>
+    <string name="SV_Lin">Linhas:</string>
+    <string name="SV_Num">Número:</string>
+    <string name="SV_Host">Cria Jogo</string>
+    <string name="SV_Cancel">Cancelar</string>
+    <string name="CL_Titulo">Cliente</string>
 </resources>
