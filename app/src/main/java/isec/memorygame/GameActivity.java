@@ -84,7 +84,7 @@ public class GameActivity extends AppCompatActivity {
     ProgressDialog waitDialog;
 
     //
-    Message msg;
+    Message msg = null;
 
     ArrayList<Integer>viradas = new ArrayList<>();
     ArrayList<Carta> cards = new ArrayList<>();
@@ -280,7 +280,7 @@ public class GameActivity extends AppCompatActivity {
         eNomeCli = (EditText)dialogView.findViewById(R.id.CL_ENome);
         eIp = (EditText)dialogView.findViewById(R.id.CL_EIp);
 
-        builderCli.setPositiveButton(R.string.JG_LJoin,new DialogInterface.OnClickListener() {
+        builderCli.setPositiveButton(R.string.JG_LJoin, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 Nome = eNomeCli.getText().toString();
@@ -293,7 +293,7 @@ public class GameActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), R.string.Err_Nomrgrande7, Toast.LENGTH_SHORT).show();
                     finish();
                     startActivity(getIntent());
-                }else {
+                } else {
                     client();
                     dialog.cancel();
                 }
@@ -336,7 +336,6 @@ public class GameActivity extends AppCompatActivity {
         t.start();
     }
 
-
     Thread commThread = new Thread(new Runnable() {
         @Override
         public void run() {
@@ -348,13 +347,48 @@ public class GameActivity extends AppCompatActivity {
                         displayMatrix();
                     }
                 });
+                if(mode == ut.SERVER) {
+                    while (true) {
+                        turnCards();
+                        msg = (Message) input.readObject();
+                        if (msg != null) {
+                            func.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    recebe(msg);
+                                }
+                            });
+                            msg = null;
+                        }
 
-
+                    }
+                }
+                else if(mode == ut.CLI){
+                    while(true) {
+                        msg = null;
+                        msg = (Message) input.readObject();
+                        if (msg != null) {
+                            func.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    recebe(msg);
+                                }
+                            });
+                            msg = null;
+                            turnCards();
+                        }
+                    }
+                }
 
             } catch (Exception e) {
                 func.post(new Runnable() {
                     @Override
                     public void run() {
+                        try {
+                            socketGame.close();
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
                         finish();
                         Toast.makeText(getApplicationContext(), "The game was finished", Toast.LENGTH_SHORT)
                                 .show();
@@ -382,7 +416,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-
     void displayMatrix(){
         tJog1.setText(matrix.getNome(0));
         tJog2.setText(matrix.getNome(1));
@@ -390,6 +423,9 @@ public class GameActivity extends AppCompatActivity {
         tPJog2.setText("0");
         gJogo.setNumColumns(matrix.col);
         gJogo.setAdapter(new GridMultiAdapter(getCartas(), matrix.col, getApplicationContext()));
+    }
+
+    void turnCards(){
         gJogo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -406,14 +442,20 @@ public class GameActivity extends AppCompatActivity {
                         img.setImageBitmap(ut.getBitmap(GameActivity.this, uri));
                     }
                     viradas.add(position);
-                    if(viradas.size() == 2)
-                        verificaCartas();
+                    if (viradas.size() == 2) {
+                        msg = verificaCartas();
+                        try {
+                            output.writeObject(msg);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
         });
     }
 
-    void verificaCartas(){
+    Message verificaCartas(){
         Message msg = new Message();
         Carta carta1 = cards.get(viradas.get(0));
         Carta carta2 = cards.get(viradas.get(1));
@@ -442,6 +484,7 @@ public class GameActivity extends AppCompatActivity {
                 }
             }, 700);
         }
+        return msg;
     }
     private ArrayList<Carta> getCartas(){
 
@@ -472,6 +515,48 @@ public class GameActivity extends AppCompatActivity {
         return cards;
     }
 
+
+    public void recebe(Message msg){
+        final ArrayList<Integer> pos = msg.getNum();
+        Handler handler = new Handler();
+
+        checkId(pos);
+
+        for(int i = 0; i < pos.size();i++) {
+            final ImageView img = (ImageView)gJogo.getChildAt(pos.get(i));
+            final int finalI = i;
+            if (pref.getString("Gallery", "Default").equals("Default")) {
+                img.setImageResource(cards.get(pos.get(i)).cartaVirada);
+                if(!cards.get(pos.get(i)).descoberta) {
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            img.setImageResource(cards.get(pos.get(finalI)).cartaPorVirar);
+                        }
+                    }, 600);
+                }
+            }else {
+                Uri uri = Uri.parse(cards.get(pos.get(i)).cartaViradaS);
+                img.setImageBitmap(ut.getBitmap(GameActivity.this, uri));
+                if(!cards.get(pos.get(i)).descoberta) {
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            Uri uri = Uri.parse(cards.get(pos.get(finalI)).cartaPorVirarS);
+                            img.setImageBitmap(ut.getBitmap(GameActivity.this, uri));
+                        }
+                    }, 600);
+                }
+            }
+        }
+    }
+
+    public void checkId(ArrayList<Integer> pos){
+        Carta carta1 = cards.get(pos.get(0));
+        Carta carta2 = cards.get(pos.get(1));
+        if(carta1.id == carta2.id){
+            carta1.setDescoberta(true);
+            carta2.setDescoberta(true);
+        }
+    }
 
 
     @Override
