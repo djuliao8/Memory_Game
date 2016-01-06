@@ -409,57 +409,6 @@ public class Util{
         }
     }
 
-
-    public String getPath(Context context,Uri uri)
-    {
-        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-        cursor.moveToFirst();
-        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-        String image = cursor.getString(idx);
-        cursor.close();
-        return image;
-    }
-
-    /*public static Bitmap decodeBitmapFromUri(String image, int reqWidth, int reqHeight) {
-
-
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(image,options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(image,options);
-    }
-
-    public static int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) > reqHeight
-                    && (halfWidth / inSampleSize) > reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-
-        return inSampleSize;
-    }
-*/
-
     public static Bitmap getBitmap(Context context,Uri image) {
 
         // First decode with inJustDecodeBounds=true to check dimensions
@@ -508,39 +457,6 @@ public class Util{
         return inSampleSize;
     }
 
-    /*public Bitmap getBitmap(Uri selectedImage,Context context)	{
-        //	Get the dimensions of the View
-        int targetW	=	128;
-        int targetH	=	128;
-
-        //	Get the dimensions of the	bitmap
-        BitmapFactory.Options bmOptions	=	new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds	=	true;
-        try {
-            BitmapFactory.decodeStream(context.getContentResolver().openInputStream(selectedImage), null, bmOptions);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        int photoW	=	bmOptions.outWidth;
-        int photoH	=	bmOptions.outHeight;
-
-        //	Determine	how much	to	scale down the image
-        int scaleFactor	=	Math.min(photoW/targetW,	photoH/targetH);
-
-        //	Decode the image	file	into	a	Bitmap	sized	to	fill the View
-        bmOptions.inJustDecodeBounds	=	false;
-        bmOptions.inSampleSize	=	scaleFactor;
-
-        Bitmap	bitmap = null;
-
-        try {
-            bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(selectedImage), null, bmOptions);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return bitmap;
-    }
-    */
     public Bitmap decodeUri(Uri selectedImage,Context context){
 
         // Decode image size
@@ -554,7 +470,7 @@ public class Util{
 
 
         // The new size we want to scale to
-        final int REQUIRED_SIZE = 12;
+        final int REQUIRED_SIZE = 128;
 
         // Find the correct scale value. It should be the power of 2.
         int width_tmp = o.outWidth, height_tmp = o.outHeight;

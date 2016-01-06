@@ -332,8 +332,8 @@ public class GameActivity extends AppCompatActivity {
                         }
                     });
                     finish();
-                }
-                commThread.start();
+                }else
+                    commThread.start();
             }
         });
         t.start();
@@ -347,7 +347,12 @@ public class GameActivity extends AppCompatActivity {
                 run = jogoAcabou();
             }
             if(run == true) {
-                Intent i = new Intent(GameActivity.this, MainActivity.class);
+                Intent i = new Intent(GameActivity.this, FimJogoRedeActivity.class);
+                cClock.stop();
+                i.putExtra("Jog1", new Jogador(matrix.getNome(0), pontosJog1));
+                i.putExtra("Jog2", new Jogador(matrix.getNome(1), pontosJog2));
+                i.putExtra("Tempo",cClock.getText().toString());
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }
 
@@ -408,13 +413,15 @@ public class GameActivity extends AppCompatActivity {
                 func.post(new Runnable() {
                     @Override
                     public void run() {
-                        try {
-                            socketGame.close();
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
+                        if(socketGame != null) {
+                            try {
+                                socketGame.close();
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            }
                         }
                         finish();
-                        Toast.makeText(getApplicationContext(), "The game was finished", Toast.LENGTH_SHORT)
+                        Toast.makeText(getApplicationContext(),getResources().getString(R.string.Err_GameOver), Toast.LENGTH_SHORT)
                                 .show();
                     }
                 });
@@ -441,6 +448,7 @@ public class GameActivity extends AppCompatActivity {
 
 
     void displayMatrix(){
+        cClock.start();
         tJog1.setText(matrix.getNome(0));
         tJog2.setText(matrix.getNome(1));
         tPJog1.setText(pontosJog1 + "");
@@ -627,10 +635,12 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        try {
-            socketGame.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(socketGame != null) {
+            try {
+                socketGame.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

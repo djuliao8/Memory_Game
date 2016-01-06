@@ -2,6 +2,7 @@ package isec.memorygame;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -46,21 +47,22 @@ public class MultiPlayerActivity extends AppCompatActivity {
     View layout;
     TextView text;
     Toast toast;
+    GridView gJogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multi_player);
-
+        ut = new Util();
         pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         cartas = getCartas();
         //Inicialização da variaveis
-        GridView gJogo = (GridView) findViewById(R.id.gridViewJogo);
+        gJogo = (GridView) findViewById(R.id.gridViewJogo);
         gJogo.setNumColumns(getNumCol());
         adapter = new GridJogoAdapter(this, cartas);
         gJogo.setAdapter(adapter);
 
-        ut = new Util();
+
         njogadas = (TextView) findViewById(R.id.nrjogadas);
         njogadas.setText("0");
 
@@ -208,9 +210,13 @@ public class MultiPlayerActivity extends AppCompatActivity {
 
     public void jogo(View view, int position) {
         ImageView img = (ImageView) view;
-        img.setImageResource(cartas.get(position).cartaVirada);
+        if (pref.getString("Gallery", "Default").equals("Default"))
+            img.setImageResource(cartas.get(position).cartaVirada);
+        else {
+            Uri uri = Uri.parse(cartas.get(position).cartaViradaS);
+            img.setImageBitmap(ut.getBitmap(MultiPlayerActivity.this, uri));
+        }
         viradas.add(position);
-
         if (viradas.size() == 2) {
             Carta carta1 = cartas.get(viradas.get(0));
             Carta carta2 = cartas.get(viradas.get(1));
@@ -236,7 +242,15 @@ public class MultiPlayerActivity extends AppCompatActivity {
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
-                        adapter.notifyDataSetChanged();
+                        for (int i = 0; i < viradas.size(); i++) {
+                            ImageView image = (ImageView)gJogo.getChildAt(viradas.get(i));
+                            if (pref.getString("Gallery", "Default").equals("Default"))
+                                image.setImageResource(cartas.get(viradas.get(i)).cartaPorVirar);
+                            else {
+                                Uri uri = Uri.parse(cartas.get(viradas.get(i)).cartaPorVirarS);
+                                image.setImageBitmap(ut.getBitmap(MultiPlayerActivity.this, uri));
+                            }
+                        }
                         viradas.clear();
                     }
                 }, 1000);
@@ -265,9 +279,30 @@ public class MultiPlayerActivity extends AppCompatActivity {
 
     private ArrayList<Carta> getCartas() {
         ArrayList<Carta> cartas = new ArrayList<>();
+        int num_cartas = getNum_cartas();
+        ArrayList<String> turncard = new ArrayList<>();
+        ArrayList<String> par = new ArrayList<>();
+        ArrayList<String> images = new ArrayList<>();
+        String gallery = pref.getString("Gallery","Default");
+        if(!gallery.equals("Default")){
+            images = ut.getImages(getApplicationContext(), gallery);
+            par = ut.getParIntruso(getApplicationContext(), gallery);
+            images.addAll(par);
+            turncard = ut.getTurnCard(getApplicationContext(), gallery);
+        }
+        for(int i = 0; i < (num_cartas / 2);i++){
 
-        for (int i = 0; i < (getNum_cartas() / 2); i++) {
-            Carta carta = new Carta(i + 1, ut.Images[i], ut.Image);
+            Carta carta = null;
+            if(gallery.equals("Default")){
+                carta = new Carta(i + 1, ut.Images[i], ut.Image);
+                if(i > 12)
+                    carta.setPar_intruso(true);
+            }
+            else{
+                carta = new Carta(i + 1,images.get(i),turncard.get(0));
+                if(i > (images.size() - par.size()))
+                    carta.setPar_intruso(true);
+            }
             cartas.add(carta);
             cartas.add(carta);
         }

@@ -15,39 +15,28 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SobreActivity" />
-        <activity android:name=".OpcoesActivity" />
-        <activity android:name=".SinglePlayerActivity" />
-        <activity android:name=".FimJogoActivity" />
-        <activity android:name=".IdentificaJogador" />
-        <activity android:name=".IdentificaJogadores" />
-        <activity android:name=".MultiPlayerActivity" />
-        <activity android:name=".fimMultiActivity" />
-        <activity android:name=".HistoricoActivity" />
-        <activity android:name=".GalleryActivity" >
-        </activity>
-        <activity android:name=".AddImageGallery" >
-        </activity>
-        <activity android:name=".AddGalleryActivity" >
-        </activity>
-        <activity android:name=".EmRedeActivity" >
-        </activity>
-        <activity android:name=".HostGamectivity" >
-        </activity>
-        <activity android:name=".JoinGameActivity" >
-        </activity>
-        <activity android:name=".IdentificaJogadorRede" />
-        <activity android:name=".GameActivity" >
-        </activity>
-        <activity android:name=".GameClientActivity" >
-        </activity>
+        <activity android:name=".SobreActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".OpcoesActivity" android:screenOrientation="portrait" />
+        <activity android:name=".SinglePlayerActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".FimJogoActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".IdentificaJogador" android:screenOrientation="portrait"/>
+        <activity android:name=".IdentificaJogadores" android:screenOrientation="portrait"/>
+        <activity android:name=".MultiPlayerActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".fimMultiActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".HistoricoActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".GalleryActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".AddImageGallery" android:screenOrientation="portrait"/>
+        <activity android:name=".AddGalleryActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".EmRedeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".GameActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".FimJogoRedeActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

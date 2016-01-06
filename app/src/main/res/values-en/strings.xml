@@ -121,4 +121,8 @@
     <string name="SV_Nome">Name:</string>
     <string name="SV_Num">Number:</string>
     <string name="SV_Titulo">Server</string>
+    <string name="FGA_Again">Play Again</string>
+    <string name="FGA_Main">Main Menu</string>
+    <string name="FGA_Tempo">Time:</string>
+    <string name="Err_GameOver">The game was finished!</string>
 </resources>

@@ -120,4 +120,8 @@
     <string name="SV_Host">Cria Jogo</string>
     <string name="SV_Cancel">Cancelar</string>
     <string name="CL_Titulo">Cliente</string>
+    <string name="FGA_Tempo">Tempo:</string>
+    <string name="FGA_Again">Jogar outra vez</string>
+    <string name="FGA_Main">Menu Inicial</string>
+    <string name="Err_GameOver">O jogo foi terminado!</string>
 </resources>
