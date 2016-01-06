@@ -46,7 +46,7 @@ public class GameActivity extends AppCompatActivity {
 
     //Sockets
     ServerSocket svSocket;
-    Socket socketGame;
+    Socket socketGame = null;
     ObjectOutputStream output;
     ObjectInputStream input;
 
@@ -96,6 +96,9 @@ public class GameActivity extends AppCompatActivity {
     String Num;
     String Nome = "";
     String ip;
+
+    int pontosJog1 = 0;
+    int pontosJog2 = 0;
 
 
     @Override
@@ -336,11 +339,32 @@ public class GameActivity extends AppCompatActivity {
         t.start();
     }
 
+    Thread acabou = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            boolean run = false;
+            while (run != true) {
+                run = jogoAcabou();
+            }
+            if(run == true) {
+                Intent i = new Intent(GameActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+
+        }
+
+
+
+    });
+
     Thread commThread = new Thread(new Runnable() {
         @Override
         public void run() {
             try {
                 geraMatrixInicial();
+                acabou.start();
+                gJogo.setOnItemClickListener(null);
+                msg = null;
                 func.post(new Runnable() {
                     @Override
                     public void run() {
@@ -356,25 +380,25 @@ public class GameActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     recebe(msg);
+                                    msg = null;
                                 }
                             });
-                            msg = null;
-                        }
 
+                        }
                     }
                 }
                 else if(mode == ut.CLI){
                     while(true) {
-                        msg = null;
                         msg = (Message) input.readObject();
                         if (msg != null) {
                             func.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     recebe(msg);
+                                    msg = null;
                                 }
                             });
-                            msg = null;
+
                             turnCards();
                         }
                     }
@@ -419,8 +443,8 @@ public class GameActivity extends AppCompatActivity {
     void displayMatrix(){
         tJog1.setText(matrix.getNome(0));
         tJog2.setText(matrix.getNome(1));
-        tPJog1.setText("0");
-        tPJog2.setText("0");
+        tPJog1.setText(pontosJog1 + "");
+        tPJog2.setText(pontosJog2 + "");
         gJogo.setNumColumns(matrix.col);
         gJogo.setAdapter(new GridMultiAdapter(getCartas(), matrix.col, getApplicationContext()));
     }
@@ -443,6 +467,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                     viradas.add(position);
                     if (viradas.size() == 2) {
+                        gJogo.setOnItemClickListener(null);
                         msg = verificaCartas();
                         try {
                             output.writeObject(msg);
@@ -466,6 +491,18 @@ public class GameActivity extends AppCompatActivity {
             carta1.setDescoberta(true);
             carta2.setDescoberta(true);
             viradas.clear();
+            if(mode == ut.SERVER) {
+                pontosJog1 += 5;
+                tPJog1.setText(pontosJog1 + "");
+                msg.addPoint(pontosJog1);
+            }
+            else if(mode == ut.CLI){
+                pontosJog2 += 5;
+                tPJog2.setText(pontosJog2 + "");
+                msg.addPoint(pontosJog2);
+            }
+
+
 
         } else {
             Handler handler = new Handler();
@@ -483,6 +520,16 @@ public class GameActivity extends AppCompatActivity {
                     viradas.clear();
                 }
             }, 700);
+            if(mode == ut.SERVER) {
+                pontosJog1 -= 1;
+                tPJog1.setText(pontosJog1 + "");
+                msg.addPoint(pontosJog1);
+            }
+            else if(mode == ut.CLI){
+                pontosJog2 -= 1;
+                tPJog2.setText(pontosJog2 + "");
+                msg.addPoint(pontosJog2);
+            }
         }
         return msg;
     }
@@ -518,7 +565,16 @@ public class GameActivity extends AppCompatActivity {
 
     public void recebe(Message msg){
         final ArrayList<Integer> pos = msg.getNum();
+        int point = msg.getPoint();
         Handler handler = new Handler();
+
+        if(mode == ut.SERVER) {
+            pontosJog2 = point;
+            tPJog2.setText(pontosJog2 + "");
+        }else if(mode == ut.CLI) {
+            pontosJog1 = point;
+            tPJog1.setText(pontosJog1 + "");
+        }
 
         checkId(pos);
 
@@ -558,6 +614,15 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    public boolean jogoAcabou(){
+        int size = cards.size();
+        int descobertas = 0;
+        for(int i = 0; i < size; i++){
+            if(cards.get(i).descoberta)
+                descobertas++;
+        }
+        return size == descobertas && size != 0;
+    }
 
     @Override
     public void onBackPressed() {

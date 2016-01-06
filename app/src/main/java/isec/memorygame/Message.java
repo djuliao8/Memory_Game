@@ -8,7 +8,14 @@ import java.util.ArrayList;
  */
 public class Message implements Serializable {
     ArrayList<Integer> pos = new ArrayList<>();
+    int point;
 
+    public void addPoint(int point){
+        this.point = point;
+    }
+    public int getPoint(){
+        return point;
+    }
     public void addNum(int posi){
         pos.add(posi);
     }

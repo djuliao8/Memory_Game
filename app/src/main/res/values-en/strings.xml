@@ -113,4 +113,12 @@
     <string name="JG_LIP">IP</string>
     <string name="JG_LJoin">Enter Game</string>
     <string name="JG_Nome">Name</string>
+    <string name="CL_Titulo">Client</string>
+    <string name="SV_Cancel">Cancel</string>
+    <string name="SV_Col">Columns:</string>
+    <string name="SV_Host">Create Game</string>
+    <string name="SV_Lin">Lines:</string>
+    <string name="SV_Nome">Name:</string>
+    <string name="SV_Num">Number:</string>
+    <string name="SV_Titulo">Server</string>
 </resources>
